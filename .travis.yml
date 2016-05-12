@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - '5.0'
+
+cache:
+  directories:
+  - bower_components
+  - node_modules
+
+before_script: npm run bower install
+script: npm run build
+
+# notifications:
+#  slack: ${SLACK}

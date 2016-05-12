@@ -1,0 +1,20 @@
+{
+  "name": "furry-journey",
+  "description": "furry-journey",
+  "main": "app.js",
+  "authors": [
+    "Simon Finney <simonjfinney@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "furry",
+    "journey"
+  ],
+  "homepage": "https://github.com/SimonFinney/furry-journey",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}

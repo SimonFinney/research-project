@@ -1,0 +1,16 @@
+# Hidden folders
+.*/
+
+# Package folders
+bower_components
+node_modules
+
+# Output folders
+.tmp
+dist
+
+# Always-ignore files
+*.log
+
+# Individual files
+**/.DS_Store
