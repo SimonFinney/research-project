@@ -1,1 +1,3 @@
 # furry-journey
+
+Starter kit
