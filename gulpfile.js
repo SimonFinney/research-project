@@ -1,8 +1,8 @@
 'use strict';
 
-var config = require('./gulp/config');
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
+const config = require('./gulp/config');
+const gulp = require('gulp');
+const runSequence = require('run-sequence');
 
 // Default
 require('./gulp/tasks/default')(gulp, runSequence, config.paths);
@@ -39,6 +39,9 @@ require('./gulp/tasks/minify')(gulp, config);
 
 // Move
 require('./gulp/tasks/rm')(gulp, runSequence);
+
+// Nodemon
+require('./gulp/tasks/nodemon')(gulp, config.nodemon);
 
 // Sass
 require('./gulp/tasks/sass')(gulp, config);

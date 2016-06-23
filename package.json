@@ -4,6 +4,8 @@
   "description": "furry-journey",
   "main": "app.js",
   "scripts": {
+    "build": "npm run start build",
+    "dev": "node_modules/gulp/bin/gulp.js",
     "start": "node app.js"
   },
   "repository": {
@@ -22,7 +24,9 @@
   "homepage": "https://github.com/SimonFinney/furry-journey#readme",
   "dependencies": {
     "compression": "^1.6.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "express-minify-html": "^0.4.0",
+    "nunjucks": "^2.4.2"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -44,6 +48,7 @@
     "gulp-htmlmin": "^2.0.0",
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.0.1",
+    "gulp-nodemon": "^2.1.0",
     "gulp-sass": "^2.3.1",
     "gulp-sass-lint": "^1.1.1",
     "gulp-sourcemaps": "^1.6.0",

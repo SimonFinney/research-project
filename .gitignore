@@ -12,5 +12,5 @@ dist
 # Always-ignore files
 *.log
 
-# Individual files
+# Individual folders and files
 **/.DS_Store

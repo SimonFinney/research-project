@@ -2,27 +2,16 @@
 
 'use strict';
 
-module.exports = function(gulp, runSequence, paths) {
+module.exports = (gulp, runSequence, paths) =>
 
-  gulp.task('watch', function() {
+  gulp.task('watch', () => {
 
     // Watch for changes
-    gulp.watch([
-      paths.html,
-    ], function() {
-      runSequence('html', 'html5-lint', 'bs-reload');
-    });
+    gulp.watch(paths.html, () => runSequence('html', 'html5-lint', 'bs-reload'));
 
-    gulp.watch(paths.app + paths.extras.images, function() {
-      runSequence('extras', 'bs-reload');
-    });
+    gulp.watch(paths.app + paths.extras.images, () => runSequence('extras', 'bs-reload'));
 
-    gulp.watch(paths.js + '**', function() {
-      runSequence('eslint', 'js', 'bs-reload');
-    });
+    gulp.watch(paths.js + '**', () => runSequence('eslint', 'js', 'bs-reload'));
 
-    gulp.watch(paths.scss, function() {
-      runSequence('sass-lint', 'sass');
-    });
+    gulp.watch(paths.scss, () => runSequence('sass-lint', 'sass'));
   });
-};

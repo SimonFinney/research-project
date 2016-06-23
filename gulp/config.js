@@ -45,13 +45,8 @@ const browsers = [
 const autoprefixerConfig = { browsers: browsers };
 
 const browserSyncConfig = {
-  server: {
-    baseDir: [paths.tmp],
-    routes: {
-      '/bower_components': 'bower_components',
-    }
-  },
   notify: false,
+  proxy: 'http://localhost:8080',
 };
 
 const htmlminConfig = {
@@ -62,6 +57,11 @@ const htmlminConfig = {
 const imageminConfig = {
   interlaced: true,
   progressive: true,
+};
+
+const nodemonConfig = {
+  ext: 'html js',
+  script: 'app.js',
 };
 
 const webpackConfig = {
@@ -90,5 +90,6 @@ module.exports = {
   browserSync: browserSyncConfig,
   htmlmin: htmlminConfig,
   imagemin: imageminConfig,
+  nodemon: nodemonConfig,
   webpack: webpackConfig,
 };

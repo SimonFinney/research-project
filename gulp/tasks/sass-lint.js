@@ -4,12 +4,10 @@
 
 const sassLint = require('gulp-sass-lint');
 
-module.exports = function(gulp, paths) {
+module.exports = (gulp, paths) =>
 
-
-  gulp.task('sass-lint', function() {
-    return gulp.src(paths.scss)
+  gulp.task('sass-lint', () =>
+    gulp.src(paths.scss)
       .pipe(sassLint())
-      .pipe(sassLint.format());
-  });
-};
+      .pipe(sassLint.format())
+  );

@@ -1,12 +1,41 @@
 // Server
 
-const express = require('express');
-const compression = require('compression');
+// TODO: Comments
+const compression = require('compression'),
+  express = require('express'),
+  minifyHtml = require('express-minify-html'),
+  nunjucks = require('nunjucks');
 
 const app = express();
 
 app.use(compression());
-app.use(express.static(`${__dirname}/dist`));
+
+app.use(
+  minifyHtml(
+    {
+      htmlMinifier: {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+        removeEmptyAttributes: true,
+      }
+    }
+  )
+);
+
+nunjucks.configure('templates', {
+  autoescape: true,
+  express: app
+});
+
+
+app.get('/', (request, response) => {
+  response.render('index.html', {
+    title: 'Hello World!'
+  });
+});
+
 
 const host = process.env.HOST || 'http://localhost';
 const port = process.env.PORT || 8080;

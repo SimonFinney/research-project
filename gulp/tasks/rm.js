@@ -2,10 +2,4 @@
 
 'use strict';
 
-module.exports = function(gulp, runSequence) {
-
-
-  gulp.task('rm', function(done) {
-    runSequence('clean', 'html', 'sass', 'js', 'extras', done);
-  });
-};
+module.exports = (gulp, runSequence) => gulp.task('rm', done => runSequence('clean', 'html', 'sass', 'js', 'extras', done));

@@ -4,13 +4,11 @@
 
 const browserSync = require('browser-sync');
 
-module.exports = function(gulp, browserSyncConfig) {
+module.exports = (gulp, browserSyncConfig) => {
 
-
-  gulp.task('browser-sync', function() {
-    browserSync.init(browserSyncConfig);
-  });
-
+  gulp.task('browser-sync', ['nodemon'], () =>
+    browserSync.init(browserSyncConfig)
+  );
 
   gulp.task('bs-reload', browserSync.reload);
 };
