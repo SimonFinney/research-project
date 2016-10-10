@@ -1,7 +1,7 @@
 {
-  "name": "furry-journey",
+  "name": "research-project",
   "version": "0.1.0",
-  "description": "furry-journey",
+  "description": "research-project",
   "main": "app.js",
   "scripts": {
     "build": "npm run start build",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SimonFinney/furry-journey.git"
+    "url": "https://github.com/SimonFinney/research-project.git"
   },
   "keywords": [
-    "furry",
-    "journey"
+    "research",
+    "project"
   ],
   "author": "Simon Finney <simonjfinney@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/SimonFinney/furry-journey/issues"
+    "url": "https://github.com/SimonFinney/research-project/issues"
   },
-  "homepage": "https://github.com/SimonFinney/furry-journey#readme",
+  "homepage": "https://github.com/SimonFinney/research-project#readme",
   "dependencies": {
     "compression": "^1.6.1",
     "express": "^4.13.4",

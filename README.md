@@ -1,3 +1,3 @@
-# furry-journey
+# research-project
 
-Starter kit
+Research project
