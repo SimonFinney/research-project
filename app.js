@@ -32,7 +32,7 @@ nunjucks.configure('templates', {
 
 app.get('/', (request, response) => {
   response.render('index.html', {
-    title: 'Hello World!'
+    title: 'Research project',
   });
 });
 
