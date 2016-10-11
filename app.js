@@ -1,10 +1,11 @@
 // Server
 
 // TODO: Comments
-const compression = require('compression'),
-  express = require('express'),
-  minifyHtml = require('express-minify-html'),
-  nunjucks = require('nunjucks');
+const compression = require('compression');
+const express = require('express');
+const firebase = require('firebase');
+const minifyHtml = require('express-minify-html');
+const nunjucks = require('nunjucks');
 
 const app = express();
 
@@ -28,6 +29,12 @@ nunjucks.configure('templates', {
   autoescape: true,
   express: app
 });
+
+
+const firebaseConfiguration =
+  (process.env.firebaseConfiguration || require('./USER-DEFINED.json').firebase);
+const firebaseApp = firebase.initializeApp(firebaseConfiguration);
+const database = firebaseApp.database();
 
 
 app.get('/', (request, response) => {
