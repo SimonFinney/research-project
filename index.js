@@ -32,7 +32,6 @@ nunjucks.configure('templates', {
   express: server,
 });
 
-
 const firebaseConfiguration =
   (process.env.firebaseConfiguration || require('./USER-DEFINED.json').firebase);
 const firebaseApp = firebase.initializeApp(firebaseConfiguration);
