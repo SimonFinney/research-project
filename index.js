@@ -7,11 +7,13 @@ const firebase = require('firebase');
 const minifyHtml = require('express-minify-html');
 const nunjucks = require('nunjucks');
 
-const app = express();
+const server = express();
 
-app.use(compression());
+server.use(
+  compression()
+);
 
-app.use(
+server.use(
   minifyHtml(
     {
       htmlMinifier: {
@@ -20,14 +22,14 @@ app.use(
         removeAttributeQuotes: true,
         removeComments: true,
         removeEmptyAttributes: true,
-      }
+      },
     }
   )
 );
 
 nunjucks.configure('templates', {
   autoescape: true,
-  express: app
+  express: server,
 });
 
 
@@ -36,26 +38,25 @@ const firebaseConfiguration =
 const firebaseApp = firebase.initializeApp(firebaseConfiguration);
 const database = firebaseApp.database();
 
+const imgur = require('./src/imgur');
 
-app.get('/', (request, response) => {
-  response.render('index.html', {
-    title: 'Research project',
-  });
+server.get('/', (request, response) =>
+  response.render('index.nunjucks', { title: 'Research project' })
+);
+
+
+const host = (process.env.HOST || 'http://localhost');
+const port = (process.env.PORT || 8080);
+
+server.host = server.set('host', host);
+server.port = server.set('port', port);
+
+const serverPort = server.get('port');
+
+
+server.listen(serverPort, () => {
+  server.address = `${server.get('host')}:${serverPort}`;
+  console.log(`Listening at ${server.address}`);
 });
 
-
-const host = process.env.HOST || 'http://localhost';
-const port = process.env.PORT || 8080;
-
-app.host = app.set('host', host);
-app.port = app.set('port', port);
-
-const serverPort = app.get('port');
-
-
-app.listen(serverPort, function() {
-  app.address = `${app.get('host')}:${serverPort}`;
-  console.log(`Listening at ${app.address}`);
-});
-
-module.exports = app;
+module.exports = server;

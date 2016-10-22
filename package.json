@@ -2,11 +2,11 @@
   "name": "research-project",
   "version": "0.1.0",
   "description": "research-project",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "build": "npm run start build",
     "dev": "node_modules/gulp/bin/gulp.js",
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

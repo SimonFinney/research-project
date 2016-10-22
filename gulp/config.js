@@ -61,7 +61,7 @@ const imageminConfig = {
 
 const nodemonConfig = {
   ext: 'html js',
-  script: 'app.js',
+  script: 'index.js',
 };
 
 const webpackConfig = {
