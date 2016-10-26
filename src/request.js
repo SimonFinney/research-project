@@ -8,7 +8,9 @@ function getRequest(optionsToModify, callback) {
   options.method = 'GET';
 
   request(options, (error, response) =>
-    callback(error || response.body)
+    callback(
+      error || JSON.parse(response.body)
+    )
   );
 }
 

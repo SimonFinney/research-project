@@ -1,7 +1,5 @@
 // Module configuration
 
-'use strict';
-
 // Paths
 const imageExtensions = [
   'gif',
@@ -42,29 +40,29 @@ const browsers = [
   'Android > 0',
 ];
 
-const autoprefixerConfig = { browsers: browsers };
+const autoprefixer = { browsers };
 
-const browserSyncConfig = {
+const browserSync = {
   notify: false,
   proxy: 'http://localhost:8080',
 };
 
-const htmlminConfig = {
+const htmlmin = {
   collapseWhitespace: true,
   removeComments: true,
 };
 
-const imageminConfig = {
+const imagemin = {
   interlaced: true,
   progressive: true,
 };
 
-const nodemonConfig = {
-  ext: 'html js',
+const nodemon = {
+  ext: 'js nunjucks',
   script: 'index.js',
 };
 
-const webpackConfig = {
+const webpack = {
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
@@ -77,19 +75,19 @@ const webpackConfig = {
         loader: 'babel',
         query: {
           presets: ['es2015'],
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 };
 
 
 module.exports = {
-  paths: paths,
-  autoprefixer: autoprefixerConfig,
-  browserSync: browserSyncConfig,
-  htmlmin: htmlminConfig,
-  imagemin: imageminConfig,
-  nodemon: nodemonConfig,
-  webpack: webpackConfig,
+  paths,
+  autoprefixer,
+  browserSync,
+  htmlmin,
+  imagemin,
+  nodemon,
+  webpack,
 };

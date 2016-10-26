@@ -9,6 +9,10 @@ const nunjucks = require('nunjucks');
 
 const server = express();
 
+const serverDirectory = (process.env.NODE_ENV ? 'dist' : '.tmp');
+const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
+server.use(staticAssets);
+
 server.use(
   compression()
 );
@@ -39,8 +43,14 @@ const database = firebaseApp.database();
 
 const imgur = require('./src/imgur');
 
+
 server.get('/', (request, response) =>
-  response.render('index.nunjucks', { title: 'Research project' })
+  imgur.search('dog', images =>
+    response.render('views/index.nunjucks', {
+      images,
+      title: 'Research project',
+    })
+  )
 );
 
 

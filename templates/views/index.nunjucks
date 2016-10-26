@@ -1,0 +1,15 @@
+{%- extends 'layout/layout.nunjucks' -%}
+
+{%- block content -%}
+  <ul class="ul--images">
+
+    {%- for image in images.data -%}
+
+      <li class="images__li">
+        <a class="images__a" href="#{{ image.id }}">
+          <img id="{{ image.id }}" class="images__img" alt="{{ image.title }}" src="http://i.imgur.com/{{ (image.cover if image.cover else image.id) }}.jpg">
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endblock -%}

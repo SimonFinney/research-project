@@ -12,13 +12,17 @@
     <link rel="stylesheet" href="/css/main.css">
     <!-- endbuild -->
   </head>
-  <body>
-    <h1>{{ title }}</h1>
+  <body class="body">
+    <main class="main">
+
+      {%- block content -%}
+      {%- endblock -%}
+    </main>
 
     <!-- build:js /js/vendor.min.js -->
     <!-- endbuild -->
 
     <!-- build:js /js/bundle.min.js -->
-    <script src="/js/main.js"></script>
+    <script src="/js/bundle.js"></script>
     <!-- endbuild -->
   </body>

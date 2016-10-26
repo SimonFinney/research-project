@@ -12,13 +12,17 @@ const requestOptions = {
 
 function get(url, callback) {
   requestOptions.url = `${imgurConfiguration.baseUrl}${url}`;
-  request.getRequest(requestOptions, responseData => callback(responseData));
+  request.getRequest(requestOptions, responseJson => callback(
+    responseJson
+  ));
 }
 
 
 function search(q, callback) {
   requestOptions.url = `${imgurConfiguration.baseUrl}gallery/search?q=${q}`;
-  request.getRequest(requestOptions, responseData => callback(responseData));
+  request.getRequest(requestOptions, responseJson => callback(
+    responseJson
+  ));
 }
 
 
