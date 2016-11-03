@@ -1,0 +1,14 @@
+// Image
+
+.img {
+  cursor: pointer;
+  visibility: hidden;
+
+  &[data-active] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: visible;
+  }
+}

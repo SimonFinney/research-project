@@ -3,17 +3,14 @@
 
 // Imports
 
-// Utilities
-@import
-'utils/variables';
-
-// Base
-
-// Layout
+// Core
+@import 'core/colour';
 
 // Elements
 @import
 'elements/body',
+'elements/html',
+'elements/img',
 'elements/main';
 
 // Components
