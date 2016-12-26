@@ -1,11 +1,6 @@
 // Build
 
-'use strict';
-
-module.exports = function(gulp, runSequence) {
-
-
-  gulp.task('build', function(callback) {
-    runSequence('rm', 'minify', 'images', 'extras:build', callback);
-  });
-};
+module.exports = (gulp, runSequence) =>
+  gulp.task('build', callback =>
+    runSequence('rm', 'minify', callback)
+  );

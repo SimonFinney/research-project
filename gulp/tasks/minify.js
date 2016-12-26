@@ -1,27 +1,17 @@
 // Minify
 
-'use strict';
-
-const useref = require('gulp-useref');
-const gulpIf = require('gulp-if');
-
 const cssnano = require('gulp-cssnano');
-const htmlmin = require('gulp-htmlmin');
+const gulpIf = require('gulp-if');
 const uglify = require('gulp-uglify');
+const useref = require('gulp-useref');
 
+module.exports = (gulp, paths) =>
+  gulp.task('minify', () => {
+    const searchPath = paths.tmp.replace('/', '');
 
-module.exports = function(gulp, config) {
-
-
-  gulp.task('minify', function() {
-
-    const searchPath = config.paths.tmp.replace('/', '');
-
-    return gulp.src(config.paths.tmp + '**/*.html')
+    return gulp.src(paths.templates)
       .pipe(useref({ searchPath: [searchPath, ''] }))
       .pipe(gulpIf('*.css', cssnano()))
       .pipe(gulpIf('*.js', uglify()))
-      .pipe(gulpIf('*.html', htmlmin(config.htmlmin)))
-      .pipe(gulp.dest(config.paths.distDir));
+      .pipe(gulp.dest(paths.dist));
   });
-};

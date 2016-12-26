@@ -1,11 +1,6 @@
 // BrowserSync
 
-'use strict';
-
-const browserSync = require('browser-sync');
-
-module.exports = (gulp, browserSyncConfig) => {
-
+module.exports = (gulp, browserSync, browserSyncConfig) => {
   gulp.task('browser-sync', ['nodemon'], () =>
     browserSync.init(browserSyncConfig)
   );

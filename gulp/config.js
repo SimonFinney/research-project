@@ -1,26 +1,12 @@
 // Module configuration
 
 // Paths
-const imageExtensions = [
-  'gif',
-  'jpg',
-  'png',
-  'svg',
-];
-
-const paths = new (function() {
+const paths = new (function paths() {
   this.app = 'app/';
-  this.distDir = 'dist/';
-
-  this.extras = {
-    favicon: '*.ico',
-    fonts: 'fonts/**',
-    images: '**/*.{' + imageExtensions + '}',
-  };
-
-  this.html = this.app + '**/*.html';
-  this.js = this.app + 'js/';
-  this.scss = this.app + 'scss/**/*.scss';
+  this.dist = 'dist/';
+  this.templates = 'templates/**/*';
+  this.js = `${this.app}js/`;
+  this.scss = `${this.app}scss/**/*.scss`;
   this.tmp = '.tmp/';
 });
 
@@ -47,16 +33,6 @@ const browserSync = {
   proxy: 'http://localhost:8080',
 };
 
-const htmlmin = {
-  collapseWhitespace: true,
-  removeComments: true,
-};
-
-const imagemin = {
-  interlaced: true,
-  progressive: true,
-};
-
 const nodemon = {
   ext: 'js nunjucks',
   script: 'index.js',
@@ -81,13 +57,10 @@ const webpack = {
   },
 };
 
-
 module.exports = {
   paths,
   autoprefixer,
   browserSync,
-  htmlmin,
-  imagemin,
   nodemon,
   webpack,
 };

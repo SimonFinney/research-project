@@ -63,8 +63,6 @@ function update(id, newData) {
 }
 
 
-init();
-
 module.exports = {
   count,
   create,
