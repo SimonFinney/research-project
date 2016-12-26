@@ -6,10 +6,14 @@ const express = require('express');
 const minifyHtml = require('express-minify-html');
 const nunjucks = require('nunjucks');
 
+const router = require('./src/router');
+
 const server = express();
 
 const serverDirectory = (process.env.NODE_ENV ? 'dist' : '.tmp');
 const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
+
+server.use('/', router.router);
 server.use(staticAssets);
 
 server.use(
@@ -35,31 +39,13 @@ nunjucks.configure('templates', {
   express: server,
 });
 
-const database = require('./src/database');
-const imgur = require('./src/imgur');
+server.host = server.set('host', (process.env.HOST || 'http://localhost'));
+server.port = server.set('port', (process.env.PORT || 8080));
 
+const port = server.get('port');
 
-server.get('/', (request, response) =>
-  imgur.search('dog', images =>
-    response.render('views/index.nunjucks', {
-      images,
-      title: 'Research project',
-    })
-  )
-);
-
-
-const host = (process.env.HOST || 'http://localhost');
-const port = (process.env.PORT || 8080);
-
-server.host = server.set('host', host);
-server.port = server.set('port', port);
-
-const serverPort = server.get('port');
-
-
-server.listen(serverPort, () => {
-  server.address = `${server.get('host')}:${serverPort}`;
+server.listen(port, () => {
+  server.address = `${server.get('host')}:${port}`;
   console.log(`Listening at ${server.address}`);
 });
 
