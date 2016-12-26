@@ -1,0 +1,14 @@
+{
+  "firebase": {
+    "apiKey": "",
+    "authDomain": "",
+    "databaseURL": "",
+    "storageBucket": "",
+    "messagingSenderId": ""
+  },
+  "imgur": {
+    "baseUrl": "",
+    "clientId": "",
+    "clientSecret": ""
+  }
+}

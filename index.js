@@ -3,7 +3,6 @@
 // TODO: Comments
 const compression = require('compression');
 const express = require('express');
-const firebase = require('firebase');
 const minifyHtml = require('express-minify-html');
 const nunjucks = require('nunjucks');
 
@@ -36,11 +35,7 @@ nunjucks.configure('templates', {
   express: server,
 });
 
-const firebaseConfiguration =
-  (process.env.firebaseConfiguration || require('./USER-DEFINED.json').firebase);
-const firebaseApp = firebase.initializeApp(firebaseConfiguration);
-const database = firebaseApp.database();
-
+const database = require('./src/database');
 const imgur = require('./src/imgur');
 
 
