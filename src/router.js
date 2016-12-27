@@ -10,11 +10,11 @@ const router = express.Router();
 
 router.get('/', (request, response) =>
 
-  database.isDebug(debug =>
+  database.isDebug(isDebug =>
     imgur.search('dog', images =>
       response.render('views/index.nunjucks', {
-        debug,
         images,
+        isDebug,
         manifest,
       })
     )

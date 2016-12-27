@@ -3,7 +3,7 @@
 const request = require('./request');
 
 const imgurConfiguration =
-  (process.env.imgurConfiguration || require('../USER-DEFINED.json').imgur);
+  (process.env.imgur || require('../USER-DEFINED.json').imgur);
 
 const requestOptions = {
   headers: { Authorization: `Client-ID ${imgurConfiguration.clientId}` },
