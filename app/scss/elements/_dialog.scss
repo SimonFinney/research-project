@@ -1,0 +1,18 @@
+// Dialog
+
+$dialog-background-color: rgba($darkest, .66);
+
+.dialog {
+  border: 0;
+  transform: translateY(100%);
+  transition: .1s;
+
+  &::backdrop {
+    background-color: $dialog-background-color;
+    transition: .1s;
+  }
+
+  &[open] {
+    transform: translateY(0);
+  }
+}

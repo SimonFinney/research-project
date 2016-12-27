@@ -12,5 +12,8 @@
       {%- block content -%}
       {%- endblock -%}
     </main>
+
+    {%- include 'includes/partials/_dialog.nunjucks' -%}
+    
     <script src="/js/bundle.js"></script>
   </body>
