@@ -2,6 +2,11 @@
 
 .html {
 
+  &[data-debug] {
+
+    // TODO: Debug overrides
+  }
+
   &[data-fixed] {
     overflow-y: hidden;
   }
