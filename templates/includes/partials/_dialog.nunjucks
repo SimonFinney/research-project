@@ -1,3 +1,15 @@
-<dialog class="dialog">
+<dialog class="dialog" open>
   <h1>Hello World!</h1>
+  <p>
+    Spicy jalapeno shoulder jowl pork, venison andouille tenderloin tail chuck fatback beef ribs pancetta turkey sirloin cow capicola. Burgdoggen short loin beef ribs boudin landjaeger biltong short ribs venison swine ham flank strip steak alcatra. Filet mignon fatback prosciutto frankfurter beef. Pork belly drumstick jerky, swine venison tail hamburger short loin pork. Brisket corned beef biltong picanha rump ribeye pork belly shoulder salami venison ham hock porchetta boudin shank. Short loin sausage spare ribs kielbasa flank tri-tip. Alcatra fatback pancetta, ball tip venison ham hock sirloin rump hamburger.
+  </p>
+  <p>
+    T-bone andouille pig chicken shoulder jerky tenderloin hamburger leberkas sirloin kevin, jowl porchetta. Corned beef alcatra brisket, ground round hamburger ham hock shoulder tail turkey sausage pork chop. Flank drumstick sirloin tenderloin tri-tip jerky beef, landjaeger ribeye tail turducken ball tip fatback shank chicken. Filet mignon kielbasa corned beef ham hock shank doner chuck swine strip steak landjaeger pork loin sausage short loin bacon.
+  </p>
+  <p>
+    Rump leberkas pancetta strip steak picanha boudin prosciutto. Pork belly kielbasa venison salami, biltong andouille shank pig chicken tongue meatloaf cow beef ribs. Rump pastrami alcatra flank tongue tri-tip pork belly shankle drumstick shoulder meatball prosciutto. Sausage rump meatloaf cupim biltong tongue short loin jowl andouille. Turducken sirloin sausage tongue t-bone, swine doner jerky capicola shank brisket boudin landjaeger. Pig pork ground round, spare ribs swine andouille pork chop picanha pork loin shankle pancetta porchetta jerky. Beef ribs capicola brisket shoulder ham hock tenderloin, bresaola rump alcatra frankfurter leberkas andouille hamburger jowl.
+  </p>
+  <form method="dialog">
+    <button class="dialog__button" type="submit">Continue</button>
+  </form>
 </dialog>
