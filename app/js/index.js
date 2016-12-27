@@ -3,6 +3,7 @@
 // TODO: Comments
 let app;
 let detailedImage;
+let dialog;
 let imageLinks;
 let isImageToggled;
 
@@ -35,6 +36,7 @@ function setDetailedImage(event) {
 function init() {
   app = document.querySelector('[data-app]');
   detailedImage = app.querySelector('.img');
+  dialog = app.querySelector('.dialog');
   imageLinks = app.querySelectorAll('.images__a');
 
   detailedImage.addEventListener('click', toggleImage);
@@ -42,6 +44,8 @@ function init() {
   imageLinks.forEach(imageLink =>
     imageLink.addEventListener('click', setDetailedImage)
   );
+
+  dialog.showModal();
 }
 
 document.addEventListener('DOMContentLoaded', init);

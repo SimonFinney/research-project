@@ -1,14 +1,15 @@
 @charset 'utf-8';
 // Sass manifest
 
-// Imports
-
 // Core
-@import 'core/colour';
+@import
+'core/colour',
+'core/typography';
 
 // Elements
 @import
 'elements/body',
+'elements/dialog',
 'elements/html',
 'elements/img',
 'elements/main';
