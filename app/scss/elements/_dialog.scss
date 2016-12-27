@@ -1,6 +1,6 @@
 // Dialog
 
-$dialog-background-color: rgba($darkest, 1);
+$dialog-backdrop-color: rgba($darkest, 1);
 
 .dialog {
   width: 50%;
@@ -11,7 +11,7 @@ $dialog-background-color: rgba($darkest, 1);
   transition: .1s;
 
   &::backdrop {
-    background-color: $dialog-background-color;
+    background-color: $dialog-backdrop-color;
     transition: .1s;
   }
 
