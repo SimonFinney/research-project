@@ -33,6 +33,13 @@ function setDetailedImage(event) {
 }
 
 
+function toggleDialog() {
+  dialog[
+    (dialog.open ? 'close' : 'show')
+  ]();
+}
+
+
 function init() {
   app = document.querySelector('[data-app]');
   detailedImage = app.querySelector('.img');
@@ -44,8 +51,6 @@ function init() {
   imageLinks.forEach(imageLink =>
     imageLink.addEventListener('click', setDetailedImage)
   );
-
-  dialog.showModal();
 }
 
 document.addEventListener('DOMContentLoaded', init);

@@ -5,3 +5,9 @@ $font-family: (
   Arial,
   sans-serif,
 );
+
+$base-font-size: 16;
+
+@mixin font-size($px-value) {
+  font-size: (($px-value / $base-font-size) * 1rem);
+}
