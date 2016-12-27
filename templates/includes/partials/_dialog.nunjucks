@@ -10,6 +10,6 @@
     Rump leberkas pancetta strip steak picanha boudin prosciutto. Pork belly kielbasa venison salami, biltong andouille shank pig chicken tongue meatloaf cow beef ribs. Rump pastrami alcatra flank tongue tri-tip pork belly shankle drumstick shoulder meatball prosciutto. Sausage rump meatloaf cupim biltong tongue short loin jowl andouille. Turducken sirloin sausage tongue t-bone, swine doner jerky capicola shank brisket boudin landjaeger. Pig pork ground round, spare ribs swine andouille pork chop picanha pork loin shankle pancetta porchetta jerky. Beef ribs capicola brisket shoulder ham hock tenderloin, bresaola rump alcatra frankfurter leberkas andouille hamburger jowl.
   </p>
   <form method="dialog">
-    <button class="dialog__button" type="submit">Continue</button>
+    <button class="dialog__button" type="submit">Submit</button>
   </form>
 </dialog>
