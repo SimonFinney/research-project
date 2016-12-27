@@ -9,11 +9,15 @@ const manifest = require('../package.json');
 const router = express.Router();
 
 router.get('/', (request, response) =>
-  imgur.search('dog', images =>
-    response.render('views/index.nunjucks', {
-      images,
-      manifest,
-    })
+
+  database.isDebug(debug =>
+    imgur.search('dog', images =>
+      response.render('views/index.nunjucks', {
+        debug,
+        images,
+        manifest,
+      })
+    )
   )
 );
 
