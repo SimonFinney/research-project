@@ -8,3 +8,11 @@ cache:
   - node_modules
 
 script: npm run build
+
+deploy:
+  - api_key: ${API_KEY}
+    app:
+      dev: rp-staging
+      master: research-project
+    provider: heroku
+    skip_cleanup: true

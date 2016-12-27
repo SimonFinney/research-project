@@ -1,0 +1,15 @@
+# Input folders
+app
+gulp
+
+# Individual files and folders
+.editorconfig
+.eslintrc
+.gitattributes
+.gitignore
+.sass-lint.yml
+.slugignore
+.travis.yml
+CHANGELOG.md
+gulpfile.js
+README.md
