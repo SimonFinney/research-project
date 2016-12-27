@@ -4,13 +4,13 @@
 const firebase = require('firebase');
 
 const firebaseConfiguration =
-  (process.env.firebaseConfiguration || require('../USER-DEFINED.json').firebase);
+  (process.env.firebase || require('../USER-DEFINED.json').firebase);
 
 const firebaseApp = firebase.initializeApp(firebaseConfiguration);
 const database = firebaseApp.database();
 
-const ref = 'data';
-const data = database.ref(ref);
+const data = database.ref('data');
+const debug = database.ref('debug');
 
 
 function count(callback) {
@@ -32,16 +32,26 @@ function getById(id) {
 }
 
 
+function getValue(databaseReference, callback) {
+  databaseReference.once('value')
+    .then(value =>
+      callback(value.val())
+    );
+}
+
+
+function isDebug(callback) {
+  getValue(debug, callback);
+}
+
+
 function del(id) {
   getById(id).remove();
 }
 
 
 function get(callback) {
-  data.once('value')
-    .then(value =>
-      callback(value.val())
-    );
+  getValue(data, callback);
 }
 
 
@@ -51,10 +61,7 @@ function init() {
 
 
 function read(id, callback) {
-  getById(id).once('value')
-    .then(value =>
-      callback(value.val())
-    );
+  getValue(getById(id), callback);
 }
 
 
@@ -63,11 +70,14 @@ function update(id, newData) {
 }
 
 
+init();
+
 module.exports = {
   count,
   create,
   del,
   get,
+  isDebug,
   read,
   update,
 };
