@@ -6,7 +6,7 @@
     <title>{{ manifest.name }}</title>
     <link rel="stylesheet" href="/css/main.css">
   </head>
-  <body class="body">
+  <body class="body" data-variation="{{ variation }}">
     <main class="main">
 
       {%- block content -%}
@@ -14,6 +14,6 @@
     </main>
 
     {%- include 'includes/partials/_dialog.nunjucks' -%}
-    
+
     <script src="/js/bundle.js"></script>
   </body>
