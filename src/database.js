@@ -10,7 +10,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfiguration);
 const database = firebaseApp.database();
 
 const data = database.ref('data');
-const debug = database.ref('debug');
 
 
 function count(callback) {
@@ -37,11 +36,6 @@ function getValue(databaseReference, callback) {
     .then(value =>
       callback(value.val())
     );
-}
-
-
-function isDebug(callback) {
-  getValue(debug, callback);
 }
 
 
@@ -77,7 +71,6 @@ module.exports = {
   create,
   del,
   get,
-  isDebug,
   read,
   update,
 };

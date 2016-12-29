@@ -10,7 +10,7 @@ const router = require('./src/router');
 
 const server = express();
 
-const serverDirectory = (process.env.NODE_ENV ? 'dist' : '.tmp');
+const serverDirectory = ((server.get('env') === 'development') ? '.tmp' : 'dist');
 const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
 
 server.use('/', router.router);

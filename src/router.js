@@ -7,17 +7,16 @@ const database = require('./database');
 const manifest = require('../package.json');
 
 const router = express.Router();
+const server = express();
+const isDebug = (server.get('env') === 'development');
 
 router.get('/', (request, response) =>
-
-  database.isDebug(isDebug =>
-    imgur.search('dog', images =>
-      response.render('views/index.nunjucks', {
-        images,
-        isDebug,
-        manifest,
-      })
-    )
+  imgur.search('dog', images =>
+    response.render('views/index.nunjucks', {
+      images,
+      isDebug,
+      manifest,
+    })
   )
 );
 
