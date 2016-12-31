@@ -11,6 +11,7 @@ const router = express.Router();
 const server = express();
 const isDebug = (server.get('env') === 'development');
 
+
 router.get('/', (request, response) =>
   database.count(count => {
     const variation = util.delegateVariation(count);
@@ -25,5 +26,13 @@ router.get('/', (request, response) =>
     );
   })
 );
+
+
+router.get('/data', (request, response) =>
+  database.get(data =>
+    response.send(data)
+  )
+);
+
 
 module.exports = { router };
