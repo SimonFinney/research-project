@@ -10,6 +10,12 @@ const firebaseConfiguration = {
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfiguration);
+
+firebase.auth().signInWithEmailAndPassword(
+  util.getConfiguration('firebaseEmail'),
+  util.getConfiguration('firebasePassword')
+);
+
 const database = firebaseApp.database();
 
 const data = database.ref('data');
