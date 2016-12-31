@@ -9,7 +9,6 @@ const util = require('./util');
 
 const router = express.Router();
 const server = express();
-const isDebug = (server.get('env') === 'development');
 
 
 router.get('/', (request, response) =>
@@ -19,7 +18,7 @@ router.get('/', (request, response) =>
     imgur.search('dog', images =>
       response.render('views/index.nunjucks', {
         images,
-        isDebug,
+        isDebug: util.isDebug(),
         manifest,
         variation,
       })

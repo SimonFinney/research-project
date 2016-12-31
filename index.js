@@ -7,10 +7,11 @@ const minifyHtml = require('express-minify-html');
 const nunjucks = require('nunjucks');
 
 const router = require('./src/router');
+const util = require('./src/util');
 
 const server = express();
 
-const serverDirectory = ((server.get('env') === 'development') ? '.tmp' : 'dist');
+const serverDirectory = (util.isDebug() ? '.tmp' : 'dist');
 const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
 
 server.use('/', router.router);
