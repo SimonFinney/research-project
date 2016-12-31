@@ -1,5 +1,7 @@
 {
   "firebaseApiKey": "",
-  "firebaseDatabaseUrl": "",
+  "firebaseDatabaseURL": "",
+  "firebaseEmail": "",
+  "firebasePassword": "",
   "imgurClientId": ""
 }
