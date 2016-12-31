@@ -7,7 +7,7 @@
 
       <li class="images__li">
         <a class="images__a" href="#{{ image.id }}">
-          <img id="{{ image.id }}" class="images__img" alt="{{ image.title }}" src="http://i.imgur.com/{{ (image.cover if image.cover else image.id) }}.jpg">
+          <img id="{{ image.id }}" class="images__img" alt="{{ image.title }}" src="https://i.imgur.com/{{ (image.cover if image.cover else image.id) }}.jpg">
         </a>
       </li>
     {%- endfor -%}
