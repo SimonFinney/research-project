@@ -34,6 +34,8 @@ server.use(
   )
 );
 
+server.set('json spaces', 2);
+
 nunjucks.configure('templates', {
   autoescape: true,
   express: server,
