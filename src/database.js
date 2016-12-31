@@ -2,9 +2,12 @@
 
 // TODO: Comments
 const firebase = require('firebase');
+const util = require('./util');
 
-const firebaseConfiguration =
-  (process.env.firebase || require('../USER-DEFINED.json').firebase);
+const firebaseConfiguration = {
+  apiKey: util.getConfiguration('firebaseApiKey'),
+  databaseURL: util.getConfiguration('firebaseDatabaseURL'),
+};
 
 const firebaseApp = firebase.initializeApp(firebaseConfiguration);
 const database = firebaseApp.database();

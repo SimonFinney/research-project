@@ -1,17 +1,18 @@
 // Imgur API
 
 const request = require('./request');
+const util = require('./util');
 
-const imgurConfiguration =
-  (process.env.imgur || require('../USER-DEFINED.json').imgur);
+const baseUrl = 'https://api.imgur.com/3/';
+const imgurClientId = util.getConfiguration('imgurClientId');
 
 const requestOptions = {
-  headers: { Authorization: `Client-ID ${imgurConfiguration.clientId}` },
+  headers: { Authorization: `Client-ID ${imgurClientId}` },
 };
 
 
 function get(url, callback) {
-  requestOptions.url = `${imgurConfiguration.baseUrl}${url}`;
+  requestOptions.url = `${baseUrl}${url}`;
   request.getRequest(requestOptions, responseJson => callback(
     responseJson
   ));
@@ -19,7 +20,7 @@ function get(url, callback) {
 
 
 function search(q, callback) {
-  requestOptions.url = `${imgurConfiguration.baseUrl}gallery/search?q=${q}`;
+  requestOptions.url = `${baseUrl}gallery/search?q=${q}`;
   request.getRequest(requestOptions, responseJson => callback(
     responseJson
   ));
