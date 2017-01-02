@@ -8,16 +8,15 @@ const manifest = require('../package.json');
 const util = require('./util');
 
 const router = express.Router();
-const server = express();
 
 
 router.get('/', (request, response) =>
   database.count(count => {
     const variation = util.delegateVariation(count);
 
-    imgur.search('dog', images =>
+    imgur.get('album/Glnla', album =>
       response.render('views/index.nunjucks', {
-        images,
+        images: album.data.images,
         isDebug: util.isDebug(),
         manifest,
         variation,
@@ -32,6 +31,16 @@ router.get('/data', (request, response) =>
     response.send(data)
   )
 );
+
+
+router.post('/submit', (request, response) => {
+  const data = request.body;
+  data.datetime = (+ new Date); // Adds a timestamp to the data being saved
+
+  database.create(data, postResponse =>
+    response.send(postResponse)
+  );
+});
 
 
 module.exports = { router };

@@ -1,6 +1,7 @@
 // Server
 
 // TODO: Comments
+const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
 const minifyHtml = require('express-minify-html');
@@ -13,9 +14,17 @@ const server = express();
 
 const serverDirectory = (util.isDebug() ? '.tmp' : 'dist');
 const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
+server.use(staticAssets);
+
+server.use(
+  bodyParser.json()
+);
+
+server.use(
+  bodyParser.urlencoded({ extended: true })
+);
 
 server.use('/', router.router);
-server.use(staticAssets);
 
 server.use(
   compression()

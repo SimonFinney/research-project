@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/SimonFinney/research-project#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "express-minify-html": "^0.4.0",

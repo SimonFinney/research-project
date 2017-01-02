@@ -1,15 +1,39 @@
 <dialog class="dialog" open>
-  <h1>Hello World!</h1>
+  <h1>Informed Consent Form for In-Person Research Study Participants</h1>
+  <h2>Purpose of this study</h2>
   <p>
-    Spicy jalapeno shoulder jowl pork, venison andouille tenderloin tail chuck fatback beef ribs pancetta turkey sirloin cow capicola. Burgdoggen short loin beef ribs boudin landjaeger biltong short ribs venison swine ham flank strip steak alcatra. Filet mignon fatback prosciutto frankfurter beef. Pork belly drumstick jerky, swine venison tail hamburger short loin pork. Brisket corned beef biltong picanha rump ribeye pork belly shoulder salami venison ham hock porchetta boudin shank. Short loin sausage spare ribs kielbasa flank tri-tip. Alcatra fatback pancetta, ball tip venison ham hock sirloin rump hamburger.
+    The purpose of this study is to understand your goals and experiences as they relate to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help us in creating better experiences for you and other people like you.
+  </p>
+  <h2>Information we will collect</h2>
+  <p>
+    Following the experiment, you will be asked about your experiences completing the task.
   </p>
   <p>
-    T-bone andouille pig chicken shoulder jerky tenderloin hamburger leberkas sirloin kevin, jowl porchetta. Corned beef alcatra brisket, ground round hamburger ham hock shoulder tail turkey sausage pork chop. Flank drumstick sirloin tenderloin tri-tip jerky beef, landjaeger ribeye tail turducken ball tip fatback shank chicken. Filet mignon kielbasa corned beef ham hock shank doner chuck swine strip steak landjaeger pork loin sausage short loin bacon.
+    The information from this experiment will be used, to inform the design of further UIs.
+  </p>
+  <h2>Permissions</h2>
+  <p>
+    Following the experiment, we will collect anonymous data based on your response to the UI. By signing this consent form, you are giving permission to use the data you provide for the purposes of illuminating, demonstrating, and evaluating research findings. In no way will your data shared publicly in any way.
+  </p>
+  <h2>Non-disclosure</h2>
+  <p>
+    By signing this form, you agree not to tell anyone about this experiment or provide information about those ideas to anyone outside of this study. What you can say is that you’re participating in a study for us.
+  </p>
+  <h2>Freedom to withdraw</h2>
+  <p>
+    You are free to refuse to participate, take a break, or withdraw from this study at any time. Please let us know if and when you need a break.
+  </p>
+  <h2>Questions</h2>
+  <p>
+    If you have questions, please ask them now, during, or following the study.
   </p>
   <p>
-    Rump leberkas pancetta strip steak picanha boudin prosciutto. Pork belly kielbasa venison salami, biltong andouille shank pig chicken tongue meatloaf cow beef ribs. Rump pastrami alcatra flank tongue tri-tip pork belly shankle drumstick shoulder meatball prosciutto. Sausage rump meatloaf cupim biltong tongue short loin jowl andouille. Turducken sirloin sausage tongue t-bone, swine doner jerky capicola shank brisket boudin landjaeger. Pig pork ground round, spare ribs swine andouille pork chop picanha pork loin shankle pancetta porchetta jerky. Beef ribs capicola brisket shoulder ham hock tenderloin, bresaola rump alcatra frankfurter leberkas andouille hamburger jowl.
+    After reading this form, if you agree with these terms, please show your acceptance by selecting the checkbox below.
   </p>
   <form method="dialog">
+    <input id="checkbox" class="dialog__checkbox" type="checkbox">
+    <label class="dialog__label" for="checkbox">I accept</label>
+    <button class="dialog__button" type="reset">Reset</button>
     <button class="dialog__button" type="submit">Submit</button>
   </form>
 </dialog>
