@@ -1,5 +1,7 @@
 // Images list
 
+$image-margin: 8px;
+
 .ul--images {
   position: relative;
   padding-left: 0;
@@ -10,22 +12,39 @@
 
 .images__li {
   float: left;
-  width: 25%;
+  width: calc(25% - #{$image-margin});
   height: 240px;
+  margin-right: $image-margin;
+  margin-bottom: $image-margin;
 }
 
 .images__a {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
 
-  &:focus,
+  &::before {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    content: '';
+    transition: .1s;
+  }
+
   &:hover {
 
-    .images__img {
-      box-shadow: 0 0 2px 2px $primary;
+    &::before {
+      box-shadow: inset 0 0 ($image-margin * 4) ($image-margin / 2) $darkest;
     }
   }
 
   &:focus {
     outline: 0;
+
+    &::before {
+      box-shadow: inset 0 0 0 $image-margin $primary;
+    }
   }
 }
 
@@ -51,7 +70,6 @@
 
 
 .images__img {
-  width: 100%;
-  height: 100%;
-  transition: .3s;
+  width: inherit;
+  height: inherit;
 }

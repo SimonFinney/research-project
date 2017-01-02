@@ -26,8 +26,15 @@ function setDetailedImage(event) {
 
   const imageToToggle = event.target;
 
-  detailedImage.alt = imageToToggle.getAttribute('alt');
-  detailedImage.src = imageToToggle.getAttribute('src');
+  detailedImage.setAttribute(
+    'alt',
+    imageToToggle.getAttribute('alt')
+  );
+
+  detailedImage.setAttribute(
+    'src',
+    imageToToggle.getAttribute('src')
+  );
 
   toggleImage();
 }
