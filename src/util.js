@@ -17,6 +17,11 @@ function getConfiguration(configurationVariable) {
 }
 
 
+function getDatetime() {
+  return (+ new Date);
+}
+
+
 function isDebug() {
   return (server.get('env') === 'development');
 }
@@ -25,5 +30,6 @@ function isDebug() {
 module.exports = {
   delegateVariation,
   getConfiguration,
+  getDatetime,
   isDebug,
 };
