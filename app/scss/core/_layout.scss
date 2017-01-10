@@ -1,0 +1,10 @@
+// Layout
+
+$z-index-order: (
+  images__img
+);
+
+// Returns z-index order for the element passed in
+@mixin z-index($element) {
+  z-index: index($z-index-order, $element);
+}
