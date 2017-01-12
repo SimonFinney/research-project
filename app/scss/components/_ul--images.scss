@@ -1,21 +1,25 @@
 // Images list
 
+$image-dimension: 240px;
 $image-margin: 8px;
 
 .ul--images {
   position: relative;
-  display: inline-block;
+  display: flex;
+  height: 100%;
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
   overflow: auto;
   list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .images__li {
   float: left;
-  width: calc(25% - #{$image-margin});
-  height: 240px;
+  width: $image-dimension;
+  height: $image-dimension;
   margin-right: $image-margin;
   margin-bottom: $image-margin;
 }
@@ -55,8 +59,10 @@ $image-margin: 8px;
 
     .images__img {
       @include z-index('images__img');
-      position: absolute;
-      transform: scale(1);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: scale(1) translate(-50%, -50%);
       transition: .3s;
       transform-origin: top left;
     }
