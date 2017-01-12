@@ -6,7 +6,6 @@ let app;
 
 // let detailedImage;
 
-
 let dialog;
 let imageLinks;
 let imageList;
@@ -20,29 +19,9 @@ let selectedLink;
 let variation;
 
 
-function getElementPosition(element, relativeElement = app) {
-  let trailElement = element;
-
-  let top = 0;
-  let left = 0;
-
-  while (trailElement !== relativeElement) {
-    top += trailElement.offsetTop;
-    left += trailElement.offsetLeft;
-    trailElement = trailElement.offsetParent;
-  }
-
-  return {
-    top,
-    left,
-  };
-}
-
-
 function handleArcsTransition() {
   selectedLink.setAttribute('data-transition', '');
-  selectedImage.style.top = 0;
-  selectedImage.style.left = 0;
+  selectedImage.removeAttribute('style');
 }
 
 
@@ -53,7 +32,9 @@ function scaleImage(event) {
   const listHeight = imageList.clientHeight;
   const scaleTarget = ((listWidth <= listHeight) ? listWidth : listHeight);
 
-  imageToScale.style.transform = `scale(${(scaleTarget / imageToScale.clientWidth)})`;
+  imageToScale.style.transform = `
+    scale(${(scaleTarget / imageToScale.clientWidth)}) translate(-50%, -50%)
+  `;
 
   // Removes event listener when finished
   imageToScale.removeEventListener('transitionend', scaleImage);
@@ -61,13 +42,13 @@ function scaleImage(event) {
 
 
 function handleArcs() {
-  const imagePosition = getElementPosition(selectedImage, imageList);
+  const selectedImagePosition = selectedImage.getBoundingClientRect();
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
 
-  selectedImage.style.top = `${imagePosition.top}px`;
-  selectedImage.style.left = `${imagePosition.left}px`;
+  selectedImage.style.top = `${selectedImagePosition.top}px`;
+  selectedImage.style.left = `${selectedImagePosition.left}px`;
 
   // Scales the image once transition is complete
   selectedImage.addEventListener('transitionend', scaleImage);
