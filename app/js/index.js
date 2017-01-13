@@ -3,41 +3,48 @@
 // TODO: Comments
 let app;
 
-
-// let detailedImage;
-
 let dialog;
-let imageLinks;
-let imageList;
-
-
-// let isImageToggled;
-
+let imageToScale;
 
 let selectedImage;
 let selectedLink;
-let variation;
 
 
-function handleArcsTransition() {
-  selectedLink.setAttribute('data-transition', '');
-  selectedImage.removeAttribute('style');
-}
+function scaleImage() {
+  const imageList = app.querySelector('.ul--images');
+  const imageListWidth = imageList.clientWidth;
+  const imageListHeight = imageList.clientHeight;
 
-
-function scaleImage(event) {
-  const imageToScale = event.target;
-
-  const listWidth = imageList.clientWidth;
-  const listHeight = imageList.clientHeight;
-  const scaleTarget = ((listWidth <= listHeight) ? listWidth : listHeight);
+  const scaleTarget = ((imageListWidth <= imageListHeight) ?
+    imageListWidth :
+    imageListHeight);
 
   imageToScale.style.transform = `
     scale(${(scaleTarget / imageToScale.clientWidth)}) translate(-50%, -50%)
   `;
+}
 
-  // Removes event listener when finished
-  imageToScale.removeEventListener('transitionend', scaleImage);
+
+function delegateImageToScale(event) {
+  imageToScale = event.target;
+
+  selectedImage.setAttribute(
+    'src',
+    selectedImage.getAttribute('data-src')
+  );
+
+  scaleImage();
+
+  // Removes event listener when transition is finished
+  imageToScale.removeEventListener('transitionend', delegateImageToScale);
+
+  window.addEventListener('resize', scaleImage);
+}
+
+
+function handleTransition() {
+  selectedLink.setAttribute('data-transition', '');
+  selectedImage.removeAttribute('style');
 }
 
 
@@ -51,23 +58,23 @@ function handleArcs() {
   selectedImage.style.left = `${selectedImagePosition.left}px`;
 
   // Scales the image once transition is complete
-  selectedImage.addEventListener('transitionend', scaleImage);
+  selectedImage.addEventListener('transitionend', delegateImageToScale);
 
-  setTimeout(handleArcsTransition, 0); // Debounces transition to the end of the call stack
+  setTimeout(handleTransition, 0); // Debounces transition to the end of the call stack
 }
 
 
-/* function toggleImage() {
-  if (isImageToggled) {
-    app.removeAttribute('data-fixed');
-    detailedImage.removeAttribute('data-active');
-  } else {
-    app.setAttribute('data-fixed', '');
-    detailedImage.setAttribute('data-active', '');
-  }
+function loadThumbnails() {
+  dialog.removeEventListener('close', loadThumbnails);
 
-  isImageToggled = !isImageToggled;
-} */
+  app.querySelectorAll('.images__img')
+    .forEach(image =>
+      image.setAttribute(
+        'src',
+        image.getAttribute('data-thumbnail')
+      )
+    );
+}
 
 
 function setDetailedImage(event) {
@@ -81,66 +88,48 @@ function setDetailedImage(event) {
   selectedLink = event.target;
   selectedImage = selectedLink.querySelector('.images__img');
 
+  // Parses the variation value as an integer
+  const variation = parseInt(
+    app.getAttribute('data-variation'), 10
+  );
+
   switch (variation) {
 
     case 0:
 
       handleArcs();
 
-
-      console.log('0');
-
-
       break;
 
     case 1:
 
-
-      console.log('1');
-
-
       break;
 
-
     case 2:
-
-
-      console.log('2');
-
 
       break;
 
     case 3:
 
-
-      console.log('3');
-
-
       break;
 
     default:
 
-
-      console.log('default');
-
-
       break;
   }
+}
 
 
-  /* detailedImage.setAttribute(
-    'alt',
-    imageToToggle.getAttribute('alt')
-  );
+function init() {
+  app = document.querySelector('[data-app]');
 
-  detailedImage.setAttribute(
-    'src',
-    imageToToggle.getAttribute('src')
-  );
+  dialog = app.querySelector('.dialog');
+  dialog.addEventListener('close', loadThumbnails);
 
-  toggleImage(); */
-
-
+  app.querySelectorAll('.images__a')
+    .forEach(imageLink =>
+      imageLink.addEventListener('click', setDetailedImage)
+    );
 }
 
 
@@ -148,32 +137,6 @@ function toggleDialog() {
   dialog[
     (dialog.open ? 'close' : 'show')
   ]();
-}
-
-
-function init() {
-  app = document.querySelector('[data-app]');
-
-  // Parses the variation value as an integer
-  variation = parseInt(
-    app.getAttribute('data-variation'), 10
-  );
-
-
-  // detailedImage = app.querySelector('.img');
-
-
-  dialog = app.querySelector('.dialog');
-  imageList = app.querySelector('.ul--images');
-  imageLinks = app.querySelectorAll('.images__a');
-
-
-  // detailedImage.addEventListener('click', toggleImage);
-
-
-  imageLinks.forEach(imageLink =>
-    imageLink.addEventListener('click', setDetailedImage)
-  );
 }
 
 document.addEventListener('DOMContentLoaded', init);

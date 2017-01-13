@@ -3,5 +3,8 @@
   "firebaseDatabaseURL": "",
   "firebaseEmail": "",
   "firebasePassword": "",
-  "imgurClientId": ""
+  "imgurClientId": "",
+  "imgurThumbnailExtension": "",
+  "imgurThumbnailSize": "",
+  "imgurUrlPrefix": ""
 }

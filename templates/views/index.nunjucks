@@ -7,7 +7,7 @@
 
       <li class="images__li">
         <a class="images__a" href="#{{ image.id }}">
-          <img id="{{ image.id }}" class="images__img" alt="{{ image.title }}" src="{{ image.link }}">
+          <img id="{{ image.id }}" class="images__img" alt="{{ image.title }}" data-src="{{ image.link }}" data-thumbnail="{{ imgurUrlPrefix }}{{ image.id }}{{ imgurThumbnailSize }}{{ imgurThumbnailExtension }}">
         </a>
       </li>
     {%- endfor -%}
