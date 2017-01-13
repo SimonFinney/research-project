@@ -1,6 +1,6 @@
 // Images list
 
-$image-dimension: 240px;
+$image-dimension: 160px;
 $image-margin: 8px;
 
 .ul--images {
@@ -13,6 +13,7 @@ $image-margin: 8px;
   overflow: auto;
   list-style: none;
   flex-wrap: wrap;
+  align-content: flex-start;
   justify-content: center;
 }
 

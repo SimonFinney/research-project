@@ -4,7 +4,7 @@ const express = require('express');
 const imgur = require('./imgur');
 
 const database = require('./database');
-const manifest = require('../package.json');
+const name = require('../package.json').name;
 const util = require('./util');
 
 const router = express.Router();
@@ -17,8 +17,11 @@ router.get('/', (request, response) =>
     imgur.get('album/Glnla', album =>
       response.render('views/index.nunjucks', {
         images: album.data.images,
+        imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
+        imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
+        imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
         isDebug: util.isDebug(),
-        manifest,
+        name,
         variation,
       })
     );
