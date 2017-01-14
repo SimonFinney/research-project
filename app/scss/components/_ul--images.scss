@@ -84,5 +84,25 @@ $image-margin: 8px;
   height: 40px;
   text-indent: -9999px;
   cursor: pointer;
+  background-color: transparent;
   border: 0;
+
+  &::after,
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: $darkest;
+    content: '';
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
 }
