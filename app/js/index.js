@@ -14,6 +14,8 @@ let app;
 
 let dialog;
 
+let imageLinks;
+
 let selectedImageClosePreviewButton;
 let selectedImage;
 let selectedLink;
@@ -74,6 +76,7 @@ function closePreview() {
   on(selectedImage, 'transitionend', t);
 
   toggleFixedBody();
+  resetTabindex();
 }
 
 
@@ -119,6 +122,8 @@ function delegateImageToScale() {
 
   // Removes event listener when transition is finished
   off(selectedImage, 'transitionend', delegateImageToScale);
+
+  toggleFixedBody();
 
   on(window, 'resize', scaleImage);
 }
@@ -167,10 +172,18 @@ function toggleFixedBody() {
 }
 
 
+function resetTabindex() {
+  imageLinks.forEach(imageLink => imageLink.removeAttribute('tabindex'));
+}
+
+
+function preventFocus(selectedLink) {
+  imageLinks.forEach(imageLink => imageLink.setAttribute('tabindex', -1));
+}
+
+
 function setDetailedImage(event) {
   event.preventDefault();
-
-  toggleFixedBody();
 
   selectedLink = event.target;
 
@@ -183,6 +196,8 @@ function setDetailedImage(event) {
   const variation = parseInt(
     app.getAttribute('data-variation'), 10
   );
+
+  preventFocus(selectedLink);
 
   switch (variation) {
 
@@ -222,11 +237,12 @@ function init() {
 
   loadThumbnails(); // TODO: Debug
 
+  imageLinks = app.querySelectorAll('.img__a');
 
-  app.querySelectorAll('.img__a')
-    .forEach(imageLink =>
-      on(imageLink, 'click', setDetailedImage)
-    );
+
+  imageLinks.forEach(imageLink =>
+    on(imageLink, 'click', setDetailedImage)
+  );
 }
 
 

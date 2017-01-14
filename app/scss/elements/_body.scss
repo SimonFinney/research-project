@@ -7,17 +7,24 @@ $overlay-background-colour: rgba($darkest, .75);
   margin: 0;
   background-color: $lightest;
 
+  &::before {
+    @include ease-out;
+    @include z-index('body--fixed');
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $overlay-background-colour;
+    content: '';
+    opacity: 0;
+    visibility: hidden;
+  }
+
   &[data-fixed] {
     overflow-y: hidden;
 
     &::before {
-      @include z-index('body--fixed');
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background-color: $overlay-background-colour;
-      content: '';
-      transition: .3s;
+      opacity: 1;
+      visibility: visible;
     }
   }
 }
