@@ -7,5 +7,13 @@
 
   &[data-fixed] {
     overflow-y: hidden;
+
+    &::before {
+      @include z-index('body--fixed');
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      content: '';
+    }
   }
 }
