@@ -4,10 +4,18 @@
 let app;
 
 let dialog;
+
 let imageToScale;
 
+let selectedClosePreviewButton;
 let selectedImage;
 let selectedLink;
+
+
+function displayClosePreviewButton() {
+  selectedClosePreviewButton.setAttribute('data-active', '');
+  imageToScale.removeEventListener('transitionend', displayClosePreviewButton);
+}
 
 
 function scaleImage() {
@@ -22,6 +30,8 @@ function scaleImage() {
   imageToScale.style.transform = `
     scale(${(scaleTarget / imageToScale.clientWidth)}) translate(-50%, -50%)
   `;
+
+  imageToScale.addEventListener('transitionend', displayClosePreviewButton);
 }
 
 
@@ -85,10 +95,13 @@ function setDetailedImage(event) {
     selectedLink.removeAttribute('data-transition');
   }
 
+  app.setAttribute('data-fixed', '');
+
   selectedLink = event.target;
   selectedLink.removeEventListener('click', setDetailedImage);
 
   selectedImage = selectedLink.querySelector('.img');
+  selectedClosePreviewButton = selectedLink.querySelector('.img__button');
 
   // Parses the variation value as an integer
   const variation = parseInt(
