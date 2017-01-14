@@ -41,18 +41,21 @@ $image-margin: 8px;
     transition: .1s box-shadow;
   }
 
-  &:hover {
+  &:not([data-transition]) {
 
-    &::before {
-      box-shadow: inset 0 0 ($image-margin * 4) ($image-margin / 2) $darkest;
+    &:hover {
+
+      &::before {
+        box-shadow: inset 0 0 ($image-margin * 4) ($image-margin / 2) $darkest;
+      }
     }
-  }
 
-  &:focus {
-    outline: 0;
+    &:focus {
+      outline: 0;
 
-    &::before {
-      box-shadow: inset 0 0 0 $image-margin $primary;
+      &::before {
+        box-shadow: inset 0 0 0 $image-margin $primary;
+      }
     }
   }
 
