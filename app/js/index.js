@@ -14,9 +14,7 @@ let app;
 
 let dialog;
 
-let imageToScale;
-
-let selectedClosePreviewButton;
+let selectedImageClosePreviewButton;
 let selectedImage;
 let selectedLink;
 let selectedImagePosition;
@@ -54,42 +52,37 @@ function t(event) {
 
   if (event.propertyName === 'transform') {
 
-    console.log(event.propertyName);
-
-    selectedImage.setAttribute(
-      'src',
-      selectedImage.getAttribute('data-thumbnail')
-    );
+    setImage(selectedImage, 'thumbnail');
 
     on(selectedLink, 'click', setDetailedImage);
 
     selectedLinkPosition = selectedLink.getBoundingClientRect();
 
 
-    debounce(t2);
-    off(imageToScale, 'transitionend', t);
+    t2();
+    off(selectedImage, 'transitionend', t);
   }
 }
 
 
 function closePreview() {
-  off(selectedClosePreviewButton, 'click', closePreview);
-  selectedClosePreviewButton.removeAttribute('data-active');
+  off(selectedImageClosePreviewButton, 'click', closePreview);
+  selectedImageClosePreviewButton.removeAttribute('data-active');
 
 
-  removeStyle(imageToScale);
-  on(imageToScale, 'transitionend', t);
+  removeStyle(selectedImage);
+  on(selectedImage, 'transitionend', t);
 
-  app.removeAttribute('data-fixed');
+  toggleFixedBody();
 }
 
 
 function displayClosePreviewButton() {
-  off(imageToScale, 'transitionend', displayClosePreviewButton);
+  off(selectedImage, 'transitionend', displayClosePreviewButton);
 
-  selectedClosePreviewButton.setAttribute('data-active', '');
+  selectedImageClosePreviewButton.setAttribute('data-active', '');
 
-  on(selectedClosePreviewButton, 'click', closePreview);
+  on(selectedImageClosePreviewButton, 'click', closePreview);
 }
 
 
@@ -102,26 +95,30 @@ function scaleImage() {
     imageListWidth :
     imageListHeight);
 
-  imageToScale.style.transform = `
-    scale(${(scaleTarget / imageToScale.clientWidth)}) translate(-50%, -50%)
+  selectedImage.style.transform = `
+    scale(${(scaleTarget / selectedImage.clientWidth)}) translate(-50%, -50%)
   `;
 
-  on(imageToScale, 'transitionend', displayClosePreviewButton);
+  on(selectedImage, 'transitionend', displayClosePreviewButton);
 }
 
 
-function delegateImageToScale(event) {
-  imageToScale = event.target;
-
-  selectedImage.setAttribute(
+function setImage(image, dataAttribute) {
+  image.setAttribute(
     'src',
-    selectedImage.getAttribute('data-src')
+    image.getAttribute(`data-${dataAttribute}`)
   );
+}
+
+
+function delegateImageToScale() {
+
+  setImage(selectedImage, 'src');
 
   scaleImage();
 
   // Removes event listener when transition is finished
-  off(imageToScale, 'transitionend', delegateImageToScale);
+  off(selectedImage, 'transitionend', delegateImageToScale);
 
   on(window, 'resize', scaleImage);
 }
@@ -158,35 +155,29 @@ function loadThumbnails() {
 
   app.querySelectorAll('.img')
     .forEach(image =>
-      image.setAttribute(
-        'src',
-        image.getAttribute('data-thumbnail')
-      )
+      setImage(image, 'thumbnail')
     );
 }
 
 
-function resetSelectedImage() {
-  if (selectedImage && selectedLink) {
-    selectedLink.removeAttribute('data-transition');
-    removeStyle(selectedImage);
-  }
+function toggleFixedBody() {
+  app.hasAttribute('data-fixed') ?
+    app.removeAttribute('data-fixed') :
+    app.setAttribute('data-fixed', '');
 }
 
 
 function setDetailedImage(event) {
   event.preventDefault();
 
-  resetSelectedImage();
-
-  app.setAttribute('data-fixed', '');
+  toggleFixedBody();
 
   selectedLink = event.target;
 
   off(selectedLink, 'click', setDetailedImage);
 
   selectedImage = selectedLink.querySelector('.img');
-  selectedClosePreviewButton = selectedLink.querySelector('.img__button');
+  selectedImageClosePreviewButton = selectedLink.querySelector('.img__button');
 
   // Parses the variation value as an integer
   const variation = parseInt(

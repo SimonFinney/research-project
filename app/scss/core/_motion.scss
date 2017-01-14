@@ -1,0 +1,6 @@
+// Motion
+
+
+@mixin ease-out($duration: .3, $property: all) {
+  transition: #{$duration}s cubic-bezier(.1, .6, .15, 1) 0s $property;
+}
