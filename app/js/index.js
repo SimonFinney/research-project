@@ -86,6 +86,8 @@ function setDetailedImage(event) {
   }
 
   selectedLink = event.target;
+  selectedLink.removeEventListener('click', setDetailedImage);
+
   selectedImage = selectedLink.querySelector('.images__img');
 
   // Parses the variation value as an integer
