@@ -4,28 +4,29 @@ $image-dimension: 160px;
 $image-margin: 8px;
 
 .ul--images {
-  position: relative;
   display: flex;
   height: 100%;
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
-  overflow: auto;
   list-style: none;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
 }
 
-.images__li {
-  float: left;
+.images__img {
   width: $image-dimension;
   height: $image-dimension;
   margin-right: $image-margin;
   margin-bottom: $image-margin;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 }
 
-.images__a {
+.img__a {
   position: relative;
   display: inline-block;
   width: 100%;
@@ -56,21 +57,32 @@ $image-margin: 8px;
   }
 
   &[data-transition] {
-    position: initial;
 
-    .images__img {
-      @include z-index('images__img');
+    .img {
+      @include z-index('img');
       position: fixed;
       top: 50%;
       left: 50%;
       transform: scale(1) translate(-50%, -50%);
-      transition: .3s;
       transform-origin: top left;
+      transition: .3s;
     }
   }
 }
 
-.images__img {
+.img {
   width: inherit;
   height: inherit;
+}
+
+.img__button {
+  @include z-index('img__button');
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  text-indent: -9999px;
+  cursor: pointer;
+  border: 0;
 }

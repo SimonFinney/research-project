@@ -1,7 +1,8 @@
 // Layout
 
 $z-index-order: (
-  images__img
+  img__button,
+  img,
 );
 
 // Returns z-index order for the element passed in
