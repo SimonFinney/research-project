@@ -1,6 +1,15 @@
 // Main
 
+
 // TODO: Comments
+
+
+import {
+  debounce,
+  off,
+  on,
+} from './src/util';
+
 let app;
 
 let dialog;
@@ -10,11 +19,77 @@ let imageToScale;
 let selectedClosePreviewButton;
 let selectedImage;
 let selectedLink;
+let selectedImagePosition;
+
+let selectedLinkPosition;
+
+
+function removeStyle(element) {
+  element.removeAttribute('style');
+}
+
+
+function t3() {
+  selectedLink.removeAttribute('data-transition');
+
+  off(selectedImage, 'transitionend', t3);
+
+  removeStyle(selectedImage);
+  removeStyle(selectedLink);
+
+  off(window, 'resize', scaleImage);
+}
+
+
+function t2() {
+  selectedImage.style.transform = 'translate(0, 0)';
+  selectedImage.style.top = selectedLinkPosition.top + 'px';
+  selectedImage.style.left = selectedLinkPosition.left + 'px';
+
+  on(selectedImage, 'transitionend', t3);
+}
+
+
+function t(event) {
+
+  if (event.propertyName === 'transform') {
+
+    console.log(event.propertyName);
+
+    selectedImage.setAttribute(
+      'src',
+      selectedImage.getAttribute('data-thumbnail')
+    );
+
+    on(selectedLink, 'click', setDetailedImage);
+
+    selectedLinkPosition = selectedLink.getBoundingClientRect();
+
+
+    debounce(t2);
+    off(imageToScale, 'transitionend', t);
+  }
+}
+
+
+function closePreview() {
+  off(selectedClosePreviewButton, 'click', closePreview);
+  selectedClosePreviewButton.removeAttribute('data-active');
+
+
+  removeStyle(imageToScale);
+  on(imageToScale, 'transitionend', t);
+
+  app.removeAttribute('data-fixed');
+}
 
 
 function displayClosePreviewButton() {
+  off(imageToScale, 'transitionend', displayClosePreviewButton);
+
   selectedClosePreviewButton.setAttribute('data-active', '');
-  imageToScale.removeEventListener('transitionend', displayClosePreviewButton);
+
+  on(selectedClosePreviewButton, 'click', closePreview);
 }
 
 
@@ -31,7 +106,7 @@ function scaleImage() {
     scale(${(scaleTarget / imageToScale.clientWidth)}) translate(-50%, -50%)
   `;
 
-  imageToScale.addEventListener('transitionend', displayClosePreviewButton);
+  on(imageToScale, 'transitionend', displayClosePreviewButton);
 }
 
 
@@ -46,20 +121,20 @@ function delegateImageToScale(event) {
   scaleImage();
 
   // Removes event listener when transition is finished
-  imageToScale.removeEventListener('transitionend', delegateImageToScale);
+  off(imageToScale, 'transitionend', delegateImageToScale);
 
-  window.addEventListener('resize', scaleImage);
+  on(window, 'resize', scaleImage);
 }
 
 
 function handleTransition() {
   selectedLink.setAttribute('data-transition', '');
-  selectedImage.removeAttribute('style');
+  removeStyle(selectedImage);
 }
 
 
 function handleArcs() {
-  const selectedImagePosition = selectedImage.getBoundingClientRect();
+  selectedImagePosition = selectedImage.getBoundingClientRect();
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
@@ -68,14 +143,18 @@ function handleArcs() {
   selectedImage.style.left = `${selectedImagePosition.left}px`;
 
   // Scales the image once transition is complete
-  selectedImage.addEventListener('transitionend', delegateImageToScale);
+  on(selectedImage, 'transitionend', delegateImageToScale);
 
-  setTimeout(handleTransition, 0); // Debounces transition to the end of the call stack
+  debounce(handleTransition);
 }
 
 
 function loadThumbnails() {
-  dialog.removeEventListener('close', loadThumbnails);
+
+
+  // off(dialog, 'close', loadThumbnails); // TODO: Debug
+
+
 
   app.querySelectorAll('.img')
     .forEach(image =>
@@ -87,18 +166,24 @@ function loadThumbnails() {
 }
 
 
+function resetSelectedImage() {
+  if (selectedImage && selectedLink) {
+    selectedLink.removeAttribute('data-transition');
+    removeStyle(selectedImage);
+  }
+}
+
+
 function setDetailedImage(event) {
   event.preventDefault();
 
-  if (selectedImage && selectedLink) {
-    selectedImage.removeAttribute('style');
-    selectedLink.removeAttribute('data-transition');
-  }
+  resetSelectedImage();
 
   app.setAttribute('data-fixed', '');
 
   selectedLink = event.target;
-  selectedLink.removeEventListener('click', setDetailedImage);
+
+  off(selectedLink, 'click', setDetailedImage);
 
   selectedImage = selectedLink.querySelector('.img');
   selectedClosePreviewButton = selectedLink.querySelector('.img__button');
@@ -139,11 +224,17 @@ function init() {
   app = document.querySelector('[data-app]');
 
   dialog = app.querySelector('.dialog');
-  dialog.addEventListener('close', loadThumbnails);
+
+
+  // on(dialog, 'close', loadThumbnails); // TODO: Debug
+
+
+  loadThumbnails(); // TODO: Debug
+
 
   app.querySelectorAll('.img__a')
     .forEach(imageLink =>
-      imageLink.addEventListener('click', setDetailedImage)
+      on(imageLink, 'click', setDetailedImage)
     );
 }
 
@@ -154,4 +245,4 @@ function toggleDialog() {
   ]();
 }
 
-document.addEventListener('DOMContentLoaded', init);
+on(document, 'DOMContentLoaded', init);
