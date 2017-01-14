@@ -1,12 +1,30 @@
 // Layout
 
-$z-index-order: (
+$breakpoints: (
+  'large': 'only screen and (min-width: 768px)',
+);
+
+$z-index: (
   body--fixed,
   img,
   img__button,
 );
 
+
+// Returns breakpoints from the associated Sass map
+@mixin media-query($breakpoint-name) {
+
+  @if not map-has-key($breakpoints, $breakpoint-name) {
+    @error 'Unknown breakpoint "#{$breakpoint-name}"';
+  }
+
+  @media #{map-get($breakpoints, $breakpoint-name)} {
+    @content;
+  }
+}
+
+
 // Returns z-index order for the element passed in
 @mixin z-index($element) {
-  z-index: index($z-index-order, $element);
+  z-index: index($z-index, $element);
 }

@@ -3,6 +3,9 @@
 $image-dimension: 160px;
 $image-margin: 8px;
 
+$image-button-dimension: 40px;
+$large-image-button-dimension: 32px;
+
 .ul--images {
   display: flex;
   height: 100%;
@@ -80,12 +83,19 @@ $image-margin: 8px;
 
 .img__button {
   @include ease-out;
+
+  @include media-query('large') {
+    width: $large-image-button-dimension;
+    height: $large-image-button-dimension;
+  }
+
+
   @include z-index('img__button');
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
+  top: 8px;
+  right: 8px;
+  width: $image-button-dimension;
+  height: $image-button-dimension;
   text-indent: -9999px;
   cursor: pointer;
   background-color: transparent;
