@@ -67,7 +67,7 @@ function handleArcs() {
 function loadThumbnails() {
   dialog.removeEventListener('close', loadThumbnails);
 
-  app.querySelectorAll('.images__img')
+  app.querySelectorAll('.img')
     .forEach(image =>
       image.setAttribute(
         'src',
@@ -88,7 +88,7 @@ function setDetailedImage(event) {
   selectedLink = event.target;
   selectedLink.removeEventListener('click', setDetailedImage);
 
-  selectedImage = selectedLink.querySelector('.images__img');
+  selectedImage = selectedLink.querySelector('.img');
 
   // Parses the variation value as an integer
   const variation = parseInt(
@@ -128,7 +128,7 @@ function init() {
   dialog = app.querySelector('.dialog');
   dialog.addEventListener('close', loadThumbnails);
 
-  app.querySelectorAll('.images__a')
+  app.querySelectorAll('.img__a')
     .forEach(imageLink =>
       imageLink.addEventListener('click', setDetailedImage)
     );
