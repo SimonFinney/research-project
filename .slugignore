@@ -1,11 +1,9 @@
-# Hidden folders
-.*/
-
 # Input folders
 app
 gulp
 
 # Individual files and folders
+.github
 .editorconfig
 .eslintrc
 .gitattributes
