@@ -1,29 +1,29 @@
 <dialog class="dialog" open>
-  <h1>Informed Consent Form for In-Person Research Study Participants</h1>
-  <h2>Purpose of this study</h2>
+  <h1 class="h1">Informed Consent Form for In-Person Research Study Participants</h1>
+  <h2 class="h2">Purpose of this study</h2>
   <p>
     The purpose of this study is to understand your goals and experiences as they relate to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help us in creating better experiences for you and other people like you.
   </p>
-  <h2>Information we will collect</h2>
+  <h2 class="h2">Information we will collect</h2>
   <p>
     Following the experiment, you will be asked about your experiences completing the task.
   </p>
   <p>
     The information from this experiment will be used, to inform the design of further UIs.
   </p>
-  <h2>Permissions</h2>
+  <h2 class="h2">Permissions</h2>
   <p>
     Following the experiment, we will collect anonymous data based on your response to the UI. By signing this consent form, you are giving permission to use the data you provide for the purposes of illuminating, demonstrating, and evaluating research findings. In no way will your data shared publicly in any way.
   </p>
-  <h2>Non-disclosure</h2>
+  <h2 class="h2">Non-disclosure</h2>
   <p>
     By signing this form, you agree not to tell anyone about this experiment or provide information about those ideas to anyone outside of this study. What you can say is that you’re participating in a study for us.
   </p>
-  <h2>Freedom to withdraw</h2>
+  <h2 class="h2">Freedom to withdraw</h2>
   <p>
     You are free to refuse to participate, take a break, or withdraw from this study at any time. Please let us know if and when you need a break.
   </p>
-  <h2>Questions</h2>
+  <h2 class="h2">Questions</h2>
   <p>
     If you have questions, please ask them now, during, or following the study.
   </p>
