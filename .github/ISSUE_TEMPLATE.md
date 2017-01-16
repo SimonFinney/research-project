@@ -1,5 +1,5 @@
 ## Overview
-{{ Description }}
+{{ description }}
 
 ```gherkin
 Feature: {{ feature }}
@@ -14,15 +14,15 @@ Feature: {{ feature }}
 ```
 
 ## Other
-{{ Other notes that do not fit within `Feature` or `Scenario` }}
+{{ other notes that do not fit within `Feature` or `Scenario` }}
 
 ## Defect scenario
 
 ### Expected behaviour
-{{ Description of expected behaviour }}
+{{ description of expected behaviour }}
 
 ### Actual behaviour
-{{ Description of actual behaviour }}
+{{ description of actual behaviour }}
 
 ### Reproduction steps
 1.
