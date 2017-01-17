@@ -9,11 +9,9 @@ $dialog-backdrop-color: rgba($darkest, 1);
   border: 0;
   transform: translateY(50%);
   box-sizing: border-box;
-  transition: .1s;
 
   &::backdrop {
     background-color: $dialog-backdrop-color;
-    transition: .1s;
   }
 
   &[open] {

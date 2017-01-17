@@ -41,10 +41,9 @@ $large-image-button-dimension: 32px;
     width: inherit;
     height: inherit;
     content: '';
-    transition: .1s box-shadow;
   }
 
-  &:not([data-transition]) {
+  &:not([data-active]) {
 
     &:hover {
 
@@ -62,10 +61,9 @@ $large-image-button-dimension: 32px;
     }
   }
 
-  &[data-transition] {
+  &[data-active] {
 
     .img {
-      @include ease-out;
       @include z-index('img');
       position: fixed;
       top: 50%;
@@ -73,31 +71,26 @@ $large-image-button-dimension: 32px;
       transform: scale(1) translate(-50%, -50%);
       transform-origin: top left;
     }
+
+    .img__button {
+      position: fixed;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
 .img {
   width: inherit;
   height: inherit;
-
-  &[data-fixed] {
-    @include z-index('img');
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: scale(1) translate(-50%, -50%);
-    transform-origin: top left;
-  }
 }
 
 .img__button {
-  @include ease-out;
 
   @include media-query('large') {
     width: $large-image-button-dimension;
     height: $large-image-button-dimension;
   }
-
 
   @include z-index('img__button');
   position: absolute;
@@ -129,11 +122,5 @@ $large-image-button-dimension: 32px;
 
   &::before {
     transform: rotate(45deg);
-  }
-
-  &[data-active] {
-    position: fixed;
-    opacity: 1;
-    visibility: visible;
   }
 }

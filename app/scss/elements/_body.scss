@@ -8,11 +8,7 @@ $overlay-background-colour: rgba($darkest, .75);
   background-color: $lightest;
 
   &::before {
-    @include animation-variation {
-      @include ease-out;
-    }
-
-    @include z-index('body--fixed');
+    @include z-index('body--active');
     position: fixed;
     width: 100%;
     height: 100%;
@@ -22,7 +18,7 @@ $overlay-background-colour: rgba($darkest, .75);
     visibility: hidden;
   }
 
-  &[data-fixed] {
+  &[data-active] {
     overflow-y: hidden;
 
     &::before {
