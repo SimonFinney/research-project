@@ -135,7 +135,12 @@ function handleTransition() {
 }
 
 
-function handleArcs() {
+function handleControlVariation() {
+  console.log('handleVariation');
+}
+
+
+function handleArcsVariation() {
   selectedImagePosition = selectedImage.getBoundingClientRect();
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
@@ -148,6 +153,16 @@ function handleArcs() {
   on(selectedImage, 'transitionend', delegateImageToScale);
 
   debounce(handleTransition);
+}
+
+
+function handleSecondaryActionVariation() {
+  console.log('handleSecondaryActionVariation');
+}
+
+
+function handleSquashAndStretchVariation() {
+  console.log('handleVariation');
 }
 
 
@@ -192,37 +207,25 @@ function setDetailedImage(event) {
   selectedImage = selectedLink.querySelector('.img');
   selectedImageClosePreviewButton = selectedLink.querySelector('.img__button');
 
+
   // Parses the variation value as an integer
-  const variation = parseInt(
+  /* const variation = parseInt(
     app.getAttribute('data-variation'), 10
-  );
+  ); */
+
+
+  const variation = 0; // Debug
 
   preventFocus(selectedLink);
 
-  switch (variation) {
+  const variations = {
+    0: handleControlVariation,
+    1: handleArcsVariation,
+    2: handleSecondaryActionVariation,
+    3: handleSquashAndStretchVariation,
+  };
 
-    case 0:
-
-      handleArcs();
-
-      break;
-
-    case 1:
-
-      break;
-
-    case 2:
-
-      break;
-
-    case 3:
-
-      break;
-
-    default:
-
-      break;
-  }
+  variations[variation]();
 }
 
 
