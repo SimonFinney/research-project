@@ -1,5 +1,13 @@
 // Motion
 
+@mixin animation-variation {
+  .html {
+
+    &:not([data-variation='0']) & {
+      @content;
+    }
+  }
+}
 
 @mixin ease-out($duration: .3, $property: all) {
   transition: #{$duration}s cubic-bezier(.1, .6, .15, 1) 0s $property;

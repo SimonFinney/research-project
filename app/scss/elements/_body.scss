@@ -8,7 +8,10 @@ $overlay-background-colour: rgba($darkest, .75);
   background-color: $lightest;
 
   &::before {
-    @include ease-out;
+    @include animation-variation {
+      @include ease-out;
+    }
+
     @include z-index('body--fixed');
     position: fixed;
     width: 100%;
