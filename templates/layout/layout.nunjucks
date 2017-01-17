@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="html no-js" lang="en" data-variation="1" {%- if isDebug %} data-debug {%- endif -%}>
+<html class="html no-js" lang="en" data-variation="{{ variation }}" {%- if isDebug %} data-debug {%- endif -%}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
