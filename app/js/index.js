@@ -23,6 +23,8 @@ let selectedImagePosition;
 
 let selectedLinkPosition;
 
+let variation;
+
 
 function removeStyle(element) {
   element.removeAttribute('style');
@@ -56,9 +58,8 @@ function t(event) {
 
     setImage(selectedImage, 'thumbnail');
 
-    on(selectedLink, 'click', setDetailedImage);
-
     selectedLinkPosition = selectedLink.getBoundingClientRect();
+    on(selectedLink, 'click', setDetailedImage);
 
 
     t2();
@@ -68,8 +69,13 @@ function t(event) {
 
 
 function closePreview() {
-  off(selectedImageClosePreviewButton, 'click', closePreview);
-  selectedImageClosePreviewButton.removeAttribute('data-active');
+  toggleClosePreviewButton();
+  selectedImage.removeAttribute('data-fixed');
+
+  if (variation === 0) {
+
+    on(selectedLink, 'click', setDetailedImage);
+  }
 
 
   removeStyle(selectedImage);
@@ -80,12 +86,9 @@ function closePreview() {
 }
 
 
-function displayClosePreviewButton() {
-  off(selectedImage, 'transitionend', displayClosePreviewButton);
-
-  selectedImageClosePreviewButton.setAttribute('data-active', '');
-
-  on(selectedImageClosePreviewButton, 'click', closePreview);
+function togglePreview() {
+  off(selectedImage, 'transitionend', togglePreview);
+  toggleClosePreviewButton();
 }
 
 
@@ -102,7 +105,7 @@ function scaleImage() {
     scale(${(scaleTarget / selectedImage.clientWidth)}) translate(-50%, -50%)
   `;
 
-  on(selectedImage, 'transitionend', displayClosePreviewButton);
+  on(selectedImage, 'transitionend', togglePreview);
 }
 
 
@@ -136,15 +139,36 @@ function handleTransition() {
 
 
 function handleControlVariation() {
-  console.log('handleVariation');
+  fixLinkDimensions();
+  selectedImage.setAttribute('data-fixed', '');
+  scaleImage();
+  setImage(selectedImage, 'src');
+  toggleFixedBody();
+  togglePreview();
+}
+
+
+function toggleClosePreviewButton() {
+  const isPreviewToggled = selectedImageClosePreviewButton.hasAttribute('data-active');
+  isPreviewToggled ?
+    selectedImageClosePreviewButton.removeAttribute('data-active') :
+    selectedImageClosePreviewButton.setAttribute('data-active', '');
+
+  (isPreviewToggled ? off : on)
+    (selectedImageClosePreviewButton, 'click', closePreview);
+}
+
+
+function fixLinkDimensions() {
+  selectedLink.style.width = `${selectedImage.clientWidth}px`;
+  selectedLink.style.height = `${selectedImage.clientHeight}px`;
 }
 
 
 function handleArcsVariation() {
   selectedImagePosition = selectedImage.getBoundingClientRect();
 
-  selectedLink.style.width = `${selectedImage.clientWidth}px`;
-  selectedLink.style.height = `${selectedImage.clientHeight}px`;
+  fixLinkDimensions();
 
   selectedImage.style.top = `${selectedImagePosition.top}px`;
   selectedImage.style.left = `${selectedImagePosition.left}px`;
@@ -210,11 +234,12 @@ function setDetailedImage(event) {
 
   // Parses the variation value as an integer
   /* const variation = parseInt(
-    app.getAttribute('data-variation'), 10
+    document.querySelector('.html')
+      .getAttribute('data-variation'), 10
   ); */
 
 
-  const variation = 0; // Debug
+  variation = 1; // Debug
 
   preventFocus(selectedLink);
 

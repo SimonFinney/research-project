@@ -79,6 +79,15 @@ $large-image-button-dimension: 32px;
 .img {
   width: inherit;
   height: inherit;
+
+  &[data-fixed] {
+    @include z-index('img');
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: scale(1) translate(-50%, -50%);
+    transform-origin: top left;
+  }
 }
 
 .img__button {

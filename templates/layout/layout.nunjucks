@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html class="html no-js" lang="en" {%- if isDebug %} data-debug {%- endif -%}>
+<html class="html no-js" lang="en" data-variation="1" {%- if isDebug %} data-debug {%- endif -%}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <title>{{ name }}</title>
     <link rel="stylesheet" href="/css/main.css">
   </head>
-  <body class="body" data-app data-variation="{{ variation }}">
+  <body class="body" data-app>
     <main class="main">
 
       {%- block content -%}
