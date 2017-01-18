@@ -38,6 +38,8 @@ router.get('/data', (request, response) =>
 
 router.post('/submit', (request, response) => {
   const data = request.body;
+
+  data.id = util.getId(request);
   data.datetime = util.getDatetime(); // Adds a timestamp to the data being saved
 
   database.create(data, postResponse =>

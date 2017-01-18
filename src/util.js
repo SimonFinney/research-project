@@ -22,6 +22,11 @@ function getDatetime() {
 }
 
 
+function getId(request) {
+  return (request.headers['x-forwarded-for'] || request.connection.remoteAddress);
+}
+
+
 function isDebug() {
   return (server.get('env') === 'development');
 }
@@ -31,5 +36,6 @@ module.exports = {
   delegateVariation,
   getConfiguration,
   getDatetime,
+  getId,
   isDebug,
 };
