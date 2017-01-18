@@ -25,8 +25,33 @@ function on(element, eventType, func) {
 }
 
 
+function once(element, eventType, functionToCall) {
+  const eventListenerFunction = (event) => {
+    off(element, eventType, eventListenerFunction);
+    functionToCall(event);
+  };
+
+  on(element, eventType, eventListenerFunction);
+}
+
+
+function removeStyle(element) {
+  element.removeAttribute('style');
+}
+
+
+function toggleElement(element) {
+  element.hasAttribute('data-active') ?
+    element.removeAttribute('data-active') :
+    element.setAttribute('data-active', '');
+}
+
+
 export {
   debounce,
   off,
   on,
+  once,
+  removeStyle,
+  toggleElement,
 };
