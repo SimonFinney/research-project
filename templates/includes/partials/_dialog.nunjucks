@@ -1,27 +1,24 @@
-<dialog class="dialog" open>
-  <h1 class="h1">Informed Consent Form for In-Person Research Study Participants</h1>
+<div class="dialog" open>
+  <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
   <h2 class="h2">Purpose of this study</h2>
   <p>
-    The purpose of this study is to understand your goals and experiences as they relate to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help us in creating better experiences for you and other people like you.
+    The purpose of this study is to understand your goals and experiences as they relate to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help in creating better experiences for you and other people like you.
   </p>
-  <h2 class="h2">Information we will collect</h2>
+  <h2 class="h2">Information collected</h2>
   <p>
-    Following the experiment, you will be asked about your experiences completing the task.
-  </p>
-  <p>
-    The information from this experiment will be used, to inform the design of further UIs.
+    Following the experiment, you will be asked about your experiences completing the task. The information from this experiment will be used to inform the design of further UIs.
   </p>
   <h2 class="h2">Permissions</h2>
   <p>
-    Following the experiment, we will collect anonymous data based on your response to the UI. By signing this consent form, you are giving permission to use the data you provide for the purposes of illuminating, demonstrating, and evaluating research findings. In no way will your data shared publicly in any way.
+    Anonymous data will be collected based on your response to the UI. By signing this consent form, you are giving permission to use the data you provide for the purposes of illuminating, demonstrating, and evaluating research findings. In no way will your data shared publicly in any way.
   </p>
   <h2 class="h2">Non-disclosure</h2>
   <p>
-    By signing this form, you agree not to tell anyone about this experiment or provide information about those ideas to anyone outside of this study. What you can say is that you’re participating in a study for us.
+    By signing this form, you agree not to tell anyone about this experiment or provide information about those ideas to anyone outside of this study. What you can say is that you’re participating in a study.
   </p>
   <h2 class="h2">Freedom to withdraw</h2>
   <p>
-    You are free to refuse to participate, take a break, or withdraw from this study at any time. Please let us know if and when you need a break.
+    You are free to refuse to participate, take a break, or withdraw from this study at any time. Please announce if and when you need a break.
   </p>
   <h2 class="h2">Questions</h2>
   <p>
@@ -30,10 +27,12 @@
   <p>
     After reading this form, if you agree with these terms, please show your acceptance by selecting the checkbox below.
   </p>
-  <form method="dialog">
-    <input id="checkbox" class="dialog__checkbox" type="checkbox">
-    <label class="dialog__label" for="checkbox">I accept</label>
-    <button class="dialog__button" type="reset">Reset</button>
-    <button class="dialog__button" type="submit">Submit</button>
+  <form class="dialog__form">
+    <fieldset class="dialog__fieldset">
+      <input id="checkbox" class="dialog__checkbox" type="checkbox" required>
+      <label class="dialog__label" for="checkbox">I accept</label>
+    </fieldset>
+
+    <button class="dialog__button" type="submit" disabled>Continue</button>
   </form>
-</dialog>
+</div>

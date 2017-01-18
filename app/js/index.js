@@ -8,10 +8,12 @@ import {
   debounce,
   off,
   on,
+  once,
+  removeStyle,
+  toggleElement,
 } from './src/util';
 
 let app;
-
 let dialog;
 
 let imageLinks;
@@ -21,17 +23,16 @@ let selectedLink;
 
 let variation;
 
-
-function removeStyle(element) {
-  element.removeAttribute('style');
-}
+const variationFunctions = {
+  0: handleControlVariation,
+  1: handleArcsVariation,
+  2: handleSecondaryActionVariation,
+  3: handleSquashAndStretchVariation,
+};
 
 
 function t3() {
   toggleElement(selectedLink);
-
-  off(selectedImage, 'transitionend', t3);
-
   removeStyle(selectedImage);
   removeStyle(selectedLink);
 }
@@ -40,19 +41,20 @@ function t3() {
 function t2() {
   const selectedLinkPosition = selectedLink.getBoundingClientRect();
   selectedImage.style.transform = 'translate(0, 0)';
-  selectedImage.style.top = `${selectedLinkPosition.top}px`;
-  selectedImage.style.left = `${selectedLinkPosition.left}px`;
 
-  on(selectedImage, 'transitionend', t3);
+  setSelectedImagePosition(
+    selectedLinkPosition.top,
+    selectedLinkPosition.left
+  );
+
+  once(selectedImage, 'transitionend', t3);
 }
 
 
 function t(event) {
 
   if (event.propertyName === 'transform') {
-    on(selectedLink, 'click', setDetailedImage);
-
-
+    once(selectedLink, 'click', setDetailedImage);
     t2();
     off(selectedImage, 'transitionend', t);
   }
@@ -100,24 +102,14 @@ function setImage(image, src) {
 }
 
 
-function handleTransition() {
-  removeStyle(selectedImage);
-}
-
-
 function delegateImageToScale() {
   scaleImage(
-    on(selectedImage, 'transitionend', togglePreview)
+    once(selectedImage, 'transitionend', togglePreview)
   );
-
-  // Removes event listener when transition is finished
-  off(selectedImage, 'transitionend', delegateImageToScale);
 }
 
 
 function togglePreview() {
-  off(selectedImage, 'transitionend', togglePreview);
-
   const src =
     (selectedImage.getAttribute('src') === selectedImage.getAttribute('data-src')) ?
     selectedImage.getAttribute('data-thumbnail') :
@@ -128,30 +120,34 @@ function togglePreview() {
 }
 
 
-function toggleElement(element) {
-  element.hasAttribute('data-active') ?
-    element.removeAttribute('data-active') :
-    element.setAttribute('data-active', '');
-}
-
-
 function handleControlVariation() {
   toggleElement(selectedLink);
   scaleImage();
   togglePreview();
 }
 
+
+function setSelectedImagePosition(top, left) {
+  selectedImage.style.top = `${top}px`;
+  selectedImage.style.left = `${left}px`;
+}
+
+
 function handleArcsVariation() {
   const selectedImagePosition = selectedImage.getBoundingClientRect();
   toggleElement(selectedLink);
 
-  selectedImage.style.top = `${selectedImagePosition.top}px`;
-  selectedImage.style.left = `${selectedImagePosition.left}px`;
+  setSelectedImagePosition(
+    selectedImagePosition.top,
+    selectedImagePosition.left
+  );
 
   // Scales the image once transition is complete
-  on(selectedImage, 'transitionend', delegateImageToScale);
+  once(selectedImage, 'transitionend', delegateImageToScale);
 
-  debounce(handleTransition);
+  debounce(() =>
+    removeStyle(selectedImage)
+  );
 }
 
 
@@ -200,9 +196,18 @@ function setDetailedImage(event) {
   event.preventDefault();
   selectedLink = event.target;
 
-  off(selectedLink, 'click', setDetailedImage);
-
   setSelectedItems(selectedLink);
+  preventFocus(selectedLink);
+
+  selectedLink.style.width = `${selectedImage.clientWidth}px`;
+  selectedLink.style.height = `${selectedImage.clientHeight}px`;
+
+  variationFunctions[variation]();
+}
+
+
+function init() {
+  app = document.querySelector('[data-app]');
 
 
   // Parses the variation value as an integer
@@ -210,24 +215,7 @@ function setDetailedImage(event) {
     app.getAttribute('data-variation'), 10
   );
 
-  preventFocus(selectedLink);
 
-  selectedLink.style.width = `${selectedImage.clientWidth}px`;
-  selectedLink.style.height = `${selectedImage.clientHeight}px`;
-
-  const variations = {
-    0: handleControlVariation,
-    1: handleArcsVariation,
-    2: handleSecondaryActionVariation,
-    3: handleSquashAndStretchVariation,
-  };
-
-  variations[variation]();
-}
-
-
-function init() {
-  app = document.querySelector('[data-app]');
   dialog = app.querySelector('.dialog');
 
 
@@ -239,7 +227,7 @@ function init() {
   imageLinks = app.querySelectorAll('.img__a');
 
   imageLinks.forEach(imageLink =>
-    on(imageLink, 'click', setDetailedImage)
+    once(imageLink, 'click', setDetailedImage)
   );
 
   document.querySelectorAll('.img__button')

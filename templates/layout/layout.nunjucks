@@ -6,7 +6,7 @@
     <title>{{ name }}</title>
     <link rel="stylesheet" href="/css/main.css">
   </head>
-  <body class="body" data-app data-variation="{{ variation }}">
+  <body class="body" data-active data-app data-variation="{{ variation }}">
     <main class="main">
 
       {%- block content -%}
