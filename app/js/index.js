@@ -233,6 +233,14 @@ function init() {
   document.querySelectorAll('.img__button')
     .forEach(closeImagePreviewButton => on(closeImagePreviewButton, 'click', closePreview)
   );
+
+
+  const form = document.querySelector('.dialog__form');
+
+  form.addEventListener('change', () => {
+    form.querySelector('.dialog__button').disabled = !event.target
+      .checked;
+  });
 }
 
 
