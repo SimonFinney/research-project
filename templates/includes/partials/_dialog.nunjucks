@@ -42,7 +42,7 @@
 
   <section class="dialog__section" hidden data-id="1">
     <button class="dialog__button--icon">Close</button>
-    <h1 class="h1">Task</h1>
+    <h2 class="h2">Task</h2>
     <p>
       Preview all images with a
       <strong>
@@ -52,6 +52,6 @@
   </section>
 
   <section class="dialog__section" hidden data-id="2">
-    <h1 class="h1">Goodbye World!</h1>
+    <h2 class="h2">Hello World!</h2>
   </section>
 </div>
