@@ -16,7 +16,7 @@ router.get('/', (request, response) =>
 
     imgur.get('album/Glnla', album =>
       response.render('views/index.nunjucks', {
-        images: album.data.images,
+        images: util.shuffle(album.data.images),
         imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
         imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
         imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
