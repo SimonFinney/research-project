@@ -13,8 +13,8 @@ import {
 
 import {
   dialog,
+  setDialogContent,
   toggleDialog,
-  toggleDialogContent,
 } from './src/components/dialog';
 
 import {
@@ -75,7 +75,7 @@ function check(selectedLink) {
   checkCriteria(selectedLink);
 
   if (hasMetCriteria()) {
-    toggleDialogContent(2);
+    setDialogContent(2);
     toggleDialog();
   }
 }
@@ -240,7 +240,7 @@ function init() {
 
   once(dialog, 'submit', event => {
     event.preventDefault();
-    toggleDialogContent(1);
+    setDialogContent(1);
     loadThumbnails();
   });
 }

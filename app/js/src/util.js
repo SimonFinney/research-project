@@ -54,16 +54,16 @@ function resetTabindex(elements) {
 }
 
 
+function toggle(elementToToggle) {
+  const element = elementToToggle;
+  element.hidden = !element.hidden;
+}
+
+
 function toggleElement(element) {
   element.hasAttribute('data-active') ?
     element.removeAttribute('data-active') :
     element.setAttribute('data-active', '');
-}
-
-
-function toggleHidden(elementToToggle) {
-  const element = elementToToggle;
-  element.hidden = !element.hidden;
 }
 
 
@@ -75,6 +75,6 @@ export {
   removeStyle,
   removeTabindex,
   resetTabindex,
+  toggle,
   toggleElement,
-  toggleHidden,
 };

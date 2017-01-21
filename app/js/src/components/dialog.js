@@ -5,8 +5,8 @@ import { app } from './app.js';
 
 import {
   on,
+  toggle,
   toggleElement,
-  toggleHidden,
 } from '../util.js';
 
 const dialog = document.querySelector('.dialog');
@@ -14,7 +14,7 @@ let activeSection = dialog.querySelector('.dialog__section:not([hidden])');
 
 
 function toggleDialog() {
-  toggleHidden(dialog);
+  toggle(dialog);
   toggleElement(app);
 }
 
@@ -28,10 +28,10 @@ function init() {
 }
 
 
-function toggleDialogContent(id) {
-  toggleHidden(activeSection);
+function setDialogContent(id) {
+  toggle(activeSection);
   activeSection = dialog.querySelector(`[data-id="${id}"]`);
-  toggleHidden(activeSection);
+  toggle(activeSection);
 }
 
 
@@ -39,6 +39,6 @@ init();
 
 export {
   dialog,
+  setDialogContent,
   toggleDialog,
-  toggleDialogContent,
 };
