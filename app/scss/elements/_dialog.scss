@@ -1,10 +1,14 @@
 // Dialog
 
-$dialog-checkbox-dimensions: 16px;
-$dialog-checkbox-arrow-dimensions: ($dialog-checkbox-dimensions / 4);
+$dialog-padding-top: 24px;
+
 $dialog-form-min-height: 88px;
 
-@mixin dialog__checkbox--checked {
+$dialog-checkbox-dimensions: 16px;
+$dialog-checkbox-position: ($dialog-checkbox-dimensions / 2);
+$dialog-checkbox-arrow-dimensions: ($dialog-checkbox-dimensions / 4);
+
+%dialog__checkbox--checked {
 
   &:checked {
 
@@ -31,30 +35,26 @@ $dialog-form-min-height: 88px;
 .dialog {
   @include z-index('dialog');
   position: fixed;
-  top: 0;
+  top: 50%;
   left: 50%;
   width: 90%;
-  height: 90%;
   max-width: 640px;
-  padding-top: 24px;
-  padding-bottom: 24px;
-  margin-top: 24px;
+  max-height: 90%;
+  padding: $dialog-padding-top 32px;
   background-color: $lightest;
-  border: 0;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   box-sizing: border-box;
 }
 
-.dialog__container,
-.dialog__form {
-  margin-right: 32px;
-  margin-left: 32px;
+.dialog__section {
+  height: 100%;
+  overflow-y: hidden;
 }
 
 .dialog__container {
-  height: 100%;
-  padding-bottom: $dialog-form-min-height;
+  height: 640px;
   overflow-y: scroll;
+  border-top: 1px solid $medium;
   box-sizing: border-box;
 }
 
@@ -65,9 +65,12 @@ $dialog-form-min-height: 88px;
   left: 0;
   display: flex;
   min-height: $dialog-form-min-height;
-  padding-top: inherit;
-  padding-bottom: inherit;
-  background-color: inherit;
+  padding-top: $dialog-padding-top;
+  padding-bottom: $dialog-padding-top;
+  margin-right: 32px;
+  margin-left: 32px;
+  background-color: $lightest;
+  border-top: 1px solid $medium;
   box-sizing: border-box;
 }
 
@@ -75,12 +78,15 @@ $dialog-form-min-height: 88px;
   position: relative;
   padding-right: 0;
   padding-left: 0;
+  margin-left: auto;
   border: 0;
 }
 
 .dialog__checkbox {
-  @include dialog__checkbox--checked;
-  visibility: hidden;
+  @extend %dialog__checkbox--checked;
+  position: relative;
+  top: -9999px;
+  left: -9999px;
 }
 
 .dialog__label {
@@ -88,11 +94,11 @@ $dialog-form-min-height: 88px;
   &::before,
   &::after {
     position: absolute;
+    top: 50%;
     content: '';
   }
 
   &::before {
-    top: 50%;
     left: 0;
     width: $dialog-checkbox-dimensions;
     height: $dialog-checkbox-dimensions;
@@ -101,20 +107,19 @@ $dialog-form-min-height: 88px;
   }
 
   &::after {
-    top: 0;
-    left: ($dialog-checkbox-dimensions / 8);
-    width: ($dialog-checkbox-dimensions / 2);
+    left: $dialog-checkbox-position;
+    width: $dialog-checkbox-position;
     height: $dialog-checkbox-arrow-dimensions;
     border-bottom: $dialog-checkbox-arrow-dimensions solid transparent;
     border-left: $dialog-checkbox-arrow-dimensions solid transparent;
-    transform: rotate(-45deg) translate(-75%, 125%);
+    transform: rotate(-45deg) translateY(-100%);
   }
 }
 
 .dialog__button {
   @include font-size(16);
   padding: 8px 16px;
-  margin-left: auto;
+  margin-left: 16px;
   font-family: $font-family;
   color: $lightest;
   cursor: not-allowed;
@@ -123,5 +128,14 @@ $dialog-form-min-height: 88px;
   &:not(:disabled) {
     cursor: pointer;
     background-color: $primary;
+  }
+}
+
+.dialog__button--icon {
+  @extend %button--icon;
+
+  &::after,
+  &::before {
+    background-color: $darkest;
   }
 }

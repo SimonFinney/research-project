@@ -3,6 +3,19 @@
 
 // TODO: Comments
 
+// Imports
+import {
+  app,
+  checkCriteria,
+  getVariation,
+  hasMetCriteria,
+} from './src/components/app.js';
+
+import {
+  dialog,
+  toggleDialog,
+  toggleDialogContent,
+} from './src/components/dialog';
 
 import {
   debounce,
@@ -10,18 +23,15 @@ import {
   on,
   once,
   removeStyle,
+  removeTabindex,
+  resetTabindex,
   toggleElement,
 } from './src/util';
-
-let app;
-let dialog;
 
 let imageLinks;
 
 let selectedImage;
 let selectedLink;
-
-let variation;
 
 const variationFunctions = {
   0: handleControlVariation,
@@ -61,9 +71,19 @@ function t(event) {
 }
 
 
+function check(selectedLink) {
+  checkCriteria(selectedLink);
+
+  if (hasMetCriteria()) {
+    toggleDialogContent(2);
+    toggleDialog();
+  }
+}
+
+
 function closePreview() {
 
-  if (variation === 0) {
+  if (getVariation() === 0) {
     toggleElement(selectedLink);
 
     on(selectedLink, 'click', setDetailedImage);
@@ -177,16 +197,6 @@ function loadThumbnails() {
 }
 
 
-function resetTabindex() {
-  imageLinks.forEach(imageLink => imageLink.removeAttribute('tabindex'));
-}
-
-
-function preventFocus(selectedLink) {
-  imageLinks.forEach(imageLink => imageLink.setAttribute('tabindex', -1));
-}
-
-
 function setSelectedItems(selectedLink) {
   selectedImage = selectedLink.querySelector('.img');
 }
@@ -197,32 +207,18 @@ function setDetailedImage(event) {
   selectedLink = event.target;
 
   setSelectedItems(selectedLink);
-  preventFocus(selectedLink);
+  removeTabindex(imageLinks);
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
 
-  variationFunctions[variation]();
+  check(selectedLink);
+
+  variationFunctions[getVariation()]();
 }
 
 
 function init() {
-  app = document.querySelector('[data-app]');
-
-
-  // Parses the variation value as an integer
-  variation = parseInt(
-    app.getAttribute('data-variation'), 10
-  );
-
-
-  dialog = app.querySelector('.dialog');
-
-
-  // on(dialog, 'close', loadThumbnails); // TODO: Debug
-
-
-  loadThumbnails(); // TODO: Debug
 
   imageLinks = app.querySelectorAll('.img__a');
 
@@ -241,13 +237,14 @@ function init() {
     form.querySelector('.dialog__button').disabled = !event.target
       .checked;
   });
-}
 
-
-function toggleDialog() {
-  dialog[
-    (dialog.open ? 'close' : 'show')
-  ]();
+  once(dialog, 'submit', event => {
+    event.preventDefault();
+    toggleDialogContent(1);
+    loadThumbnails();
+  });
 }
 
 on(document, 'DOMContentLoaded', init);
+
+export { app };

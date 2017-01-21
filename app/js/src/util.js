@@ -35,8 +35,22 @@ function once(element, eventType, functionToCall) {
 }
 
 
+function removeTabindex(elements) {
+  elements.forEach(element =>
+    element.setAttribute('tabindex', -1)
+  );
+}
+
+
 function removeStyle(element) {
   element.removeAttribute('style');
+}
+
+
+function resetTabindex(elements) {
+  elements.forEach(element =>
+    element.removeAttribute('tabindex')
+  );
 }
 
 
@@ -47,11 +61,20 @@ function toggleElement(element) {
 }
 
 
+function toggleHidden(elementToToggle) {
+  const element = elementToToggle;
+  element.hidden = !element.hidden;
+}
+
+
 export {
   debounce,
   off,
   on,
   once,
   removeStyle,
+  removeTabindex,
+  resetTabindex,
   toggleElement,
+  toggleHidden,
 };

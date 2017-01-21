@@ -3,9 +3,6 @@
 $image-dimension: 160px;
 $image-margin: 8px;
 
-$image-button-dimension: 40px;
-$large-image-button-dimension: 32px;
-
 .ul--images {
   display: flex;
   height: 100%;
@@ -86,41 +83,12 @@ $large-image-button-dimension: 32px;
 }
 
 .img__button {
-
-  @include media-query('large') {
-    width: $large-image-button-dimension;
-    height: $large-image-button-dimension;
-  }
-
-  @include z-index('img__button');
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: $image-button-dimension;
-  height: $image-button-dimension;
-  text-indent: -9999px;
-  cursor: pointer;
-  background-color: transparent;
-  border: 0;
+  @extend %button--icon;
   opacity: 0;
   visibility: hidden;
 
   &::after,
   &::before {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
     background-color: $lightest;
-    content: '';
-  }
-
-  &::after {
-    transform: rotate(-45deg);
-  }
-
-  &::before {
-    transform: rotate(45deg);
   }
 }

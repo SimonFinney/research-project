@@ -1,0 +1,41 @@
+// Button
+
+$icon-button-dimension: 40px;
+$large-icon-button-dimension: 24px;
+
+%button--icon {
+
+  @include media-query('large') {
+    width: $large-icon-button-dimension;
+    height: $large-icon-button-dimension;
+  }
+
+  @include z-index('img__button');
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: $icon-button-dimension;
+  height: $icon-button-dimension;
+  text-indent: -9999px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+
+  &::after,
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    content: '';
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+}
