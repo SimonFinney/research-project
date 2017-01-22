@@ -53,7 +53,74 @@
 
   <section class="dialog__section" hidden data-id="2">
     <h2 class="h2">Questionnaire</h2>
-    <p>When previewing an image, the time it took the image to display was:</p>
-    <p>Please rate your level of satisfaction with the user interface:</p>
+    <form class="dialog__form" action="/submit" method="post">
+      <fieldset class="dialog__fieldset">
+        <legend>When previewing each image, the time it took the image to display was:</legend>
+        <ol class="dialog__likert-scale">
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="-3" required>
+            <label class="likert-scale__label">Totally unacceptable</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="-2" required>
+            <label class="likert-scale__label">Unacceptable</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="-1" required>
+            <label class="likert-scale__label">Slightly unacceptable</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="0" required>
+            <label class="likert-scale__label">Neutral</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="1" required>
+            <label class="likert-scale__label">Slightly acceptable</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="2" required>
+            <label class="likert-scale__label">Acceptable</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="perception" type="radio" value="3" required>
+            <label class="likert-scale__label">Perfectly acceptable</label>
+          </li>
+        </ol>
+      </fieldset>
+      <fieldset class="dialog__fieldset">
+        <legend>Please rate your level of satisfaction with the user interface:</legend>
+        <ol class="dialog__likert-scale">
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="-3" required>
+            <label class="likert-scale__label">Completely dissatisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="-2" required>
+            <label class="likert-scale__label">Mostly dissatisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="-1" required>
+            <label class="likert-scale__label">Somewhat dissatisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="0" required>
+            <label class="likert-scale__label">Neither satisfied nor dissatisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="1" required>
+            <label class="likert-scale__label">Somewhat satisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="2" required>
+            <label class="likert-scale__label">Mostly satisfied</label>
+          </li>
+          <li class="likert-scale__list-item">
+            <input class="likert-scale__input" name="satisfaction" type="radio" value="3" required>
+            <label class="likert-scale__label">Completely satisfied</label>
+          </li>
+        </ol>
+      </fieldset>
+      <button class="dialog__button" type="submit" disabled>Finish</button>
+    </form>
   </section>
 </div>

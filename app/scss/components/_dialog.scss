@@ -47,6 +47,42 @@ $dialog-checkbox-arrow-dimensions: ($dialog-checkbox-dimensions / 4);
   box-sizing: border-box;
 }
 
+.dialog__section {
+
+  &[data-id='0'] {
+
+    .dialog__form {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      min-height: $dialog-form-min-height;
+      padding-top: $dialog-padding-top;
+      padding-bottom: $dialog-padding-top;
+      margin-right: 32px;
+      margin-left: 32px;
+      background-color: $lightest;
+      border-top: 1px solid $medium;
+      box-sizing: border-box;
+    }
+
+    .dialog__button {
+      margin-left: 16px;
+    }
+  }
+
+  &[data-id='2'] {
+
+    .dialog__form {
+      flex-wrap: wrap;
+    }
+
+    .dialog__button {
+      margin-left: auto;
+    }
+  }
+}
+
 .dialog__container {
   max-height: 66vh;
   padding-bottom: ($dialog-form-min-height + $dialog-padding-top);
@@ -56,19 +92,7 @@ $dialog-checkbox-arrow-dimensions: ($dialog-checkbox-dimensions / 4);
 }
 
 .dialog__form {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
   display: flex;
-  min-height: $dialog-form-min-height;
-  padding-top: $dialog-padding-top;
-  padding-bottom: $dialog-padding-top;
-  margin-right: 32px;
-  margin-left: 32px;
-  background-color: $lightest;
-  border-top: 1px solid $medium;
-  box-sizing: border-box;
 }
 
 .dialog__fieldset {
@@ -114,18 +138,7 @@ $dialog-checkbox-arrow-dimensions: ($dialog-checkbox-dimensions / 4);
 }
 
 .dialog__button {
-  @include font-size(16);
-  padding: 8px 16px;
-  margin-left: 16px;
-  font-family: $font-family;
-  color: $lightest;
-  cursor: not-allowed;
-  border: 0;
-
-  &:not(:disabled) {
-    cursor: pointer;
-    background-color: $primary;
-  }
+  @extend %button--primary;
 }
 
 .dialog__button--icon {

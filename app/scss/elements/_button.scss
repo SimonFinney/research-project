@@ -3,6 +3,20 @@
 $icon-button-dimension: 40px;
 $large-icon-button-dimension: 24px;
 
+%button--primary {
+  @include font-size(16);
+  padding: 8px 16px;
+  font-family: $font-family;
+  color: $lightest;
+  cursor: not-allowed;
+  border: 0;
+
+  &:not(:disabled) {
+    cursor: pointer;
+    background-color: $primary;
+  }
+}
+
 %button--icon {
 
   @include media-query('large') {
