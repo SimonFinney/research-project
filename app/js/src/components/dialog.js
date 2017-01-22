@@ -15,7 +15,7 @@ let activeSection = dialog.querySelector('.dialog__section:not([hidden])');
 
 function toggleDialog() {
   toggle(dialog);
-  toggleElement(app);
+  toggleElement(app, 'dialog');
 }
 
 
