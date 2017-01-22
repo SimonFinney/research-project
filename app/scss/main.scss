@@ -12,11 +12,13 @@
 @import
 'elements/body',
 'elements/button',
-'elements/dialog',
 'elements/h1',
 'elements/h2',
 'elements/html',
 'elements/main';
 
 // Components
-@import 'components/ul--images';
+@import
+'components/dialog',
+'components/likert-scale',
+'components/ul--images';
