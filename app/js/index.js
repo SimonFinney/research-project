@@ -144,6 +144,8 @@ function handleControlVariation() {
   toggleElement(selectedLink);
   scaleImage();
   togglePreview();
+
+  check(selectedLink);
 }
 
 
@@ -211,8 +213,6 @@ function setDetailedImage(event) {
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
-
-  check(selectedLink);
 
   variationFunctions[getVariation()]();
 }

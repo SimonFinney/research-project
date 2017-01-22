@@ -60,10 +60,11 @@ function toggle(elementToToggle) {
 }
 
 
-function toggleElement(element) {
-  element.hasAttribute('data-active') ?
-    element.removeAttribute('data-active') :
-    element.setAttribute('data-active', '');
+function toggleElement(element, dataAttribute = 'active') {
+  const attribute = `data-${dataAttribute}`;
+  element.hasAttribute(attribute) ?
+    element.removeAttribute(attribute) :
+    element.setAttribute(attribute, '');
 }
 
 

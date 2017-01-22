@@ -52,6 +52,8 @@
   </section>
 
   <section class="dialog__section" hidden data-id="2">
-    <h2 class="h2">Hello World!</h2>
+    <h2 class="h2">Questionnaire</h2>
+    <p>When previewing an image, the time it took the image to display was:</p>
+    <p>Please rate your level of satisfaction with the user interface:</p>
   </section>
 </div>
