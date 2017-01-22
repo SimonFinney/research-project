@@ -5,7 +5,7 @@ $overlay-background-colour: rgba($darkest, .75);
 .body {
   height: 100vh;
   margin: 0;
-  background-color: $lightest;
+  background-color: $light;
 
   &::before {
     position: fixed;

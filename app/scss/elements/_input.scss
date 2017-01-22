@@ -1,0 +1,34 @@
+// Input
+
+$input-dimensions: 16px;
+$input-position: ($input-dimensions / 2);
+
+%input--checked {
+
+  &:focus,
+  &:hover {
+
+    + %input__label {
+
+      &::before {
+        border-color: $darkest;
+      }
+    }
+  }
+}
+
+%input {
+  @extend %input--checked;
+}
+
+%input__label {
+
+  &::before {
+    position: absolute;
+    width: $input-dimensions;
+    height: $input-dimensions;
+    background-color: $lightest;
+    border: 1px solid $medium;
+    content: '';
+  }
+}

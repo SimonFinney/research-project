@@ -58,32 +58,32 @@
         <legend>When previewing each image, the time it took the image to display was:</legend>
         <ol class="dialog__likert-scale">
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="-3" required>
-            <label class="likert-scale__label">Totally unacceptable</label>
+            <input id="perception0" class="likert-scale__input" name="perception" type="radio" value="-3" required>
+            <label class="likert-scale__label" for="perception0">Totally unacceptable</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="-2" required>
-            <label class="likert-scale__label">Unacceptable</label>
+            <input id="perception1" class="likert-scale__input" name="perception" type="radio" value="-2" required>
+            <label class="likert-scale__label" for="perception1">Unacceptable</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="-1" required>
-            <label class="likert-scale__label">Slightly unacceptable</label>
+            <input id="perception2" class="likert-scale__input" name="perception" type="radio" value="-1" required>
+            <label class="likert-scale__label" for="perception2">Slightly unacceptable</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="0" required>
-            <label class="likert-scale__label">Neutral</label>
+            <input id="perception3" class="likert-scale__input" name="perception" type="radio" value="0" required>
+            <label class="likert-scale__label" for="perception3">Neutral</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="1" required>
-            <label class="likert-scale__label">Slightly acceptable</label>
+            <input id="perception4" class="likert-scale__input" name="perception" type="radio" value="1" required>
+            <label class="likert-scale__label" for="perception4">Slightly acceptable</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="2" required>
-            <label class="likert-scale__label">Acceptable</label>
+            <input id="perception5" class="likert-scale__input" name="perception" type="radio" value="2" required>
+            <label class="likert-scale__label" for="perception5">Acceptable</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="perception" type="radio" value="3" required>
-            <label class="likert-scale__label">Perfectly acceptable</label>
+            <input id="perception6" class="likert-scale__input" name="perception" type="radio" value="3" required>
+            <label class="likert-scale__label" for="perception6">Perfectly acceptable</label>
           </li>
         </ol>
       </fieldset>
@@ -91,36 +91,41 @@
         <legend>Please rate your level of satisfaction with the user interface:</legend>
         <ol class="dialog__likert-scale">
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="-3" required>
-            <label class="likert-scale__label">Completely dissatisfied</label>
+            <input id="satisfaction0" class="likert-scale__input" name="satisfaction" type="radio" value="-3" required>
+            <label class="likert-scale__label" for="satisfaction0">Completely dissatisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="-2" required>
-            <label class="likert-scale__label">Mostly dissatisfied</label>
+            <input id="satisfaction1" class="likert-scale__input" name="satisfaction" type="radio" value="-2" required>
+            <label class="likert-scale__label" for="satisfaction1">Mostly dissatisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="-1" required>
-            <label class="likert-scale__label">Somewhat dissatisfied</label>
+            <input id="satisfaction2" class="likert-scale__input" name="satisfaction" type="radio" value="-1" required>
+            <label class="likert-scale__label" for="satisfaction2">Somewhat dissatisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="0" required>
-            <label class="likert-scale__label">Neither satisfied nor dissatisfied</label>
+            <input id="satisfaction3" class="likert-scale__input" name="satisfaction" type="radio" value="0" required>
+            <label class="likert-scale__label" for="satisfaction3">Neither satisfied nor dissatisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="1" required>
-            <label class="likert-scale__label">Somewhat satisfied</label>
+            <input id="satisfaction4" class="likert-scale__input" name="satisfaction" type="radio" value="1" required>
+            <label class="likert-scale__label" for="satisfaction4">Somewhat satisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="2" required>
-            <label class="likert-scale__label">Mostly satisfied</label>
+            <input id="satisfaction5" class="likert-scale__input" name="satisfaction" type="radio" value="2" required>
+            <label class="likert-scale__label" for="satisfaction5">Mostly satisfied</label>
           </li>
           <li class="likert-scale__list-item">
-            <input class="likert-scale__input" name="satisfaction" type="radio" value="3" required>
-            <label class="likert-scale__label">Completely satisfied</label>
+            <input id="satisfaction6" class="likert-scale__input" name="satisfaction" type="radio" value="3" required>
+            <label class="likert-scale__label" for="satisfaction6">Completely satisfied</label>
           </li>
         </ol>
       </fieldset>
+      <input type="hidden" value="{{ variation }}">
       <button class="dialog__button" type="submit" disabled>Finish</button>
     </form>
+  </section>
+
+  <section class="dialog__section" hidden data-id="3">
+    <h2 class="h2">Participant Debrief</h2>
   </section>
 </div>
