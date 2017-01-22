@@ -11,6 +11,10 @@ $large-icon-button-dimension: 24px;
   cursor: not-allowed;
   border: 0;
 
+  &:disabled {
+    background-color: $dark;
+  }
+
   &:not(:disabled) {
     cursor: pointer;
     background-color: $primary;

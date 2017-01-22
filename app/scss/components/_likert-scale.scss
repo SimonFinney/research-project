@@ -1,5 +1,18 @@
 // Likert scale
 
+%likert-scale__input--checked {
+
+  &:checked {
+
+    + .likert-scale__label {
+
+      &::before {
+        background: radial-gradient($primary 30%, $lightest 30%);
+      }
+    }
+  }
+}
+
 .dialog__likert-scale {
   display: flex;
   padding-left: 0;
@@ -54,7 +67,10 @@
 }
 
 .likert-scale__input {
+  @extend %input;
+  @extend %likert-scale__input--checked;
   display: flex;
+  width: 0;
   align-items: center;
 
   &::before {
@@ -68,6 +84,14 @@
 }
 
 .likert-scale__label {
+  @extend %input__label;
   @include font-size(12);
   margin-top: 4px;
+
+  &::before {
+    top: 0;
+    left: 50%;
+    border-radius: 50%;
+    transform: translateX(-33%);
+  }
 }
