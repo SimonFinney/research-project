@@ -29,13 +29,5 @@
     .img__button {
       @include ease-out;
     }
-
-    .dialog {
-      @include ease-out(.1);
-
-      &::backdrop {
-        @include ease-out(.1);
-      }
-    }
   }
 }

@@ -5,8 +5,8 @@
 
 
 // Moves function to the end of the call stack
-function debounce(func) {
-  setTimeout(func, 0);
+function debounce(func, timeout = 0) {
+  setTimeout(func, timeout);
 }
 
 
@@ -60,11 +60,11 @@ function toggle(elementToToggle) {
 }
 
 
-function toggleElement(element, dataAttribute = 'active') {
+function toggleElement(element, dataAttribute = 'active', attributeValue = '') {
   const attribute = `data-${dataAttribute}`;
   element.hasAttribute(attribute) ?
     element.removeAttribute(attribute) :
-    element.setAttribute(attribute, '');
+    element.setAttribute(attribute, attributeValue);
 }
 
 

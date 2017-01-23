@@ -98,6 +98,19 @@ function closePreview() {
 }
 
 
+function calculateScaleDimensions() {
+  const imageList = app.querySelector('.ul--images');
+  const imageListWidth = imageList.clientWidth;
+  const imageListHeight = imageList.clientHeight;
+
+  const scaleTarget = ((imageListWidth <= imageListHeight) ?
+    imageListWidth :
+    imageListHeight);
+
+  return (scaleTarget / selectedImage.clientWidth);
+}
+
+
 function scaleImage(callback) {
   const imageList = app.querySelector('.ul--images');
   const imageListWidth = imageList.clientWidth;
@@ -108,7 +121,7 @@ function scaleImage(callback) {
     imageListHeight);
 
   selectedImage.style.transform = `
-    scale(${(scaleTarget / selectedImage.clientWidth)}) translate(-50%, -50%)
+    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
   `;
 
   if (callback) {
@@ -138,12 +151,12 @@ function togglePreview() {
   setImage(selectedImage, src);
   toggleElement(app);
 
-  check(selectedLink);
+  debounce(() => check(selectedLink), 500);
 }
 
 
 function handleControlVariation() {
-  toggleElement(selectedLink);
+  toggleElement(selectedLink, 'active', getVariation());
   scaleImage();
   togglePreview();
 }
@@ -156,13 +169,7 @@ function setSelectedImagePosition(top, left) {
 
 
 function handleArcsVariation() {
-  const selectedImagePosition = selectedImage.getBoundingClientRect();
-  toggleElement(selectedLink);
-
-  setSelectedImagePosition(
-    selectedImagePosition.top,
-    selectedImagePosition.left
-  );
+  fixImagePosition();
 
   // Scales the image once transition is complete
   once(selectedImage, 'transitionend', delegateImageToScale);
@@ -174,12 +181,42 @@ function handleArcsVariation() {
 
 
 function handleSecondaryActionVariation() {
-  console.log('handleSecondaryActionVariation');
+  togglePreview();
+  fixImagePosition();
+  selectedImage.style.top = '50%';
+  selectedImage.style.left = '50%';
+  selectedImage.style.transformOrigin = 'top left';
+  selectedImage.style.transform = `
+    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
+  `;
+}
+
+
+function stretchImage() {
+  togglePreview();
+  selectedImage.style.top = '50%';
+  selectedImage.style.left = '50%';
+  selectedImage.style.transformOrigin = 'top left';
+  selectedImage.style.transform = `
+    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
+  `;
+}
+
+function fixImagePosition() {
+  const selectedImagePosition = selectedImage.getBoundingClientRect();
+
+  setSelectedImagePosition(
+    selectedImagePosition.top,
+    selectedImagePosition.left
+  );
+
+  toggleElement(selectedLink, 'active', getVariation());
 }
 
 
 function handleSquashAndStretchVariation() {
-  console.log('handleVariation');
+  fixImagePosition();
+  once(selectedImage, 'transitionend', stretchImage);
 }
 
 
