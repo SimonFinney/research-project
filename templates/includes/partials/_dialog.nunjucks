@@ -126,6 +126,12 @@
   </section>
 
   <section class="dialog__section" hidden data-id="3">
-    <h2 class="h2">Participant Debrief</h2>
+    <h2 class="h2">Debriefing</h2>
+    <p>This study was ...</p>
+    <p>It is anticipated that participants who...</p>
+    <p>Please contact <a href="mailto:#" target="_blank">[advisor]</a> if you have any questions regarding this study.</p>
+    <p>
+      <strong>Thank you again for your co-operation</strong>
+    </p>
   </section>
 </div>
