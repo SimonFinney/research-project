@@ -63,16 +63,30 @@ $image-margin: 8px;
     .img {
       @include z-index('img');
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: scale(1) translate(-50%, -50%);
-      transform-origin: top left;
     }
 
     .img__button {
       position: fixed;
       opacity: 1;
       visibility: visible;
+    }
+  }
+
+  &[data-active='0'],
+  &[data-active='1'] {
+
+    .img {
+      top: 50%;
+      left: 50%;
+      transform: scale(1) translate(-50%, -50%);
+      transform-origin: top left;
+    }
+  }
+
+  &[data-active='3'] {
+
+    .img {
+      transform: scale(.5);
     }
   }
 }
