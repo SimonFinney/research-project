@@ -22,7 +22,12 @@ router.get('/', (request, response) =>
         imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
         isDebug: util.isDebug(),
         name,
-        variation,
+
+
+        // variation, TODO: Debug
+
+
+        variation: 2,
       })
     );
   })
