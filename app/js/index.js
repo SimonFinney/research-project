@@ -94,7 +94,7 @@ function closePreview() {
   on(selectedImage, 'transitionend', t);
 
   togglePreview();
-  resetTabindex();
+  resetTabindex(imageLinks);
 }
 
 
@@ -137,6 +137,8 @@ function togglePreview() {
 
   setImage(selectedImage, src);
   toggleElement(app);
+
+  check(selectedLink);
 }
 
 
@@ -144,8 +146,6 @@ function handleControlVariation() {
   toggleElement(selectedLink);
   scaleImage();
   togglePreview();
-
-  check(selectedLink);
 }
 
 
