@@ -19,6 +19,7 @@ $overlay-background-colour: rgba($darkest, .75);
 
   &[data-active],
   &[data-dialog] {
+    overflow-y: hidden;
 
     &::before {
       opacity: 1;

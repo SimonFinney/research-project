@@ -129,6 +129,7 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__button--icon {
   @extend %button--icon;
+  @extend %button--icon--close;
 
   &::after,
   &::before {

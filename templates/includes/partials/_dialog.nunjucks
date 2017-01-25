@@ -32,7 +32,7 @@
     </div>
     <form class="dialog__form">
       <fieldset class="dialog__fieldset">
-        <input id="checkbox" class="dialog__checkbox" type="checkbox" autofocus required>
+        <input id="checkbox" class="dialog__checkbox" type="checkbox" required>
         <label class="dialog__label" for="checkbox">I accept</label>
       </fieldset>
 
@@ -46,8 +46,9 @@
     <p>
       Preview all images with a
       <strong>
-        ${ criteria }
+        house
       </strong>
+      in it
     </p>
   </section>
 
