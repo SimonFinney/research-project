@@ -6,11 +6,12 @@
     {%- for image in images -%}
 
       <li class="images__img">
-        <a class="img__a" href="#{{ image.id }}" tabindex="-1" {%- if image.description %} data-criteria {%- endif -%}>
+        <a class="img__a" href="#{{ image.id }}" tabindex="-1" {%- if image.description %} data-{{ image.description }} {%- endif -%}>
           <img id="{{ image.id }}" class="img" alt="{{ image.title }}" data-src="{{ image.link }}" data-thumbnail="{{ imgurUrlPrefix }}{{ image.id }}{{ imgurThumbnailSize }}{{ imgurThumbnailExtension }}">
           <button class="img__button">Close {{ image.title }}</button>
         </a>
       </li>
     {%- endfor -%}
   </ul>
+  <button class="main__button--icon" tabindex="-1">Toggle dialog</button>
 {%- endblock -%}

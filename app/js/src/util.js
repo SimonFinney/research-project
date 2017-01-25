@@ -10,6 +10,11 @@ function debounce(func, timeout = 0) {
 }
 
 
+function isToggled(element) {
+  return element.hasAttribute('data-active');
+}
+
+
 function toggleEventListener(element, eventListenerToggle, eventType, func) {
   element[`${eventListenerToggle}EventListener`](eventType, func);
 }
@@ -70,6 +75,7 @@ function toggleElement(element, dataAttribute = 'active', attributeValue = '') {
 
 export {
   debounce,
+  isToggled,
   off,
   on,
   once,

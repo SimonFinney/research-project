@@ -9,16 +9,18 @@ import {
   checkCriteria,
   getVariation,
   hasMetCriteria,
-} from './src/components/app.js';
+} from './src/components/app';
 
 import {
   dialog,
+  initDialog,
   setDialogContent,
   toggleDialog,
 } from './src/components/dialog';
 
 import {
   debounce,
+  isToggled,
   off,
   on,
   once,
@@ -28,6 +30,7 @@ import {
   toggleElement,
 } from './src/util';
 
+let focusableElements;
 let imageLinks;
 
 let selectedImage;
@@ -39,6 +42,11 @@ const variationFunctions = {
   2: handleSecondaryActionVariation,
   3: handleSquashAndStretchVariation,
 };
+
+const focusableElementsString = `
+  .img__a,
+  .main__button--icon
+`;
 
 
 function t3() {
@@ -76,7 +84,7 @@ function check(selectedLink) {
 
   if (hasMetCriteria()) {
     setDialogContent(2);
-    toggleDialog();
+    toggleDialog(focusableElements);
   }
 }
 
@@ -94,7 +102,6 @@ function closePreview() {
   on(selectedImage, 'transitionend', t);
 
   togglePreview();
-  resetTabindex(imageLinks);
 }
 
 
@@ -151,6 +158,10 @@ function togglePreview() {
   setImage(selectedImage, src);
   toggleElement(app);
 
+  isToggled(app) ?
+    removeTabindex(focusableElements) :
+    resetTabindex(focusableElements);
+
   debounce(() => check(selectedLink), 500);
 }
 
@@ -183,11 +194,11 @@ function handleArcsVariation() {
 function handleSecondaryActionVariation() {
   togglePreview();
   fixImagePosition();
-  selectedImage.style.top = '50%';
-  selectedImage.style.left = '50%';
-  selectedImage.style.transformOrigin = 'top left';
+  selectedImage.style.top = '75%';
+  selectedImage.style.left = '75%';
+  selectedImage.style.transformOrigin = 'bottom';
   selectedImage.style.transform = `
-    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
+    scale(${calculateScaleDimensions()}) translate(-75%, -75%)
   `;
 }
 
@@ -221,11 +232,6 @@ function handleSquashAndStretchVariation() {
 
 
 function loadThumbnails() {
-
-
-  // off(dialog, 'close', loadThumbnails); // TODO: Debug
-
-
   app.querySelectorAll('.img')
     .forEach(image =>
       setImage(
@@ -246,7 +252,6 @@ function setDetailedImage(event) {
   selectedLink = event.target;
 
   setSelectedItems(selectedLink);
-  removeTabindex(imageLinks);
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
@@ -258,6 +263,10 @@ function setDetailedImage(event) {
 function init() {
 
   imageLinks = app.querySelectorAll('.img__a');
+  focusableElements = document.querySelectorAll(focusableElementsString);
+
+  initDialog(focusableElements);
+
 
   imageLinks.forEach(imageLink =>
     once(imageLink, 'click', setDetailedImage)

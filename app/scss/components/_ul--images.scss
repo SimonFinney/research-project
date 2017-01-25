@@ -11,8 +11,6 @@ $image-margin: 8px;
   margin-bottom: 0;
   list-style: none;
   flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: center;
 }
 
 .images__img {
@@ -98,11 +96,28 @@ $image-margin: 8px;
 
 .img__button {
   @extend %button--icon;
+  @extend %button--icon--close;
   opacity: 0;
   visibility: hidden;
 
   &::after,
   &::before {
     background-color: $lightest;
+  }
+}
+
+.main__button--icon {
+  @extend %button--icon;
+  @include z-index('main__button--icon');
+  position: fixed;
+  bottom: 8px;
+  background-color: $primary;
+  box-shadow: 0 0 4px 0 $dark;
+
+  &::before {
+    left: 50%;
+    text-indent: initial;
+    content: '?';
+    transform: translate(-50%, -50%);
   }
 }
