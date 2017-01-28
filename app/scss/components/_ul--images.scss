@@ -122,6 +122,6 @@ $image-margin: 4px;
     left: 50%;
     text-indent: initial;
     content: '?';
-    transform: app/scss(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
   }
 }
