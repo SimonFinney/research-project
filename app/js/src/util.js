@@ -59,6 +59,11 @@ function resetTabindex(elements) {
 }
 
 
+function setImage(image, src) {
+  image.setAttribute('src', src);
+}
+
+
 function toggle(elementToToggle) {
   const element = elementToToggle;
   element.hidden = !element.hidden;
@@ -82,6 +87,7 @@ export {
   removeStyle,
   removeTabindex,
   resetTabindex,
+  setImage,
   toggle,
   toggleElement,
 };

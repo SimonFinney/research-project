@@ -27,6 +27,7 @@ import {
   removeStyle,
   removeTabindex,
   resetTabindex,
+  setImage,
   toggleElement,
 } from './src/util';
 
@@ -42,15 +43,15 @@ let selectedImage;
 
 const variations = [
   {
-    start: startControlVariation,
-    stop: stopControlVariation,
+    start: scaleImage,
+    stop: () => toggleElement(selectedLink),
   },
   {
     start: startArcsVariation,
     stop: stopArcsVariation,
   },
   {
-    start: startSecondaryActionVariation,
+    start: scaleImage,
     stop: stopSecondaryActionVariation,
   },
   {
@@ -94,37 +95,6 @@ function calculateScaleDimensions() {
 }
 
 
-function scaleImage(callback) {
-  const imageList = app.querySelector('.ul--images');
-  const imageListWidth = imageList.clientWidth;
-  const imageListHeight = imageList.clientHeight;
-
-  const scaleTarget = ((imageListWidth <= imageListHeight) ?
-    imageListWidth :
-    imageListHeight);
-
-  selectedImage.style.transform = `
-    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
-  `;
-
-  if (callback) {
-    callback();
-  }
-}
-
-
-function setImage(image, src) {
-  image.setAttribute('src', src);
-}
-
-
-function delegateImageToScale() {
-  scaleImage(
-    once(selectedImage, 'transitionend', togglePreview)
-  );
-}
-
-
 function togglePreview() {
   const src =
     (selectedImage.getAttribute('src') === selectedImage.getAttribute('data-src')) ?
@@ -151,33 +121,15 @@ function togglePreview() {
 }
 
 
-function startControlVariation() {
-  toggleElement(selectedLink, 'active', getVariation());
-  scaleImage();
-  togglePreview();
-}
-
-
-function stopControlVariation() {
-  toggleElement(selectedLink);
-}
-
-
 function setSelectedImagePosition(top, left) {
   selectedImage.style.top = `${top}px`;
   selectedImage.style.left = `${left}px`;
 }
 
 
-function t3() {
-  toggleElement(selectedLink);
-  removeStyle(selectedImage);
-  removeStyle(selectedLink);
-}
-
-
-function t2() {
+function moveImageToInitialPosition() {
   const selectedLinkPosition = selectedLink.getBoundingClientRect();
+
   selectedImage.style.transform = 'translate(0, 0)';
 
   setSelectedImagePosition(
@@ -185,15 +137,19 @@ function t2() {
     selectedLinkPosition.left
   );
 
-  once(selectedImage, 'transitionend', t3);
+  once(selectedImage, 'transitionend', () => selectedImage.style.transform = '');
 }
 
 
-function t(event) {
-  if (event.propertyName === 'transform') {
-    t2();
-    off(selectedImage, 'transitionend', t);
-  }
+function t() {
+  off(selectedImage, 'transitionend', t);
+  moveImageToInitialPosition();
+
+  once(selectedImage, 'transitionend', () => {
+    toggleElement(selectedLink);
+    removeStyle(selectedImage);
+    removeStyle(selectedLink);
+  });
 }
 
 
@@ -203,11 +159,9 @@ function stopArcsVariation() {
 
 
 function startArcsVariation() {
-  fixImagePosition();
-  toggleElement(selectedLink, 'active', getVariation());
 
   // Scales the image once transition is complete
-  once(selectedImage, 'transitionend', delegateImageToScale);
+  once(selectedImage, 'transitionend', scaleImage);
 
   debounce(() =>
     removeStyle(selectedImage)
@@ -216,18 +170,22 @@ function startArcsVariation() {
 
 
 function stopSquashAndStretchVariation() {
+  moveImageToInitialPosition();
 
+  once(selectedImage, 'transitionend', () => {
+    selectedLink.setAttribute('data-squash-and-stretch', '');
+
+    once(selectedImage, 'transitionend', () => {
+      toggleElement(selectedLink, 'active', getVariation());
+      removeStyle(selectedImage);
+      debounce(() => selectedLink.removeAttribute('data-squash-and-stretch'));
+    });
+  });
 }
 
 
 function stopSecondaryActionVariation() {
-  const selectedLinkPosition = selectedLink.getBoundingClientRect();
-  selectedImage.style.transform = 'translate(0, 0)';
-
-  setSelectedImagePosition(
-    selectedLinkPosition.top,
-    selectedLinkPosition.left
-  );
+  moveImageToInitialPosition();
 
   once(selectedImage, 'transitionend', () => {
     toggleElement(selectedLink, 'active', getVariation());
@@ -235,31 +193,20 @@ function stopSecondaryActionVariation() {
   });
 }
 
-
-function startSecondaryActionVariation() {
-  fixImagePosition();
-  togglePreview();
-  toggleElement(selectedLink, 'active', getVariation());
-  debounce(() => {
-    removeStyle(selectedImage)
-    selectedImage.style.transform = `
-      scale(${calculateScaleDimensions()}) translate(-50%, -50%)
+function scaleImage() {
+  removeStyle(selectedImage);
+  selectedImage.style.transform = `
+    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
     `;
-  });
 }
 
 
 function stretchImage() {
-  togglePreview();
-  selectedImage.style.top = '50%';
-  selectedImage.style.left = '50%';
-  selectedImage.style.transformOrigin = 'top left';
-  selectedImage.style.transform = `
-    scale(${calculateScaleDimensions()}) translate(-50%, -50%)
-  `;
+  selectedLink.removeAttribute('data-squash-and-stretch');
+  scaleImage();
 }
 
-function fixImagePosition() {
+function moveImageFromInitialPosition() {
   const selectedImagePosition = selectedImage.getBoundingClientRect();
 
   setSelectedImagePosition(
@@ -270,8 +217,7 @@ function fixImagePosition() {
 
 
 function startSquashAndStretchVariation() {
-  fixImagePosition();
-  toggleElement(selectedLink, 'active', getVariation());
+  selectedLink.setAttribute('data-squash-and-stretch', '');
   once(selectedImage, 'transitionend', stretchImage);
 }
 
@@ -295,6 +241,10 @@ function setDetailedImage(event) {
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
+
+  togglePreview();
+  moveImageFromInitialPosition();
+  toggleElement(selectedLink, 'active', getVariation());
 
   variations[getVariation()].start();
 }
