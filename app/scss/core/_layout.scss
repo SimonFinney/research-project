@@ -26,6 +26,12 @@ $z-index: (
   }
 }
 
+@mixin reset-focus {
+
+  &:focus {
+    outline: 0;
+  }
+}
 
 // Returns z-index order for the element passed in
 @mixin z-index($element) {

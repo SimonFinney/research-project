@@ -26,7 +26,18 @@
       }
     }
 
-    .img__button {
+    %button--icon {
+      @include ease-out;
+    }
+
+    %input__label {
+
+      &::before {
+        @include ease-out;
+      }
+    }
+
+    .dialog {
       @include ease-out;
     }
   }
