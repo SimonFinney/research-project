@@ -30,23 +30,34 @@ import {
   toggleElement,
 } from './src/util';
 
-let focusableElements;
-let imageLinks;
-
-let selectedImage;
-let selectedLink;
-
-const variationFunctions = {
-  0: handleControlVariation,
-  1: handleArcsVariation,
-  2: handleSecondaryActionVariation,
-  3: handleSquashAndStretchVariation,
-};
-
 const focusableElementsString = `
   .img__a,
   .main__button--icon
 `;
+
+let focusableElements;
+
+let selectedLink;
+let selectedImage;
+
+const variations = [
+  {
+    start: handleControlVariation,
+    stop: () => {
+      toggleElement(selectedLink);
+
+      debounce(
+       () => once(selectedLink, 'click', setDetailedImage)
+      );
+    },
+  },
+  {
+    start: handleArcsVariation,
+    stop: () => on(selectedImage, 'transitionend', t),
+  },
+  { start: handleSecondaryActionVariation },
+  { start: handleSquashAndStretchVariation },
+];
 
 
 function t3() {
@@ -90,17 +101,8 @@ function check(selectedLink) {
 
 
 function closePreview() {
-
-  if (getVariation() === 0) {
-    toggleElement(selectedLink);
-
-    on(selectedLink, 'click', setDetailedImage);
-  }
-
-
   removeStyle(selectedImage);
-  on(selectedImage, 'transitionend', t);
-
+  variations[getVariation()].stop();
   togglePreview();
 }
 
@@ -162,7 +164,16 @@ function togglePreview() {
     removeTabindex(focusableElements) :
     resetTabindex(focusableElements);
 
-  debounce(() => check(selectedLink), 500);
+  const elementToFocus = isToggled(app) ?
+    selectedLink.querySelector('.img__button') :
+    selectedLink;
+
+  elementToFocus.focus();
+
+  debounce(
+    () => check(selectedLink),
+    500
+  );
 }
 
 
@@ -242,12 +253,13 @@ function loadThumbnails() {
 }
 
 
-function setSelectedItems(selectedLink) {
+function setSelectedItems() {
   selectedImage = selectedLink.querySelector('.img');
 }
 
 
 function setDetailedImage(event) {
+  console.log('setDetailedImage');
   event.preventDefault();
   selectedLink = event.target;
 
@@ -256,33 +268,29 @@ function setDetailedImage(event) {
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
 
-  variationFunctions[getVariation()]();
+  variations[getVariation()].start();
 }
 
 
 function init() {
-
-  imageLinks = app.querySelectorAll('.img__a');
   focusableElements = document.querySelectorAll(focusableElementsString);
-
   initDialog(focusableElements);
 
 
-  imageLinks.forEach(imageLink =>
-    once(imageLink, 'click', setDetailedImage)
+  app.querySelectorAll('.img__a')
+    .forEach(imageLink =>
+      once(imageLink, 'click', setDetailedImage)
   );
 
   document.querySelectorAll('.img__button')
     .forEach(closeImagePreviewButton => on(closeImagePreviewButton, 'click', closePreview)
   );
 
-
-  const form = document.querySelector('.dialog__form');
-
-  form.addEventListener('change', () => {
-    form.querySelector('.dialog__button').disabled = !event.target
-      .checked;
-  });
+  on(
+    document.querySelector('.main__button--icon'),
+    'click',
+    () => toggleDialog(focusableElements)
+  );
 
   once(dialog, 'submit', event => {
     event.preventDefault();
