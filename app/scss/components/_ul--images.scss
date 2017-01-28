@@ -57,6 +57,7 @@ $image-margin: 8px;
   }
 
   &[data-active] {
+    cursor: default;
 
     .img {
       @include z-index('img');
@@ -71,13 +72,13 @@ $image-margin: 8px;
   }
 
   &[data-active='0'],
-  &[data-active='1'] {
+  &[data-active='1'],
+  &[data-active='2'] {
 
     .img {
       top: 50%;
       left: 50%;
       transform: scale(1) translate(-50%, -50%);
-      transform-origin: top left;
     }
   }
 
@@ -92,6 +93,7 @@ $image-margin: 8px;
 .img {
   width: inherit;
   height: inherit;
+  transform-origin: top left;
 }
 
 .img__button {
