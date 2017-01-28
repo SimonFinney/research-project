@@ -42,52 +42,22 @@ let selectedImage;
 
 const variations = [
   {
-    start: handleControlVariation,
-    stop: () => {
-      toggleElement(selectedLink);
-
-      debounce(
-       () => once(selectedLink, 'click', setDetailedImage)
-      );
-    },
+    start: startControlVariation,
+    stop: stopControlVariation,
   },
   {
-    start: handleArcsVariation,
-    stop: () => on(selectedImage, 'transitionend', t),
+    start: startArcsVariation,
+    stop: stopArcsVariation,
   },
-  { start: handleSecondaryActionVariation },
-  { start: handleSquashAndStretchVariation },
+  {
+    start: startSecondaryActionVariation,
+    stop: stopSecondaryActionVariation,
+  },
+  {
+    start: startSquashAndStretchVariation,
+    stop: stopSquashAndStretchVariation,
+  },
 ];
-
-
-function t3() {
-  toggleElement(selectedLink);
-  removeStyle(selectedImage);
-  removeStyle(selectedLink);
-}
-
-
-function t2() {
-  const selectedLinkPosition = selectedLink.getBoundingClientRect();
-  selectedImage.style.transform = 'translate(0, 0)';
-
-  setSelectedImagePosition(
-    selectedLinkPosition.top,
-    selectedLinkPosition.left
-  );
-
-  once(selectedImage, 'transitionend', t3);
-}
-
-
-function t(event) {
-
-  if (event.propertyName === 'transform') {
-    once(selectedLink, 'click', setDetailedImage);
-    t2();
-    off(selectedImage, 'transitionend', t);
-  }
-}
 
 
 function check(selectedLink) {
@@ -104,6 +74,10 @@ function closePreview() {
   removeStyle(selectedImage);
   variations[getVariation()].stop();
   togglePreview();
+
+  debounce(
+   () => once(selectedLink, 'click', setDetailedImage)
+  );
 }
 
 
@@ -177,10 +151,15 @@ function togglePreview() {
 }
 
 
-function handleControlVariation() {
+function startControlVariation() {
   toggleElement(selectedLink, 'active', getVariation());
   scaleImage();
   togglePreview();
+}
+
+
+function stopControlVariation() {
+  toggleElement(selectedLink);
 }
 
 
@@ -190,8 +169,42 @@ function setSelectedImagePosition(top, left) {
 }
 
 
-function handleArcsVariation() {
+function t3() {
+  toggleElement(selectedLink);
+  removeStyle(selectedImage);
+  removeStyle(selectedLink);
+}
+
+
+function t2() {
+  const selectedLinkPosition = selectedLink.getBoundingClientRect();
+  selectedImage.style.transform = 'translate(0, 0)';
+
+  setSelectedImagePosition(
+    selectedLinkPosition.top,
+    selectedLinkPosition.left
+  );
+
+  once(selectedImage, 'transitionend', t3);
+}
+
+
+function t(event) {
+  if (event.propertyName === 'transform') {
+    t2();
+    off(selectedImage, 'transitionend', t);
+  }
+}
+
+
+function stopArcsVariation() {
+  on(selectedImage, 'transitionend', t);
+}
+
+
+function startArcsVariation() {
   fixImagePosition();
+  toggleElement(selectedLink, 'active', getVariation());
 
   // Scales the image once transition is complete
   once(selectedImage, 'transitionend', delegateImageToScale);
@@ -202,15 +215,37 @@ function handleArcsVariation() {
 }
 
 
-function handleSecondaryActionVariation() {
-  togglePreview();
+function stopSquashAndStretchVariation() {
+
+}
+
+
+function stopSecondaryActionVariation() {
+  const selectedLinkPosition = selectedLink.getBoundingClientRect();
+  selectedImage.style.transform = 'translate(0, 0)';
+
+  setSelectedImagePosition(
+    selectedLinkPosition.top,
+    selectedLinkPosition.left
+  );
+
+  once(selectedImage, 'transitionend', () => {
+    toggleElement(selectedLink, 'active', getVariation());
+    removeStyle(selectedImage);
+  });
+}
+
+
+function startSecondaryActionVariation() {
   fixImagePosition();
-  selectedImage.style.top = '75%';
-  selectedImage.style.left = '75%';
-  selectedImage.style.transformOrigin = 'bottom';
-  selectedImage.style.transform = `
-    scale(${calculateScaleDimensions()}) translate(-75%, -75%)
-  `;
+  togglePreview();
+  toggleElement(selectedLink, 'active', getVariation());
+  debounce(() => {
+    removeStyle(selectedImage)
+    selectedImage.style.transform = `
+      scale(${calculateScaleDimensions()}) translate(-50%, -50%)
+    `;
+  });
 }
 
 
@@ -231,13 +266,12 @@ function fixImagePosition() {
     selectedImagePosition.top,
     selectedImagePosition.left
   );
-
-  toggleElement(selectedLink, 'active', getVariation());
 }
 
 
-function handleSquashAndStretchVariation() {
+function startSquashAndStretchVariation() {
   fixImagePosition();
+  toggleElement(selectedLink, 'active', getVariation());
   once(selectedImage, 'transitionend', stretchImage);
 }
 
@@ -253,17 +287,11 @@ function loadThumbnails() {
 }
 
 
-function setSelectedItems() {
-  selectedImage = selectedLink.querySelector('.img');
-}
-
-
 function setDetailedImage(event) {
-  console.log('setDetailedImage');
   event.preventDefault();
-  selectedLink = event.target;
 
-  setSelectedItems(selectedLink);
+  selectedLink = event.target;
+  selectedImage = selectedLink.querySelector('.img')
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
