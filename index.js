@@ -14,6 +14,9 @@ const server = express();
 
 const serverDirectory = (util.isDebug() ? '.tmp' : 'dist');
 const staticAssets = express.static(`${__dirname}/${serverDirectory}/`);
+
+server.disable('view cache');
+
 server.use(staticAssets);
 
 server.use(

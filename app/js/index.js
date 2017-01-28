@@ -112,7 +112,7 @@ function togglePreview() {
     selectedLink.querySelector('.img__button') :
     selectedLink;
 
-  elementToFocus.focus();
+  debounce(() => elementToFocus.focus());
 
   debounce(
     () => check(selectedLink),

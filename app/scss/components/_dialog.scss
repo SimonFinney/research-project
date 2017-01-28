@@ -1,6 +1,7 @@
 // Dialog
 
-$dialog-padding-top: 24px;
+$dialog-padding-top: 32px;
+$dialog-padding-left: 48px;
 
 $dialog-form-min-height: 88px;
 
@@ -24,14 +25,21 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 90%;
+  display: inline-block;
   max-width: 640px;
   max-height: calc(100% - #{($dialog-padding-top * 2)});
-  padding: $dialog-padding-top 32px;
+  padding: $dialog-padding-top $dialog-padding-left;
   overflow-y: hidden;
-  background-color: $light;
-  transform: translate(-50%, -50%);
-  box-sizing: border-box;
+  background-color: $lightest;
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(-50%, -50%, 0);
+
+  &[hidden] {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(-50%, 100%, 0);
+  }
 }
 
 .dialog__section {
@@ -46,9 +54,9 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
       min-height: $dialog-form-min-height;
       padding-top: $dialog-padding-top;
       padding-bottom: $dialog-padding-top;
-      margin-right: 32px;
-      margin-left: 32px;
-      background-color: $light;
+      margin-right: $dialog-padding-left;
+      margin-left: $dialog-padding-left;
+      background-color: $lightest;
       border-top: 1px solid $dark;
       box-sizing: border-box;
     }
@@ -94,6 +102,12 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
     .dialog__button {
       cursor: pointer;
       background-color: $primary;
+      box-shadow: 0 0 2px 0 $darkest;
+
+      &:focus,
+      &:hover {
+        box-shadow: 0 0 4px 0 $darkest;
+      }
     }
   }
 }
@@ -130,12 +144,12 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
     border-bottom: $dialog-checkbox-check-dimensions solid transparent;
     border-left: $dialog-checkbox-check-dimensions solid transparent;
     content: '';
-    transform: rotate(-45deg) translateY(-100%);
+    transform: rotate(-45deg) translate3d(0, -100%, 0);
   }
 
   &::before {
     left: 0;
-    transform: translateY(-50%);
+    transform: translate3d(0, -50%, 0);
   }
 }
 
@@ -146,9 +160,15 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 .dialog__button--icon {
   @extend %button--icon;
   @extend %button--icon--close;
+  position: absolute;
+  color: $darkest;
 
-  &::after,
-  &::before {
-    background-color: $darkest;
+  &:focus,
+  &:hover {
+    background-color: $medium;
+  }
+
+  &:active {
+    background-color: $dark;
   }
 }

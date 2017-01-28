@@ -1,10 +1,9 @@
 // Button
 
-$icon-button-dimension: 40px;
-$large-icon-button-dimension: 24px;
+$icon-button-dimension: 48px;
 
 %button {
-  @include font-size(16);
+  @include reset-focus;
   font-family: $font-family;
   color: $lightest;
   border: 0;
@@ -18,48 +17,30 @@ $large-icon-button-dimension: 24px;
 
 %button--icon {
   @extend %button;
-  @include z-index('img__button');
-  right: 8px;
+  right: 16px;
   width: $icon-button-dimension;
   height: $icon-button-dimension;
   text-indent: -9999px;
   cursor: pointer;
+  border-radius: 50%;
 
   &::before {
     position: absolute;
     top: 50%;
-    width: 100%;
+    left: 50%;
+    text-indent: initial;
+    transform: translate3d(-50%, -50%, 0);
   }
 }
 
 %button--icon--close {
-  @include font-size(16);
-
-  @include media-query('large') {
-    width: $large-icon-button-dimension;
-    height: $large-icon-button-dimension;
-  }
-
-  position: absolute;
-  top: 8px;
-  font-family: $font-family;
+  @extend %button--icon;
+  @include font-size(24);
+  @include z-index('main__button--icon');
+  top: 16px;
   background-color: transparent;
 
-  &::after,
   &::before {
-    left: 0;
-    height: 4px;
-    content: '';
-  }
-
-  &::after {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: rotate(-45deg);
-  }
-
-  &::before {
-    transform: rotate(45deg);
+    content: '×';
   }
 }

@@ -11,7 +11,7 @@ $input-position: ($input-dimensions / 2);
     + %input__label {
 
       &::before {
-        border-color: $darkest;
+        border-color: $dark;
       }
     }
   }
