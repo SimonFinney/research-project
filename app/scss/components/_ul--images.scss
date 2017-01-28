@@ -1,7 +1,7 @@
 // Images list
 
 $image-dimension: 160px;
-$image-margin: 8px;
+$image-margin: 4px;
 
 .ul--images {
   display: flex;
@@ -78,7 +78,7 @@ $image-margin: 8px;
   &[data-active='2'] {
 
     .img {
-      transform: scale(1) translate(-50%, -50%);
+      transform: scale(1) translate3d(-50%, -50%, 0);
     }
   }
 
@@ -103,6 +103,7 @@ $image-margin: 8px;
   opacity: 0;
   visibility: hidden;
 
+
   &::after,
   &::before {
     background-color: $lightest;
@@ -121,6 +122,6 @@ $image-margin: 8px;
     left: 50%;
     text-indent: initial;
     content: '?';
-    transform: translate(-50%, -50%);
+    transform: app/scss(-50%, -50%);
   }
 }
