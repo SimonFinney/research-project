@@ -36,7 +36,7 @@
         <label class="dialog__label" for="checkbox">I accept</label>
       </fieldset>
 
-      <button class="dialog__button" type="submit" disabled>Continue</button>
+      <button class="dialog__button" type="submit">Continue</button>
     </form>
   </section>
 
@@ -121,8 +121,8 @@
           </li>
         </ol>
       </fieldset>
-      <input type="hidden" value="{{ variation }}">
-      <button class="dialog__button" type="submit" disabled>Finish</button>
+      <input type="hidden" name="variation" value="{{ variation }}">
+      <button class="dialog__button" type="submit">Finish</button>
     </form>
   </section>
 

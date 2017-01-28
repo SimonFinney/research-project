@@ -14,16 +14,6 @@ $large-icon-button-dimension: 24px;
   @extend %button;
   @include font-size(16);
   padding: 8px 16px;
-  cursor: not-allowed;
-
-  &:disabled {
-    background-color: $dark;
-  }
-
-  &:not(:disabled) {
-    cursor: pointer;
-    background-color: $primary;
-  }
 }
 
 %button--icon {

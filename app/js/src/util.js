@@ -10,8 +10,8 @@ function debounce(func, timeout = 0) {
 }
 
 
-function isToggled(element) {
-  return element.hasAttribute('data-active');
+function isToggled(element, dataAttribute = 'active') {
+  return element.hasAttribute(`data-${dataAttribute}`);
 }
 
 

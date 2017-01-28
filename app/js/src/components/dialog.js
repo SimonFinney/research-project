@@ -20,7 +20,7 @@ function toggleDialog(elementsToFocus) {
   toggle(dialog);
   toggleElement(app, 'dialog');
 
-  isToggled(dialog) ?
+  isToggled(app, 'dialog') ?
     removeTabindex(elementsToFocus) :
     resetTabindex(elementsToFocus);
 }

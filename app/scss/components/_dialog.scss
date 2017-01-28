@@ -80,6 +80,22 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__form {
   display: flex;
+
+  &:invalid {
+
+    .dialog__button {
+      cursor: not-allowed;
+      background-color: $dark;
+    }
+  }
+
+  &:valid {
+
+    .dialog__button {
+      cursor: pointer;
+      background-color: $primary;
+    }
+  }
 }
 
 .dialog__fieldset {
