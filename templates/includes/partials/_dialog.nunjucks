@@ -41,7 +41,7 @@
   </section>
 
   <section class="dialog__section" hidden data-id="1">
-    <button class="dialog__button--icon">Close</button>
+    <button class="dialog__button--icon" title="Close dialog">Close dialog</button>
     <h2 class="h2">Task</h2>
     <p>
       Preview all images with a

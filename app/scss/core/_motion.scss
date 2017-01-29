@@ -28,6 +28,13 @@
 
     %button--icon {
       @include ease-out;
+
+      &[title] {
+
+        &::after {
+          @include ease-out;
+        }
+      }
     }
 
     %input__label {
