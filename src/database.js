@@ -21,6 +21,25 @@ const database = firebaseApp.database();
 const data = database.ref('data');
 
 
+function check(key) {
+  read(key, databaseObject => {
+
+
+    console.log(databaseObject);
+
+
+    const objectProperties = Object.keys(databaseObject);
+
+    if (
+      (objectProperties.length === 1) &&
+      (objectProperties[0] === 'id')
+    ) {
+      del(key);
+    }
+  });
+}
+
+
 function count(callback) {
   data.once('value')
     .then(value =>
@@ -68,18 +87,18 @@ function read(id, callback) {
 }
 
 
-function update(id, newData) {
-  getById(id).set(newData);
+function update(id, newData, callback) {
+  getById(id).set(newData)
+    .then(callback);
 }
 
 
 init();
 
 module.exports = {
+  check,
   count,
   create,
-  del,
   get,
-  read,
   update,
 };

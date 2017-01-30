@@ -6,7 +6,7 @@ const numberofVariations = 4;
 
 
 function delegateVariation(count) {
-  return (count % numberofVariations);
+  return ((count - 1) % numberofVariations); // Accounts for the control variation
 }
 
 
@@ -22,7 +22,7 @@ function getDatetime() {
 }
 
 
-function getId(request) {
+function getIpAddress(request) {
   return (request.headers['x-forwarded-for'] || request.connection.remoteAddress);
 }
 
@@ -58,7 +58,7 @@ module.exports = {
   delegateVariation,
   getConfiguration,
   getDatetime,
-  getId,
+  getIpAddress,
   isDebug,
   shuffle,
 };

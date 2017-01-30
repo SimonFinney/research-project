@@ -6,5 +6,6 @@
   "imgurClientId": "",
   "imgurThumbnailExtension": "",
   "imgurThumbnailSize": "",
-  "imgurUrlPrefix": ""
+  "imgurUrlPrefix": "",
+  "secret": ""
 }
