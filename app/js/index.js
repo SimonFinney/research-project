@@ -224,12 +224,14 @@ function startSquashAndStretchVariation() {
 
 function loadThumbnails() {
   app.querySelectorAll('.img')
-    .forEach(image =>
+    .forEach(image => {
       setImage(
         image,
         image.getAttribute('data-thumbnail')
-      )
-    );
+      );
+
+      image.onload = () => image.removeAttribute('data-load');
+    });
 }
 
 

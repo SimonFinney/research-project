@@ -19,15 +19,4 @@ function get(url, callback) {
 }
 
 
-function search(q, callback) {
-  requestOptions.url = `${baseUrl}gallery/search?q=${q}`;
-  request.getRequest(requestOptions, responseJson => callback(
-    responseJson
-  ));
-}
-
-
-module.exports = {
-  get,
-  search,
-};
+module.exports = { get };

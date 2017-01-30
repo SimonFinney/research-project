@@ -97,6 +97,11 @@ $img-button-focus-background-color: rgba($dark, .33);
 .img {
   width: inherit;
   height: inherit;
+  opacity: 1;
+
+  &[data-load] {
+    opacity: 0;
+  }
 }
 
 .img__button {

@@ -10,7 +10,14 @@ const util = require('./util');
 const router = express.Router();
 
 
-router.get('/', (request, response) =>
+router.get('/', (request, response) => {
+  if (!request.session.key) {
+    database.create({ id: request.session.id }, databaseEntry => {
+      request.session.key = databaseEntry.key;
+      setTimeout(() => database.check(request.session.key), request.session.cookie.maxAge);
+    });
+  }
+
   database.count(count => {
     const variation = util.delegateVariation(count);
 
@@ -25,8 +32,8 @@ router.get('/', (request, response) =>
         variation,
       })
     );
-  })
-);
+  });
+});
 
 
 router.get('/data', (request, response) =>
@@ -37,12 +44,19 @@ router.get('/data', (request, response) =>
 
 
 router.post('/submit', (request, response) => {
-  const data = request.body;
+  const data = {
+    datetime: util.getDatetime(),
+    debug: util.isDebug(),
+    id: request.session.id,
+    ip: util.getIpAddress(request),
+  };
 
-  data.id = util.getId(request);
-  data.datetime = util.getDatetime(); // Adds a timestamp to the data being saved
+  Object.keys(request.body)
+    .forEach(objectProperty =>
+      data[objectProperty] = request.body[objectProperty]
+  );
 
-  database.create(data, postResponse =>
+  database.update(request.session.key, data, postResponse =>
     response.send(postResponse)
   );
 });

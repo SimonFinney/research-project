@@ -6,6 +6,7 @@ const compression = require('compression');
 const express = require('express');
 const minifyHtml = require('express-minify-html');
 const nunjucks = require('nunjucks');
+const session = require('express-session');
 
 const router = require('./src/router');
 const util = require('./src/util');
@@ -25,6 +26,17 @@ server.use(
 
 server.use(
   bodyParser.urlencoded({ extended: true })
+);
+
+server.use(
+  session(
+    {
+      cookie: { maxAge: 300000 },
+      resave: false,
+      saveUninitialized: true,
+      secret: util.getConfiguration('secret'),
+    }
+  )
 );
 
 server.use('/', router.router);
