@@ -15,3 +15,8 @@
   </ul>
   <button class="main__button--icon" tabindex="-1" title="Toggle dialog">Toggle dialog</button>
 {%- endblock -%}
+
+{%- block script -%}
+
+  <script src="/js/bundle.js"></script>
+{%- endblock -%}

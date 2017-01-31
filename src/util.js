@@ -5,8 +5,9 @@ const server = express();
 const numberofVariations = 4;
 
 
-function delegateVariation(count) {
-  return ((count - 1) % numberofVariations); // Accounts for the control variation
+function delegateVariation(databaseEntriesLength) {
+  const count = ((databaseEntriesLength <= 0) ? databaseEntriesLength : (databaseEntriesLength - 1));
+  return (count % numberofVariations); // Accounts for the control variation
 }
 
 
@@ -29,6 +30,11 @@ function getIpAddress(request) {
 
 function isDebug() {
   return (server.get('env') === 'development');
+}
+
+
+function getMaxAge() {
+  return (isDebug() ? 180000 : 600000);
 }
 
 
@@ -59,6 +65,7 @@ module.exports = {
   getConfiguration,
   getDatetime,
   getIpAddress,
+  getMaxAge,
   isDebug,
   shuffle,
 };

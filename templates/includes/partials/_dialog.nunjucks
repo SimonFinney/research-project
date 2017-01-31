@@ -1,5 +1,5 @@
 <div class="dialog">
-  <section class="dialog__section" data-id="0">
+  <section class="dialog__section" {%- if not variation -%} hidden {%- endif %} data-id="0">
     <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
     <div class="dialog__container">
       <h2 class="h2">Purpose of this study</h2>
@@ -126,7 +126,7 @@
     </form>
   </section>
 
-  <section class="dialog__section" hidden data-id="3">
+  <section class="dialog__section" {%- if not session -%} hidden {%- endif -%}>
     <h2 class="h2">Debriefing</h2>
     <p>This study was [description]</p>
     <p>It is anticipated that participants who [hypothesis]</p>
