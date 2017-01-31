@@ -195,8 +195,9 @@ function stopSecondaryActionVariation() {
 
 function scaleImage() {
   removeStyle(selectedImage);
+  const scaleDimensions = calculateScaleDimensions();
   selectedImage.style.transform = `
-    scale(${calculateScaleDimensions()}) translate3d(-50%, -50%, 0)
+    scale3d(${scaleDimensions}, ${scaleDimensions}, ${scaleDimensions}) translate3d(-50%, -50%, 0)
     `;
 }
 
