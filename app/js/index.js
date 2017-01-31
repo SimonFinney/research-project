@@ -116,7 +116,7 @@ function togglePreview() {
 
   debounce(
     () => check(selectedLink),
-    500
+    1000
   );
 }
 

@@ -13,7 +13,8 @@
       {%- endblock -%}
     </main>
 
-    {%- include 'includes/partials/_dialog.nunjucks' -%}
+    {%- include 'includes/partials/_dialog.nunjucks' %}
 
-    <script src="/js/bundle.js"></script>
+    {% block script -%}
+    {%- endblock -%}
   </body>

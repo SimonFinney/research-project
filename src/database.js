@@ -23,17 +23,17 @@ const data = database.ref('data');
 
 function check(key) {
   read(key, databaseObject => {
-
-
-    console.log(databaseObject);
-
-
     const objectProperties = Object.keys(databaseObject);
 
     if (
       (objectProperties.length === 1) &&
       (objectProperties[0] === 'id')
     ) {
+
+
+      console.log(databaseObject);
+
+
       del(key);
     }
   });
@@ -77,8 +77,14 @@ function get(callback) {
 }
 
 
+function log(value) {
+  console.log(value.key);
+}
+
+
 function init() {
-  data.on('child_added', value => console.log(value.key));
+  data.on('child_added', log);
+  data.on('child_changed', log);
 }
 
 
@@ -88,7 +94,7 @@ function read(id, callback) {
 
 
 function update(id, newData, callback) {
-  getById(id).set(newData)
+  getById(id).update(newData)
     .then(callback);
 }
 

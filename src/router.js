@@ -18,21 +18,24 @@ router.get('/', (request, response) => {
     });
   }
 
-  database.count(count => {
-    const variation = util.delegateVariation(count);
+  request.session.data ?
+    response.redirect('/success') :
 
-    imgur.get('album/Glnla', album =>
-      response.render('views/index.nunjucks', {
-        images: util.shuffle(album.data.images),
-        imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
-        imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
-        imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
-        isDebug: util.isDebug(),
-        name,
-        variation,
-      })
-    );
-  });
+    database.count(count => {
+      const variation = util.delegateVariation(count);
+
+      imgur.get('album/Glnla', album =>
+        response.render('views/index.nunjucks', {
+          images: util.shuffle(album.data.images),
+          imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
+          imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
+          imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
+          isDebug: util.isDebug(),
+          name,
+          variation,
+        })
+      );
+    });
 });
 
 
@@ -43,11 +46,14 @@ router.get('/data', (request, response) =>
 );
 
 
+router.get('/success', (request, response) =>
+  response.render('views/success.nunjucks', { session: request.session.data })
+);
+
+
 router.post('/submit', (request, response) => {
   const data = {
     datetime: util.getDatetime(),
-    debug: util.isDebug(),
-    id: request.session.id,
     ip: util.getIpAddress(request),
   };
 
@@ -56,9 +62,10 @@ router.post('/submit', (request, response) => {
       data[objectProperty] = request.body[objectProperty]
   );
 
-  database.update(request.session.key, data, postResponse =>
-    response.send(postResponse)
-  );
+  database.update(request.session.key, data, () => {
+    request.session.data = data;
+    response.redirect('/success');
+  });
 });
 
 

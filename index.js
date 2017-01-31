@@ -31,7 +31,7 @@ server.use(
 server.use(
   session(
     {
-      cookie: { maxAge: 300000 },
+      cookie: { maxAge: util.getMaxAge() },
       resave: false,
       saveUninitialized: true,
       secret: util.getConfiguration('secret'),
