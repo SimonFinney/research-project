@@ -8,7 +8,10 @@
 
   &:not([data-variation='0']) {
 
-    &::before {
+    &::before,
+    %button--standard,
+    %button--icon,
+    .dialog {
       @include ease-out;
     }
 
@@ -28,7 +31,6 @@
     }
 
     %button--icon {
-      @include ease-out;
 
       &[title] {
 
@@ -40,13 +42,10 @@
 
     %input__label {
 
+      &::after,
       &::before {
         @include ease-out;
       }
-    }
-
-    .dialog {
-      @include ease-out;
     }
   }
 }
