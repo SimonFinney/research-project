@@ -7,7 +7,7 @@
       <div class="dialog__container">
         <h2 class="h2">Purpose of this study</h2>
         <p>
-          The purpose of this study is to understand your goals and experiences as they relate to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help in creating better experiences for you and other people like you.
+          The purpose of this study is to gather your feedback as it relates to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help in creating better experiences for you and other people like you.
         </p>
         <h2 class="h2">Information collected</h2>
         <p>
@@ -59,7 +59,7 @@
       <h2 class="h2">Questionnaire</h2>
       <form class="dialog__form" action="/submit" method="post">
         <fieldset class="dialog__fieldset">
-          <legend>When previewing each image, the time it took the image to display was:</legend>
+          <legend>When viewing each image at full size, the time taken to load the image was:</legend>
           <ol class="dialog__likert-scale">
             <li class="likert-scale__list-item">
               <input id="perception0" class="likert-scale__input" name="perception" type="radio" value="-3" required>
