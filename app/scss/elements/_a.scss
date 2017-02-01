@@ -1,0 +1,17 @@
+// Link
+
+.a {
+  font-weight: bold;
+  color: $primary;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $primary-darkest;
+  }
+}
