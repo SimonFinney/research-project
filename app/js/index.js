@@ -176,9 +176,15 @@ function stopSquashAndStretchVariation() {
     selectedLink.setAttribute('data-squash-and-stretch', '');
 
     once(selectedImage, 'transitionend', () => {
-      toggleElement(selectedLink, 'active', getVariation());
-      removeStyle(selectedImage);
-      debounce(() => selectedLink.removeAttribute('data-squash-and-stretch'));
+      debounce(() => {
+        selectedLink.removeAttribute('data-squash-and-stretch');
+
+        once(selectedImage, 'transitionend', () => {
+          toggleElement(selectedLink, 'active', getVariation());
+          removeStyle(selectedImage);
+          removeStyle(selectedLink);
+        });
+      });
     });
   });
 }
