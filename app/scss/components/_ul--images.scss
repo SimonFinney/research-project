@@ -86,6 +86,13 @@ $img-button-focus-background-color: rgba($dark, .33);
     }
   }
 
+  &[data-active='3'] {
+
+    .img {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
   &[data-squash-and-stretch] {
 
     .img {
@@ -110,6 +117,7 @@ $img-button-focus-background-color: rgba($dark, .33);
   @extend %button--icon--close;
   @include z-index('img__button');
   position: fixed;
+  color: $lightest;
   opacity: 0;
   visibility: hidden;
 

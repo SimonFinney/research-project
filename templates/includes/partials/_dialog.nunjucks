@@ -35,7 +35,7 @@
       <button class="dialog__button--icon" title="Close">Close</button>
       <h2 class="h2">Task</h2>
       <p>Select each image thumbnail with a <strong>house</strong> in it, and view it in its full-size.</p>
-      <p>When you're ready to continue, please close this dialog.</p>
+      <p>When you're ready to continue, please close the dialog.</p>
     </section>
 
     <section class="dialog__section" hidden data-id="2">
@@ -116,8 +116,13 @@
 
     <section class="dialog__section">
       <h2 class="h2">Debriefing</h2>
-      <p>This study was [description]</p>
-      <p>It is anticipated that participants who [hypothesis]</p>
+      <p>This purpose of this study was to evaluate the perceived loading time and satisfaction of animation principles in user interfaces (UI). During the study, each participant evaluated a variation of the UI with either no animation principles applied to it, or a variation with one of the following animation principles applied: </p>
+      <ul>
+        <li>Arcs</li>
+        <li>Secondary Action</li>
+        <li>Squash and Stretch</li>
+      </ul>
+      <p>It is anticipated that when evaluating the variation of the UI with an animation principle applied to it, participants' perception of loading times is significantly reduced. It is also anticipated that participant satisfaction is significantly increased when animation principles are applied to the UI.</p>
       <p>Please contact Simon Finney (<a class="a" href="mailto:simonfinney@gmail.com" target="_blank">simonjfinney@gmail.com</a>) or Marian McDonnell (<a class="a" href="mailto:marian.mcdonnell@iadt.ie" target="_blank">marian.mcdonnell@iadt.ie</a>) if you have any questions regarding this study.</p>
       <p><strong>Thank you again for your co-operation.</strong></p>
     </section>

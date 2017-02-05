@@ -93,8 +93,9 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
   &:invalid {
 
     .dialog__button {
+      color: $darkest;
       cursor: not-allowed;
-      background-color: $dark;
+      background-color: $light;
     }
   }
 
