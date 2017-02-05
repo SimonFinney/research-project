@@ -13,7 +13,7 @@ const requestOptions = {
 
 function get(url, callback) {
   requestOptions.url = `${baseUrl}${url}`;
-  request.getRequest(requestOptions, responseJson => callback(
+  request.get(requestOptions, responseJson => callback(
     responseJson
   ));
 }

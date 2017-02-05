@@ -3,7 +3,7 @@
 const request = require('request');
 
 
-function getRequest(optionsToModify, callback) {
+function get(optionsToModify, callback) {
   const options = optionsToModify;
   options.method = 'GET';
 
@@ -15,4 +15,4 @@ function getRequest(optionsToModify, callback) {
 }
 
 
-module.exports = { getRequest };
+module.exports = { get };
