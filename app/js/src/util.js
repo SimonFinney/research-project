@@ -9,6 +9,10 @@ function debounce(func, timeout = 0) {
   setTimeout(func, timeout);
 }
 
+function each(elements, callback) {
+  [...elements].forEach(callback);
+}
+
 
 function isToggled(element, dataAttribute = 'active') {
   return element.hasAttribute(`data-${dataAttribute}`);
@@ -41,7 +45,7 @@ function once(element, eventType, functionToCall) {
 
 
 function removeTabindex(elements) {
-  elements.forEach(element =>
+  each(elements, element =>
     element.setAttribute('tabindex', -1)
   );
 }
@@ -53,7 +57,7 @@ function removeStyle(element) {
 
 
 function resetTabindex(elements) {
-  elements.forEach(element =>
+  each(elements, element =>
     element.removeAttribute('tabindex')
   );
 }
@@ -80,6 +84,7 @@ function toggleElement(element, dataAttribute = 'active', attributeValue = '') {
 
 export {
   debounce,
+  each,
   isToggled,
   off,
   on,

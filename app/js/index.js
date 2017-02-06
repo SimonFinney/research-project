@@ -20,6 +20,7 @@ import {
 
 import {
   debounce,
+  each,
   isToggled,
   off,
   on,
@@ -230,15 +231,14 @@ function startSquashAndStretchVariation() {
 
 
 function loadThumbnails() {
-  app.querySelectorAll('.img')
-    .forEach(image => {
-      setImage(
-        image,
-        image.getAttribute('data-thumbnail')
-      );
+  each(app.querySelectorAll('.img'), image => {
+    setImage(
+      image,
+      image.getAttribute('data-thumbnail')
+    );
 
-      image.onload = () => image.removeAttribute('data-load');
-    });
+    image.onload = () => image.removeAttribute('data-load');
+  });
 }
 
 
@@ -263,14 +263,12 @@ function init() {
   focusableElements = document.querySelectorAll(focusableElementsString);
   initDialog(focusableElements);
 
-
-  app.querySelectorAll('.img__a')
-    .forEach(imageLink =>
-      once(imageLink, 'click', setDetailedImage)
+  each(app.querySelectorAll('.img__a'), imageLink =>
+    once(imageLink, 'click', setDetailedImage)
   );
 
-  document.querySelectorAll('.img__button')
-    .forEach(closeImagePreviewButton => on(closeImagePreviewButton, 'click', closePreview)
+  each(document.querySelectorAll('.img__button'),
+    closeImagePreviewButton => on(closeImagePreviewButton, 'click', closePreview)
   );
 
   on(
