@@ -73,15 +73,12 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
       flex-wrap: wrap;
     }
 
-    .dialog__button {
-      margin-left: auto;
-    }
-  }
-
-  &[data-id='3'] {
-
     .dialog__fieldset {
       width: 100%;
+    }
+
+    .dialog__button {
+      margin-left: auto;
     }
   }
 }
