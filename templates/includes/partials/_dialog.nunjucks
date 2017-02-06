@@ -2,7 +2,7 @@
 
   {%- if not session -%}
 
-    <section class="dialog__section" data-id="0" {%- if not variation %} hidden {% endif -%}>
+    <section class="dialog__section" data-id="0">
       <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
       <div class="dialog__container">
 
@@ -42,7 +42,7 @@
       <h2 class="h2">Questionnaire</h2>
       <form class="dialog__form" action="/submit" method="post">
         <fieldset class="dialog__fieldset">
-          <legend>When selecting each image thumbnail and viewing it in its full-size, the time taken to load the full-size image was:</legend>
+          <legend class="dialog__legend">When selecting each image thumbnail and viewing it in its full-size, the time taken to load the full-size image was:</legend>
           <ol class="dialog__likert-scale">
             <li class="likert-scale__list-item">
               <input id="perception0" class="likert-scale__input" name="perception" type="radio" value="-3" required>
@@ -75,7 +75,7 @@
           </ol>
         </fieldset>
         <fieldset class="dialog__fieldset">
-          <legend>Please rate your level of satisfaction with the user interface:</legend>
+          <legend class="dialog__legend">Please rate your level of satisfaction with the user interface:</legend>
           <ol class="dialog__likert-scale">
             <li class="likert-scale__list-item">
               <input id="satisfaction0" class="likert-scale__input" name="satisfaction" type="radio" value="-3" required>

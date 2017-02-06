@@ -107,10 +107,15 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__fieldset {
   position: relative;
+  width: 100%;
   padding-right: 0;
   padding-left: 0;
   margin-left: auto;
   border: 0;
+}
+
+.dialog__legend {
+  width: 100%;
 }
 
 .dialog__checkbox {
