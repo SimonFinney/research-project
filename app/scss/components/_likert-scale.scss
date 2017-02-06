@@ -1,14 +1,28 @@
 // Likert scale
 
+%likert-scale__input--checked__label {
+
+  &::before {
+    background: radial-gradient($primary 30%, $lightest 30%);
+  }
+}
+
 %likert-scale__input--checked {
 
   &:checked {
 
     + .likert-scale__label {
+      @extend %likert-scale__input--checked__label;
+    }
+  }
+}
 
-      &::before {
-        background: radial-gradient($primary 30%, $lightest 30%);
-      }
+%likert-scale__list-item {
+
+  .likert-scale__input {
+
+    &::before {
+      left: 0;
     }
   }
 }
@@ -32,13 +46,7 @@
   flex-basis: 100%;
 
   &:not(:first-of-type) {
-
-    .likert-scale__input {
-
-      &::before {
-        left: 0;
-      }
-    }
+    @extend %likert-scale__list-item;
   }
 
   &:first-of-type,

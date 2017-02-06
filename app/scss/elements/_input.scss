@@ -3,17 +3,21 @@
 $input-dimensions: 16px;
 $input-position: ($input-dimensions / 2);
 
+%input--checked--focus__label {
+
+  + %input__label {
+
+    &::before {
+      border-color: $dark;
+    }
+  }
+}
+
 %input--checked {
 
   &:focus,
   &:hover {
-
-    + %input__label {
-
-      &::before {
-        border-color: $dark;
-      }
-    }
+    @extend %input--checked--focus__label;
   }
 }
 

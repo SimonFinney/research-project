@@ -9,14 +9,18 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 %dialog__checkbox--checked {
 
-  &:checked {
+  + .dialog__label {
 
-    + .dialog__label {
-
-      &::after {
-        border-color: $primary;
-      }
+    &::after {
+      border-color: $primary;
     }
+  }
+}
+
+%dialog__form--invalid__button--active {
+
+  &:active {
+    box-shadow: none;
   }
 }
 
@@ -97,14 +101,11 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
   &:invalid {
 
     .dialog__button {
+      @extend %dialog__form--invalid__button--active;
       color: $darkest;
       cursor: not-allowed;
       background-color: $light;
       box-shadow: none;
-
-      &:active {
-        box-shadow: none;
-      }
     }
   }
 }
@@ -122,11 +123,14 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 }
 
 .dialog__checkbox {
-  @extend %dialog__checkbox--checked;
   @extend %input;
   position: relative;
   top: -9999px;
   left: -9999px;
+
+  &:checked {
+    @extend %dialog__checkbox--checked;
+  }
 }
 
 .dialog__label {

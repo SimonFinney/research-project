@@ -21,6 +21,29 @@ const database = firebaseApp.database();
 const data = database.ref('data');
 
 
+function getById(id) {
+  return data.child(id);
+}
+
+
+function del(id) {
+  getById(id).remove();
+}
+
+
+function getValue(databaseReference, callback) {
+  databaseReference.once('value')
+    .then(value =>
+      callback(value.val())
+    );
+}
+
+
+function read(id, callback) {
+  getValue(getById(id), callback);
+}
+
+
 function check(key) {
   read(key, databaseObject => {
     const objectProperties = Object.keys(databaseObject);
@@ -29,11 +52,6 @@ function check(key) {
       (objectProperties.length === 1) &&
       (objectProperties[0] === 'id')
     ) {
-
-
-      console.log(databaseObject);
-
-
       del(key);
     }
   });
@@ -54,24 +72,6 @@ function create(newData, callback) {
 }
 
 
-function getById(id) {
-  return data.child(id);
-}
-
-
-function getValue(databaseReference, callback) {
-  databaseReference.once('value')
-    .then(value =>
-      callback(value.val())
-    );
-}
-
-
-function del(id) {
-  getById(id).remove();
-}
-
-
 function get(callback) {
   getValue(data, callback);
 }
@@ -85,11 +85,6 @@ function log(value) {
 function init() {
   data.on('child_added', log);
   data.on('child_changed', log);
-}
-
-
-function read(id, callback) {
-  getValue(getById(id), callback);
 }
 
 

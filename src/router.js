@@ -58,8 +58,9 @@ router.post('/submit', (request, response) => {
   };
 
   Object.keys(request.body)
-    .forEach(objectProperty =>
-      data[objectProperty] = request.body[objectProperty]
+    .forEach(objectProperty => {
+      data[objectProperty] = request.body[objectProperty];
+    }
   );
 
   database.update(request.session.key, data, () => {

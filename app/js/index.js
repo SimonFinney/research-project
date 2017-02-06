@@ -44,57 +44,15 @@ let focusableElements;
 let selectedLink;
 let selectedImage;
 
-const variations = [
-  {
-    start: scaleImage,
-    stop: () => toggleElement(selectedLink),
-  },
-  {
-    start: startArcsVariation,
-    stop: stopArcsVariation,
-  },
-  {
-    start: scaleImage,
-    stop: stopSecondaryActionVariation,
-  },
-  {
-    start: startSquashAndStretchVariation,
-    stop: stopSquashAndStretchVariation,
-  },
-];
+let variations;
 
-
-function check(selectedLink) {
-  checkCriteria(selectedLink);
+function check(link) {
+  checkCriteria(link);
 
   if (hasMetCriteria()) {
     setDialogContent(2);
     toggleDialog(focusableElements);
   }
-}
-
-
-function closePreview() {
-  removeStyle(selectedImage);
-  variations[getVariation()].stop();
-  togglePreview();
-
-  debounce(
-   () => once(selectedLink, 'click', setDetailedImage)
-  );
-}
-
-
-function calculateScaleDimensions() {
-  const imageList = app.querySelector('.ul--images');
-  const imageListWidth = imageList.clientWidth;
-  const imageListHeight = imageList.clientHeight;
-
-  const scaleTarget = ((imageListWidth <= imageListHeight) ?
-    imageListWidth :
-    imageListHeight);
-
-  return (scaleTarget / selectedImage.clientWidth);
 }
 
 
@@ -130,6 +88,57 @@ function setSelectedImagePosition(top, left) {
 }
 
 
+function moveImageFromInitialPosition() {
+  const selectedImagePosition = selectedImage.getBoundingClientRect();
+
+  setSelectedImagePosition(
+    selectedImagePosition.top,
+    selectedImagePosition.left
+  );
+}
+
+
+function setDetailedImage(event) {
+  event.preventDefault();
+
+  selectedLink = event.target;
+  selectedImage = selectedLink.querySelector('.img');
+
+  selectedLink.style.width = `${selectedImage.clientWidth}px`;
+  selectedLink.style.height = `${selectedImage.clientHeight}px`;
+
+  togglePreview();
+  moveImageFromInitialPosition();
+  toggleElement(selectedLink, 'active', getVariation());
+
+  variations[getVariation()].start();
+}
+
+
+function closePreview() {
+  removeStyle(selectedImage);
+  variations[getVariation()].stop();
+  togglePreview();
+
+  debounce(
+   () => once(selectedLink, 'click', setDetailedImage)
+  );
+}
+
+
+function calculateScaleDimensions() {
+  const imageList = app.querySelector('.ul--images');
+  const imageListWidth = imageList.clientWidth;
+  const imageListHeight = imageList.clientHeight;
+
+  const scaleTarget = ((imageListWidth <= imageListHeight) ?
+    imageListWidth :
+    imageListHeight);
+
+  return (scaleTarget / selectedImage.clientWidth);
+}
+
+
 function moveImageToInitialPosition() {
   const selectedLinkPosition = selectedLink.getBoundingClientRect();
 
@@ -140,7 +149,9 @@ function moveImageToInitialPosition() {
     selectedLinkPosition.left
   );
 
-  once(selectedImage, 'transitionend', () => selectedImage.style.transform = '');
+  once(selectedImage, 'transitionend', () => {
+    selectedImage.style.transform = '';
+  });
 }
 
 
@@ -161,9 +172,16 @@ function stopArcsVariation() {
 }
 
 
-function startArcsVariation() {
+function scaleImage() {
+  removeStyle(selectedImage);
+  const scaleDimensions = calculateScaleDimensions();
+  selectedImage.style.transform = `
+    scale3d(${scaleDimensions}, ${scaleDimensions}, ${scaleDimensions}) translate3d(-50%, -50%, 0)
+    `;
+}
 
-  // Scales the image once transition is complete
+
+function startArcsVariation() {
   once(selectedImage, 'transitionend', scaleImage);
 
   debounce(() =>
@@ -202,27 +220,10 @@ function stopSecondaryActionVariation() {
   });
 }
 
-function scaleImage() {
-  removeStyle(selectedImage);
-  const scaleDimensions = calculateScaleDimensions();
-  selectedImage.style.transform = `
-    scale3d(${scaleDimensions}, ${scaleDimensions}, ${scaleDimensions}) translate3d(-50%, -50%, 0)
-    `;
-}
-
 
 function stretchImage() {
   selectedLink.removeAttribute('data-squash-and-stretch');
   scaleImage();
-}
-
-function moveImageFromInitialPosition() {
-  const selectedImagePosition = selectedImage.getBoundingClientRect();
-
-  setSelectedImagePosition(
-    selectedImagePosition.top,
-    selectedImagePosition.left
-  );
 }
 
 
@@ -233,7 +234,9 @@ function startSquashAndStretchVariation() {
 
 
 function loadThumbnails() {
-  each(app.querySelectorAll('.img'), image => {
+  each(app.querySelectorAll('.img'), imageToModify => {
+    const image = imageToModify;
+
     setImage(
       image,
       image.getAttribute('data-thumbnail')
@@ -244,25 +247,27 @@ function loadThumbnails() {
 }
 
 
-function setDetailedImage(event) {
-  event.preventDefault();
-
-  selectedLink = event.target;
-  selectedImage = selectedLink.querySelector('.img')
-
-  selectedLink.style.width = `${selectedImage.clientWidth}px`;
-  selectedLink.style.height = `${selectedImage.clientHeight}px`;
-
-  togglePreview();
-  moveImageFromInitialPosition();
-  toggleElement(selectedLink, 'active', getVariation());
-
-  variations[getVariation()].start();
-}
-
-
 function init() {
   focusableElements = document.querySelectorAll(focusableElementsString);
+  variations = [
+    {
+      start: scaleImage,
+      stop: () => toggleElement(selectedLink),
+    },
+    {
+      start: startArcsVariation,
+      stop: stopArcsVariation,
+    },
+    {
+      start: scaleImage,
+      stop: stopSecondaryActionVariation,
+    },
+    {
+      start: startSquashAndStretchVariation,
+      stop: stopSquashAndStretchVariation,
+    },
+  ];
+
   initDialog(focusableElements);
 
   each(app.querySelectorAll('.img__a'), imageLink =>
