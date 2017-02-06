@@ -96,14 +96,11 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
       color: $darkest;
       cursor: not-allowed;
       background-color: $light;
-    }
-  }
+      box-shadow: none;
 
-  &:valid {
-
-    .dialog__button {
-      @extend %button--primary;
-      cursor: pointer;
+      &:active {
+        box-shadow: none;
+      }
     }
   }
 }
@@ -152,6 +149,8 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__button {
   @extend %button--standard;
+  @extend %button--primary;
+  cursor: pointer;
   align-self: center;
 }
 

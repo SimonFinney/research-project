@@ -13,16 +13,6 @@ const paths = new (function paths() {
 // Configuration
 const browsers = [
   '> 5%',
-  'ie > 0',
-  'Firefox > 0',
-  'Chrome > 0',
-  'Opera > 0',
-  'OperaMobile > 0',
-  'OperaMini > 0',
-  'Safari > 0',
-  'iOS > 0',
-  'Blackberry > 0',
-  'Android > 0',
 ];
 
 const autoprefixer = { browsers };
