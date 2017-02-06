@@ -2,7 +2,7 @@
 
   {%- if not session -%}
 
-    <section class="dialog__section" data-id="0">
+    <section class="dialog__section" data-id="0" {%- if not variation %} hidden {% endif -%}>
       <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
       <div class="dialog__container">
 
