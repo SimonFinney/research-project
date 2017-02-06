@@ -4,6 +4,8 @@
 // TODO: Comments
 
 // Imports
+import 'babel-polyfill';
+
 import {
   app,
   checkCriteria,
