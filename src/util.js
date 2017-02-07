@@ -36,7 +36,7 @@ function isDebug() {
 
 
 function getMaxAge() {
-  return (isDebug() ? 180000 : 600000);
+  return (isDebug() ? 180000 : 1200000);
 }
 
 
