@@ -1,7 +1,7 @@
 // Dialog
 
-$dialog-padding-top: 32px;
-$dialog-padding-left: 48px;
+$dialog-margin-top: 32px;
+$dialog-margin-left: 48px;
 
 $dialog-form-min-height: 88px;
 
@@ -31,8 +31,7 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
   left: 50%;
   display: inline-block;
   max-width: 640px;
-  max-height: calc(100% - #{($dialog-padding-top * 2)});
-  padding: $dialog-padding-top $dialog-padding-left;
+  max-height: calc(100% - #{($dialog-margin-top * 2)});
   overflow-y: hidden;
   background-color: $lightest;
   opacity: 1;
@@ -48,6 +47,8 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 }
 
 .dialog__section {
+  margin: $dialog-margin-top $dialog-margin-left;
+  overflow: auto;
 
   &[data-id='0'] {
 
@@ -57,10 +58,10 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
       bottom: 0;
       left: 0;
       min-height: $dialog-form-min-height;
-      padding-top: $dialog-padding-top;
-      padding-bottom: $dialog-padding-top;
-      margin-right: $dialog-padding-left;
-      margin-left: $dialog-padding-left;
+      padding-top: $dialog-margin-top;
+      padding-bottom: $dialog-margin-top;
+      margin-right: $dialog-margin-left;
+      margin-left: $dialog-margin-left;
       background-color: $lightest;
       border-top: 1px solid $dark;
       box-sizing: border-box;
@@ -89,7 +90,7 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__container {
   max-height: 66vh;
-  padding-bottom: ($dialog-form-min-height + $dialog-padding-top);
+  padding-bottom: ($dialog-form-min-height + $dialog-margin-top);
   overflow-y: scroll;
   border-top: 1px solid $dark;
   box-sizing: border-box;

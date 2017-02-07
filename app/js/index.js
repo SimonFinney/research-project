@@ -24,7 +24,6 @@ import {
   debounce,
   each,
   isToggled,
-  off,
   on,
   once,
   removeStyle,
@@ -46,6 +45,59 @@ let selectedImage;
 
 let variations;
 
+
+function calculateScaleDimensions() {
+  const imageList = app.querySelector('.ul--images');
+  const imageListWidth = imageList.clientWidth;
+  const imageListHeight = imageList.clientHeight;
+
+  const scaleTarget = ((imageListWidth <= imageListHeight) ?
+    imageListWidth :
+    imageListHeight);
+
+  return (scaleTarget / selectedImage.clientWidth);
+}
+
+
+function swapImage() {
+  const src =
+    (selectedImage.getAttribute('src') === selectedImage.getAttribute('data-src')) ?
+    selectedImage.getAttribute('data-thumbnail') :
+    selectedImage.getAttribute('data-src');
+
+  setImage(selectedImage, src);
+}
+
+
+function scaleImage() {
+  swapImage();
+  removeStyle(selectedImage);
+  const scaleDimensions = calculateScaleDimensions();
+  selectedImage.style.transform = `
+    scale3d(${scaleDimensions}, ${scaleDimensions}, ${scaleDimensions}) translate3d(-50%, -50%, 0)
+    `;
+}
+
+
+function addArcsAnimation() {
+  once(selectedImage, 'transitionend', scaleImage);
+
+  debounce(() =>
+    removeStyle(selectedImage)
+  );
+}
+
+
+function addSquashAndStretchAnimation() {
+  selectedLink.setAttribute('data-squash-and-stretch', '');
+
+  once(selectedImage, 'transitionend', () => {
+    scaleImage();
+    selectedLink.removeAttribute('data-squash-and-stretch');
+  });
+}
+
+
 function check(link) {
   checkCriteria(link);
 
@@ -56,28 +108,23 @@ function check(link) {
 }
 
 
-function togglePreview() {
-  const src =
-    (selectedImage.getAttribute('src') === selectedImage.getAttribute('data-src')) ?
-    selectedImage.getAttribute('data-thumbnail') :
-    selectedImage.getAttribute('data-src');
+function clearImageStyles() {
+  toggleElement(selectedLink);
+  removeStyle(selectedImage);
+  removeStyle(selectedLink);
+}
 
-  setImage(selectedImage, src);
+
+function togglePreview() {
   toggleElement(app);
 
   isToggled(app) ?
     removeTabindex(focusableElements) :
     resetTabindex(focusableElements);
 
-  const elementToFocus = isToggled(app) ?
-    selectedLink.querySelector('.img__button') :
-    selectedLink;
-
-  debounce(() => elementToFocus.focus());
-
   debounce(
     () => check(selectedLink),
-    1000
+    500
   );
 }
 
@@ -99,25 +146,24 @@ function moveImageFromInitialPosition() {
 
 
 function setDetailedImage(event) {
-  event.preventDefault();
-
   selectedLink = event.target;
   selectedImage = selectedLink.querySelector('.img');
 
   selectedLink.style.width = `${selectedImage.clientWidth}px`;
   selectedLink.style.height = `${selectedImage.clientHeight}px`;
 
-  togglePreview();
   moveImageFromInitialPosition();
   toggleElement(selectedLink, 'active', getVariation());
 
   variations[getVariation()].start();
+  togglePreview();
 }
 
 
 function closePreview() {
   removeStyle(selectedImage);
   variations[getVariation()].stop();
+  swapImage();
   togglePreview();
 
   debounce(
@@ -126,16 +172,17 @@ function closePreview() {
 }
 
 
-function calculateScaleDimensions() {
-  const imageList = app.querySelector('.ul--images');
-  const imageListWidth = imageList.clientWidth;
-  const imageListHeight = imageList.clientHeight;
+function loadThumbnails() {
+  each(app.querySelectorAll('.img'), imageToModify => {
+    const image = imageToModify;
 
-  const scaleTarget = ((imageListWidth <= imageListHeight) ?
-    imageListWidth :
-    imageListHeight);
+    setImage(
+      image,
+      image.getAttribute('data-thumbnail')
+    );
 
-  return (scaleTarget / selectedImage.clientWidth);
+    image.onload = () => image.removeAttribute('data-load');
+  });
 }
 
 
@@ -155,94 +202,32 @@ function moveImageToInitialPosition() {
 }
 
 
-function t() {
-  off(selectedImage, 'transitionend', t);
-  moveImageToInitialPosition();
-
+function removeArcsAnimation() {
   once(selectedImage, 'transitionend', () => {
-    toggleElement(selectedLink);
-    removeStyle(selectedImage);
-    removeStyle(selectedLink);
+    moveImageToInitialPosition();
+    once(selectedImage, 'transitionend', clearImageStyles);
   });
 }
 
 
-function stopArcsVariation() {
-  on(selectedImage, 'transitionend', t);
+function removeSecondaryActionAnimation() {
+  moveImageToInitialPosition();
+  once(selectedImage, 'transitionend', clearImageStyles);
 }
 
 
-function scaleImage() {
-  removeStyle(selectedImage);
-  const scaleDimensions = calculateScaleDimensions();
-  selectedImage.style.transform = `
-    scale3d(${scaleDimensions}, ${scaleDimensions}, ${scaleDimensions}) translate3d(-50%, -50%, 0)
-    `;
-}
-
-
-function startArcsVariation() {
-  once(selectedImage, 'transitionend', scaleImage);
-
-  debounce(() =>
-    removeStyle(selectedImage)
-  );
-}
-
-
-function stopSquashAndStretchVariation() {
+function removeSquashAndStretchAnimation() {
   moveImageToInitialPosition();
 
   once(selectedImage, 'transitionend', () => {
     selectedLink.setAttribute('data-squash-and-stretch', '');
 
-    once(selectedImage, 'transitionend', () => {
+    once(selectedImage, 'transitionend', () =>
       debounce(() => {
         selectedLink.removeAttribute('data-squash-and-stretch');
-
-        once(selectedImage, 'transitionend', () => {
-          toggleElement(selectedLink, 'active', getVariation());
-          removeStyle(selectedImage);
-          removeStyle(selectedLink);
-        });
-      });
-    });
-  });
-}
-
-
-function stopSecondaryActionVariation() {
-  moveImageToInitialPosition();
-
-  once(selectedImage, 'transitionend', () => {
-    toggleElement(selectedLink, 'active', getVariation());
-    removeStyle(selectedImage);
-  });
-}
-
-
-function stretchImage() {
-  selectedLink.removeAttribute('data-squash-and-stretch');
-  scaleImage();
-}
-
-
-function startSquashAndStretchVariation() {
-  selectedLink.setAttribute('data-squash-and-stretch', '');
-  once(selectedImage, 'transitionend', stretchImage);
-}
-
-
-function loadThumbnails() {
-  each(app.querySelectorAll('.img'), imageToModify => {
-    const image = imageToModify;
-
-    setImage(
-      image,
-      image.getAttribute('data-thumbnail')
+        once(selectedImage, 'transitionend', clearImageStyles);
+      })
     );
-
-    image.onload = () => image.removeAttribute('data-load');
   });
 }
 
@@ -255,16 +240,16 @@ function init() {
       stop: () => toggleElement(selectedLink),
     },
     {
-      start: startArcsVariation,
-      stop: stopArcsVariation,
+      start: addArcsAnimation,
+      stop: removeArcsAnimation,
     },
     {
       start: scaleImage,
-      stop: stopSecondaryActionVariation,
+      stop: removeSecondaryActionAnimation,
     },
     {
-      start: startSquashAndStretchVariation,
-      stop: stopSquashAndStretchVariation,
+      start: addSquashAndStretchAnimation,
+      stop: removeSquashAndStretchAnimation,
     },
   ];
 
@@ -290,6 +275,7 @@ function init() {
     loadThumbnails();
   });
 }
+
 
 on(document, 'DOMContentLoaded', init);
 

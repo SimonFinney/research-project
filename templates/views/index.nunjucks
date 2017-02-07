@@ -8,7 +8,7 @@
 
       <li class="images__img">
         <a class="img__a" href="#{{ image.id }}" tabindex="-1" {%- if image.description %} data-{{ image.description }} {%- endif -%}>
-          <img id="{{ image.id }}" class="img" alt="{{ image.title }}" width="{{ image.width }}" height="{{ image.height }}" data-load data-src="{{ image.link }}" data-thumbnail="{{ imgurUrlPrefix }}{{ image.id }}{{ imgurThumbnailSize }}{{ imgurThumbnailExtension }}">
+          <img class="img" alt="{{ image.title }}" width="{{ image.width }}" height="{{ image.height }}" data-load data-src="{{ image.link }}" data-thumbnail="{{ imgurUrlPrefix }}{{ image.id }}{{ imgurThumbnailSize }}{{ imgurThumbnailExtension }}">
           <button class="img__button" title="Close {{ image.title }}">Close {{ image.title }}</button>
         </a>
       </li>

@@ -2,7 +2,7 @@
 
   {%- if not session -%}
 
-    <section class="dialog__section" data-id="0" {%- if (variation < 0) %} hidden {%- endif -%}>
+    <section class="dialog__section" data-id="0" {%- if not images %} hidden {%- endif -%}>
       <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
       <div class="dialog__container">
 
@@ -122,7 +122,7 @@
         <li>Secondary Action</li>
         <li>Squash and Stretch</li>
       </ul>
-      <p>It is anticipated that when evaluating the variation of the UI with an animation principle applied to it, participants' perception of loading times is significantly reduced. It is also anticipated that participant satisfaction is significantly increased when animation principles are applied to the UI.</p>
+      <p>It is anticipated that when evaluating the variation of the UI with an animation principle applied to it, participants' perception of loading times is reduced. It is also anticipated that participant satisfaction is increased when animation principles are applied to the UI.</p>
       <p>Please contact Simon Finney (<a class="a" href="mailto:simonfinney@gmail.com" target="_blank">simonjfinney@gmail.com</a>) or Marian McDonnell (<a class="a" href="mailto:marian.mcdonnell@iadt.ie" target="_blank">marian.mcdonnell@iadt.ie</a>) if you have any questions regarding this study.</p>
       <p><strong>Thank you again for your co-operation.</strong></p>
     </section>
