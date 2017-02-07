@@ -1,0 +1,39 @@
+// Input
+
+$input-dimensions: 16px;
+$input-position: ($input-dimensions / 2);
+
+%input--checked--focus__label {
+
+  + %input__label {
+
+    &::before {
+      border-color: $dark;
+    }
+  }
+}
+
+%input--checked {
+
+  &:focus,
+  &:hover {
+    @extend %input--checked--focus__label;
+  }
+}
+
+%input {
+  @extend %input--checked;
+}
+
+%input__label {
+
+  &::before {
+    position: absolute;
+    width: $input-dimensions;
+    height: $input-dimensions;
+    background-color: $lightest;
+    border: 1px solid $medium;
+    content: '';
+    transform-style: preserve-3d;
+  }
+}

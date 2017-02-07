@@ -1,5 +1,4 @@
 // Move
 
-'use strict';
-
-module.exports = (gulp, runSequence) => gulp.task('rm', done => runSequence('clean', 'html', 'sass', 'js', 'extras', done));
+module.exports = (gulp, runSequence) =>
+  gulp.task('rm', callback => runSequence('clean', 'sass', 'js', callback));

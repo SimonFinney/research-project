@@ -1,28 +1,11 @@
 // Module configuration
 
-'use strict';
-
 // Paths
-const imageExtensions = [
-  'gif',
-  'jpg',
-  'png',
-  'svg',
-];
-
-const paths = new (function() {
+const paths = new (function paths() {
   this.app = 'app/';
-  this.distDir = 'dist/';
-
-  this.extras = {
-    favicon: '*.ico',
-    fonts: 'fonts/**',
-    images: '**/*.{' + imageExtensions + '}',
-  };
-
-  this.html = this.app + '**/*.html';
-  this.js = this.app + 'js/';
-  this.scss = this.app + 'scss/**/*.scss';
+  this.dist = 'dist/';
+  this.js = `${this.app}js/`;
+  this.scss = `${this.app}scss/**/*.scss`;
   this.tmp = '.tmp/';
 });
 
@@ -30,41 +13,21 @@ const paths = new (function() {
 // Configuration
 const browsers = [
   '> 5%',
-  'ie > 0',
-  'Firefox > 0',
-  'Chrome > 0',
-  'Opera > 0',
-  'OperaMobile > 0',
-  'OperaMini > 0',
-  'Safari > 0',
-  'iOS > 0',
-  'Blackberry > 0',
-  'Android > 0',
 ];
 
-const autoprefixerConfig = { browsers: browsers };
+const autoprefixer = { browsers };
 
-const browserSyncConfig = {
+const browserSync = {
   notify: false,
   proxy: 'http://localhost:8080',
 };
 
-const htmlminConfig = {
-  collapseWhitespace: true,
-  removeComments: true,
+const nodemon = {
+  ext: 'js nunjucks',
+  script: 'index.js',
 };
 
-const imageminConfig = {
-  interlaced: true,
-  progressive: true,
-};
-
-const nodemonConfig = {
-  ext: 'html js',
-  script: 'app.js',
-};
-
-const webpackConfig = {
+const webpack = {
   devtool: 'source-map',
   output: {
     filename: 'bundle.js',
@@ -77,19 +40,16 @@ const webpackConfig = {
         loader: 'babel',
         query: {
           presets: ['es2015'],
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 };
 
-
 module.exports = {
-  paths: paths,
-  autoprefixer: autoprefixerConfig,
-  browserSync: browserSyncConfig,
-  htmlmin: htmlminConfig,
-  imagemin: imageminConfig,
-  nodemon: nodemonConfig,
-  webpack: webpackConfig,
+  paths,
+  autoprefixer,
+  browserSync,
+  nodemon,
+  webpack,
 };

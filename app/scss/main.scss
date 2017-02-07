@@ -1,18 +1,26 @@
 @charset 'utf-8';
 // Sass manifest
 
-// Imports
-
-// Utilities
+// Core
 @import
-'utils/variables';
-
-// Base
-
-// Layout
+'core/colour',
+'core/layout',
+'core/motion',
+'core/typography';
 
 // Elements
 @import
-'elements/body';
+'elements/a',
+'elements/body',
+'elements/button',
+'elements/h1',
+'elements/h2',
+'elements/input',
+'elements/html',
+'elements/main';
 
 // Components
+@import
+'components/dialog',
+'components/likert-scale',
+'components/ul--images';

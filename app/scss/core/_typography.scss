@@ -1,0 +1,27 @@
+// Typography
+
+// Google Fonts import
+@import 'http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:400,600';
+
+$typeface: 'Open Sans';
+$heading-typeface: 'Montserrat';
+
+$font-family: (
+  $typeface,
+  Helvetica,
+  Arial,
+  sans-serif,
+);
+
+$heading-font-family: (
+  $heading-typeface,
+  Times New Roman,
+  Times,
+  serif,
+);
+
+$base-font-size: 16;
+
+@mixin font-size($px-value) {
+  font-size: (($px-value / $base-font-size) * 1rem);
+}

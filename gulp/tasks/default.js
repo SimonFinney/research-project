@@ -1,10 +1,6 @@
 // Default
 
-'use strict';
-
-module.exports = function(gulp, runSequence) {
-
-  gulp.task('default', function(done) {
-    runSequence('rm', 'watch', 'browser-sync', done);
-  });
-};
+module.exports = (gulp, runSequence) =>
+  gulp.task('default', callback =>
+    runSequence('rm', 'watch', 'browser-sync', callback)
+  );

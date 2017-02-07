@@ -1,5 +1,43 @@
 // Body
 
-body {
-  background-color: $background;
+$overlay-background-colour: rgba($darkest, .9);
+
+.body {
+  height: 100vh;
+  margin: 0;
+  background-color: $lightest;
+
+  &::before {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $overlay-background-colour;
+    content: '';
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &[data-active],
+  &[data-dialog] {
+    overflow-y: hidden;
+
+    &::before {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &[data-active] {
+
+    &::before {
+      @include z-index('body--active');
+    }
+  }
+
+  &[data-dialog] {
+
+    &::before {
+      @include z-index('body--dialog');
+    }
+  }
 }

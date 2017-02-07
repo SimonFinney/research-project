@@ -1,14 +1,10 @@
 // ESLint
 
-'use strict';
-
 const eslint = require('gulp-eslint');
 
-module.exports = function(gulp, jsPath) {
-
-  gulp.task('eslint', function() {
-    return gulp.src(jsPath)
+module.exports = (gulp, jsPath) =>
+  gulp.task('eslint', () =>
+    gulp.src(jsPath)
       .pipe(eslint())
-      .pipe(eslint.format());
-  });
-};
+      .pipe(eslint.format())
+  );

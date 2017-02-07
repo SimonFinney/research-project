@@ -1,0 +1,130 @@
+<div class="dialog">
+
+  {%- if not session -%}
+
+    <section class="dialog__section" data-id="0" {%- if not images %} hidden {%- endif -%}>
+      <h1 class="h1">Informed Consent Form for Remote Research Study Participants</h1>
+      <div class="dialog__container">
+
+        <h2 class="h2">Purpose of this study</h2>
+        <p>The purpose of this study is to gather your feedback as it relates to perceived loading times and satisfaction in user interfaces (UI). Your participation in this study will help in creating better experiences for you and other people like you.</p>
+        <p>Following this form, you will be presented with a single task — This task will take approximately 3 to 5 minutes to complete.</p>
+        <h2 class="h2">Information collected</h2>
+        <p>After completing the task, you will be asked about your experiences completing the task. The information from this study will be used to inform the design of further UIs.</p>
+        <h2 class="h2">Permissions</h2>
+        <p>Anonymous data will be collected based on your response to the UI. By signing this consent form, you are giving permission to use the data you provide for the purposes of illuminating, demonstrating, and evaluating research findings. In no way will your data shared publicly in any way.</p>
+        <h2 class="h2">Non-disclosure</h2>
+        <p>By agreeing with these terms, you agree not to tell anyone about this study or provide information about those ideas to anyone outside of this study. What you can say is that you’re participating in a study.</p>
+        <h2 class="h2">Freedom to withdraw</h2>
+        <p>You are free to refuse to participate, take a break, or withdraw from this study at any time. Please announce if and when you need a break.</p>
+        <h2 class="h2">Questions</h2>
+        <p>If you have questions, please ask them now, during, or following the study.</p>
+        <p>After reading this form if you agree with these terms, please show your acceptance by selecting the checkbox below.</p>
+      </div>
+      <form class="dialog__form">
+        <fieldset class="dialog__fieldset">
+          <input id="checkbox" class="dialog__checkbox" type="checkbox" autofocus required>
+          <label class="dialog__label" for="checkbox">I accept</label>
+        </fieldset>
+
+        <button class="dialog__button" type="submit">Continue</button>
+      </form>
+    </section>
+
+    <section class="dialog__section" hidden data-id="1">
+      <button class="dialog__button--icon" title="Close">Close</button>
+      <h2 class="h2">Task</h2>
+      <p>Select each image thumbnail with a <strong>house</strong> in it, and view it in its full-size.</p>
+      <p>When you're ready to continue, please close the dialog.</p>
+    </section>
+
+    <section class="dialog__section" hidden data-id="2">
+      <h2 class="h2">Questionnaire</h2>
+      <form class="dialog__form" action="/submit" method="post">
+        <fieldset class="dialog__fieldset">
+          <legend class="dialog__legend">When selecting each image thumbnail and viewing it in its full-size, the time taken to load the full-size image was:</legend>
+          <ol class="dialog__likert-scale">
+            <li class="likert-scale__list-item">
+              <input id="perception0" class="likert-scale__input" name="perception" type="radio" value="-3" required>
+              <label class="likert-scale__label" for="perception0">Totally unacceptable</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception1" class="likert-scale__input" name="perception" type="radio" value="-2" required>
+              <label class="likert-scale__label" for="perception1">Unacceptable</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception2" class="likert-scale__input" name="perception" type="radio" value="-1" required>
+              <label class="likert-scale__label" for="perception2">Slightly unacceptable</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception3" class="likert-scale__input" name="perception" type="radio" value="0" required>
+              <label class="likert-scale__label" for="perception3">Neutral</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception4" class="likert-scale__input" name="perception" type="radio" value="1" required>
+              <label class="likert-scale__label" for="perception4">Slightly acceptable</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception5" class="likert-scale__input" name="perception" type="radio" value="2" required>
+              <label class="likert-scale__label" for="perception5">Acceptable</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="perception6" class="likert-scale__input" name="perception" type="radio" value="3" required>
+              <label class="likert-scale__label" for="perception6">Perfectly acceptable</label>
+            </li>
+          </ol>
+        </fieldset>
+        <fieldset class="dialog__fieldset">
+          <legend class="dialog__legend">Please rate your level of satisfaction with the user interface:</legend>
+          <ol class="dialog__likert-scale">
+            <li class="likert-scale__list-item">
+              <input id="satisfaction0" class="likert-scale__input" name="satisfaction" type="radio" value="-3" required>
+              <label class="likert-scale__label" for="satisfaction0">Completely dissatisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction1" class="likert-scale__input" name="satisfaction" type="radio" value="-2" required>
+              <label class="likert-scale__label" for="satisfaction1">Mostly dissatisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction2" class="likert-scale__input" name="satisfaction" type="radio" value="-1" required>
+              <label class="likert-scale__label" for="satisfaction2">Somewhat dissatisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction3" class="likert-scale__input" name="satisfaction" type="radio" value="0" required>
+              <label class="likert-scale__label" for="satisfaction3">Neither satisfied nor dissatisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction4" class="likert-scale__input" name="satisfaction" type="radio" value="1" required>
+              <label class="likert-scale__label" for="satisfaction4">Somewhat satisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction5" class="likert-scale__input" name="satisfaction" type="radio" value="2" required>
+              <label class="likert-scale__label" for="satisfaction5">Mostly satisfied</label>
+            </li>
+            <li class="likert-scale__list-item">
+              <input id="satisfaction6" class="likert-scale__input" name="satisfaction" type="radio" value="3" required>
+              <label class="likert-scale__label" for="satisfaction6">Completely satisfied</label>
+            </li>
+          </ol>
+        </fieldset>
+        <input type="hidden" name="variation" value="{{ variation }}">
+        <button class="dialog__button" type="submit">Finish</button>
+      </form>
+    </section>
+
+  {%- else -%}
+
+    <section class="dialog__section">
+      <h2 class="h2">Debriefing</h2>
+      <p>This purpose of this study was to evaluate the perceived loading time and satisfaction of animation principles in user interfaces (UI). During the study, each participant evaluated a variation of the UI with either no animation principles applied to it, or a variation with one of the following animation principles applied: </p>
+      <ul>
+        <li>Arcs</li>
+        <li>Secondary Action</li>
+        <li>Squash and Stretch</li>
+      </ul>
+      <p>It is anticipated that when evaluating the variation of the UI with an animation principle applied to it, participants' perception of loading times is reduced. It is also anticipated that participant satisfaction is increased when animation principles are applied to the UI.</p>
+      <p>Please contact Simon Finney (<a class="a" href="mailto:simonfinney@gmail.com" target="_blank">simonjfinney@gmail.com</a>) or Marian McDonnell (<a class="a" href="mailto:marian.mcdonnell@iadt.ie" target="_blank">marian.mcdonnell@iadt.ie</a>) if you have any questions regarding this study.</p>
+      <p><strong>Thank you again for your co-operation.</strong></p>
+    </section>
+  {%- endif -%}
+</div>

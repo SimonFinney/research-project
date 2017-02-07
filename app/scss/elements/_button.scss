@@ -1,0 +1,96 @@
+// Button
+
+$button-primary-box-shadow-color: rgba($darkest, .25);
+$button-primary-box-shadow-active-color: rgba($darkest, .33);
+
+$icon-button-dimension: 48px;
+
+%button {
+  @include reset-focus;
+  font-family: $font-family;
+  border: 0;
+}
+
+%button--standard {
+  @extend %button;
+  @include font-size(16);
+  padding: 8px 16px;
+  letter-spacing: .32px;
+  border-radius: 2px;
+}
+
+%button--primary {
+  color: $lightest;
+  background-color: $primary;
+  box-shadow: 0 2px 6px 0 $button-primary-box-shadow-color;
+
+  &:focus,
+  &:hover {
+    background-color: $primary-dark;
+  }
+
+  &:active {
+    background-color: $primary-darkest;
+    box-shadow: 0 4px 8px 0 $button-primary-box-shadow-active-color;
+  }
+}
+
+%button--icon {
+  @extend %button;
+  top: 24px;
+  width: $icon-button-dimension;
+  height: $icon-button-dimension;
+  text-indent: -9999px;
+  cursor: pointer;
+  border-radius: 50%;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-indent: initial;
+    transform: translate3d(-50%, -50%, 0);
+    transform-style: preserve-3d;
+  }
+
+  &[title] {
+
+    &::after {
+      @include font-size(12);
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      padding: 4px 8px;
+      color: $lightest;
+      text-indent: initial;
+      white-space: nowrap;
+      background-color: $darkest;
+      border-radius: 4px;
+      content: attr(title);
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0);
+      transform-style: preserve-3d;
+    }
+
+    &:focus,
+    &:hover {
+
+      &::after {
+        opacity: 1;
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+  }
+}
+
+%button--icon--close {
+  @extend %button--icon;
+  @include font-size(24);
+  @include z-index('main__button--icon');
+  right: 32px;
+  background-color: transparent;
+
+  &::before {
+    content: '×';
+  }
+}

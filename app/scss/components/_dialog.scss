@@ -1,0 +1,184 @@
+// Dialog
+
+$dialog-margin-top: 32px;
+$dialog-margin-left: 48px;
+
+$dialog-form-min-height: 88px;
+
+$dialog-checkbox-check-dimensions: ($input-dimensions / 4);
+
+%dialog__checkbox--checked {
+
+  + .dialog__label {
+
+    &::after {
+      border-color: $primary;
+    }
+  }
+}
+
+%dialog__form--invalid__button--active {
+
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.dialog {
+  @include z-index('dialog');
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  max-width: 640px;
+  max-height: calc(100% - #{($dialog-margin-top * 2)});
+  overflow-y: hidden;
+  background-color: $lightest;
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(-50%, -50%, 0);
+  transform-style: preserve-3d;
+
+  &[hidden] {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(-50%, 100%, 0);
+  }
+}
+
+.dialog__section {
+  margin: $dialog-margin-top $dialog-margin-left;
+  overflow: auto;
+
+  &[data-id='0'] {
+
+    .dialog__form {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      min-height: $dialog-form-min-height;
+      padding-top: $dialog-margin-top;
+      padding-bottom: $dialog-margin-top;
+      margin-right: $dialog-margin-left;
+      margin-left: $dialog-margin-left;
+      background-color: $lightest;
+      border-top: 1px solid $dark;
+      box-sizing: border-box;
+    }
+
+    .dialog__button {
+      margin-left: 16px;
+    }
+  }
+
+  &[data-id='2'] {
+
+    .dialog__form {
+      flex-wrap: wrap;
+    }
+
+    .dialog__fieldset {
+      width: 100%;
+    }
+
+    .dialog__button {
+      margin-left: auto;
+    }
+  }
+}
+
+.dialog__container {
+  max-height: 66vh;
+  padding-bottom: ($dialog-form-min-height + $dialog-margin-top);
+  overflow-y: scroll;
+  border-top: 1px solid $dark;
+  box-sizing: border-box;
+}
+
+.dialog__form {
+  display: flex;
+
+  &:invalid {
+
+    .dialog__button {
+      @extend %dialog__form--invalid__button--active;
+      color: $darkest;
+      cursor: not-allowed;
+      background-color: $light;
+      box-shadow: none;
+    }
+  }
+}
+
+.dialog__fieldset {
+  position: relative;
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: auto;
+  border: 0;
+}
+
+.dialog__legend {
+  width: 100%;
+}
+
+.dialog__checkbox {
+  @extend %input;
+  position: relative;
+  top: -9999px;
+  left: -9999px;
+
+  &:checked {
+    @extend %dialog__checkbox--checked;
+  }
+}
+
+.dialog__label {
+  @extend %input__label;
+
+  &::after,
+  &::before {
+    top: 50%;
+  }
+
+  &::after {
+    position: absolute;
+    left: $input-position;
+    width: $input-position;
+    height: $dialog-checkbox-check-dimensions;
+    border-bottom: $dialog-checkbox-check-dimensions solid transparent;
+    border-left: $dialog-checkbox-check-dimensions solid transparent;
+    content: '';
+    transform: rotate3d(0, 0, 45, -45deg) translate3d(0, -100%, 0);
+    transform-style: preserve-3d;
+  }
+
+  &::before {
+    left: 0;
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+.dialog__button {
+  @extend %button--standard;
+  @extend %button--primary;
+  cursor: pointer;
+  align-self: center;
+}
+
+.dialog__button--icon {
+  @extend %button--icon;
+  @extend %button--icon--close;
+  position: absolute;
+  color: $darkest;
+
+  &:focus,
+  &:hover {
+    background-color: $medium;
+  }
+
+  &:active {
+    background-color: $dark;
+  }
+}
