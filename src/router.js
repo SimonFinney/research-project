@@ -54,6 +54,7 @@ router.post('/submit', (request, response) => {
   const data = {
     datetime: util.getDatetime(),
     ip: util.getIpAddress(request),
+    variation: request.session.variation,
   };
 
   Object.keys(request.body)
