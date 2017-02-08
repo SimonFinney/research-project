@@ -167,7 +167,10 @@ function closePreview() {
   togglePreview();
 
   debounce(
-   () => once(selectedLink, 'click', setDetailedImage)
+   () => {
+     once(selectedLink, 'click', setDetailedImage);
+     once(selectedLink.querySelector('.img__button'), 'click', closePreview);
+   }
   );
 }
 
@@ -260,7 +263,7 @@ function init() {
   );
 
   each(document.querySelectorAll('.img__button'),
-    closeImagePreviewButton => on(closeImagePreviewButton, 'click', closePreview)
+    closeImagePreviewButton => once(closeImagePreviewButton, 'click', closePreview)
   );
 
   on(
