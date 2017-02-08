@@ -10,33 +10,37 @@ const util = require('./util');
 const router = express.Router();
 
 
+function render(response) {
+  database.count(count => {
+    const variation = util.delegateVariation(count);
+
+    imgur.get('album/Glnla', album =>
+      response.render('views/index.nunjucks', {
+        images: util.shuffle(album.data.images),
+        imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
+        imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
+        imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
+        isDebug: util.isDebug(),
+        name,
+        variation,
+      })
+    );
+  });
+}
+
+
 router.get('/', (request, response) => {
   if (!request.session.key) {
     database.create({ id: request.session.id }, databaseEntry => {
       request.session.key = databaseEntry.key;
+      render(response);
       setTimeout(() => database.check(request.session.key), request.session.cookie.maxAge);
     });
+  } else {
+    request.session.data ?
+      response.redirect('/success') :
+      render(response);
   }
-
-  request.session.data ?
-
-    response.redirect('/success') :
-
-    database.count(count => {
-      const variation = util.delegateVariation(count);
-
-      imgur.get('album/Glnla', album =>
-        response.render('views/index.nunjucks', {
-          images: util.shuffle(album.data.images),
-          imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
-          imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
-          imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
-          isDebug: util.isDebug(),
-          name,
-          variation,
-        })
-      );
-    });
 });
 
 
