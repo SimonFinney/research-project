@@ -13,7 +13,9 @@ const router = express.Router();
 router.get('/', (request, response) => {
   if (!request.session.key) {
     database.create({ id: request.session.id }, databaseEntry => {
-      database.count(count => request.session.variation = util.delegateVariation(count));
+      database.count(count => {
+        request.session.variation = util.delegateVariation(count);
+      });
 
       request.session.key = databaseEntry.key;
       setTimeout(() => database.check(request.session.key), request.session.cookie.maxAge);
