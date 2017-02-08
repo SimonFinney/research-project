@@ -1,3 +1,6 @@
+# v0.2.3 / 2017-02-08
+  * Fixing concurrency
+
 # v0.2.2 / 2017-02-08
   * Reverting variation determination
 
