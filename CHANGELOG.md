@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 # v0.2.1 / 2017-02-07
-  * No longer transmitting variation via form input
-  * Moving variation count into session creation instead of when the root is requested
-  * Prevents server from crashing if entry has been deleted before the session times out
-
-=======
-# v0.2.1 / 2017-02-08
   * Reverting variation determination
-  
->>>>>>> release-0.2.2
+
 # v0.2.0 / 2017-02-07
   * Refactoring
   * Updating session timeout to 20 minutes
