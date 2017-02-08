@@ -1,4 +1,4 @@
-# v0.2.1 / 2017-02-07
+# v0.2.2 / 2017-02-08
   * Reverting variation determination
 
 # v0.2.0 / 2017-02-07
