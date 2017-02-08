@@ -107,7 +107,6 @@
             </li>
           </ol>
         </fieldset>
-        <input type="hidden" name="variation" value="{{ variation }}">
         <button class="dialog__button" type="submit">Finish</button>
       </form>
     </section>

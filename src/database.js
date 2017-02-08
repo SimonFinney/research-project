@@ -46,13 +46,15 @@ function read(id, callback) {
 
 function check(key) {
   read(key, databaseObject => {
-    const objectProperties = Object.keys(databaseObject);
+    if (databaseObject) {
+      const objectProperties = Object.keys(databaseObject);
 
-    if (
-      (objectProperties.length === 1) &&
-      (objectProperties[0] === 'id')
-    ) {
-      del(key);
+      if (
+        (objectProperties.length === 1) &&
+        (objectProperties[0] === 'id')
+      ) {
+        del(key);
+      }
     }
   });
 }
