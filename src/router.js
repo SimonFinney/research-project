@@ -13,29 +13,28 @@ const router = express.Router();
 router.get('/', (request, response) => {
   if (!request.session.key) {
     database.create({ id: request.session.id }, databaseEntry => {
+      database.count(count => request.session.variation = util.delegateVariation(count));
+
       request.session.key = databaseEntry.key;
       setTimeout(() => database.check(request.session.key), request.session.cookie.maxAge);
     });
   }
 
   request.session.data ?
+
     response.redirect('/success') :
 
-    database.count(count => {
-      const variation = util.delegateVariation(count);
-
-      imgur.get('album/Glnla', album =>
-        response.render('views/index.nunjucks', {
-          images: util.shuffle(album.data.images),
-          imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
-          imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
-          imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
-          isDebug: util.isDebug(),
-          name,
-          variation,
-        })
-      );
-    });
+    imgur.get('album/Glnla', album =>
+      response.render('views/index.nunjucks', {
+        images: util.shuffle(album.data.images),
+        imgurThumbnailExtension: util.getConfiguration('imgurThumbnailExtension'),
+        imgurThumbnailSize: util.getConfiguration('imgurThumbnailSize'),
+        imgurUrlPrefix: util.getConfiguration('imgurUrlPrefix'),
+        isDebug: util.isDebug(),
+        name,
+        variation: request.session.variation,
+      })
+    );
 });
 
 
