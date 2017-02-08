@@ -48,7 +48,6 @@ $dialog-checkbox-check-dimensions: ($input-dimensions / 4);
 
 .dialog__section {
   margin: $dialog-margin-top $dialog-margin-left;
-  overflow: auto;
 
   &[data-id='0'] {
 

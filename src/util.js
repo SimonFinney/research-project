@@ -6,10 +6,7 @@ const numberofVariations = 4;
 
 
 function delegateVariation(databaseEntriesLength) {
-  const count = (
-    (databaseEntriesLength <= 0) ? databaseEntriesLength : (databaseEntriesLength - 1)
-  );
-  return (count % numberofVariations); // Accounts for the control variation
+  return (databaseEntriesLength % numberofVariations); // Accounts for the control variation
 }
 
 

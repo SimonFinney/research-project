@@ -50,7 +50,7 @@ function check(key) {
       const objectProperties = Object.keys(databaseObject);
 
       if (
-        (objectProperties.length === 1) &&
+        (objectProperties.length === 2) &&
         (objectProperties[0] === 'id')
       ) {
         del(key);
