@@ -1,3 +1,6 @@
+# v0.2.1 / 2017-02-08
+  * Reverting variation determination
+  
 # v0.2.0 / 2017-02-07
   * Refactoring
   * Updating session timeout to 20 minutes
