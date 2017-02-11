@@ -38,12 +38,17 @@ function createSession(request, response) {
 }
 
 
-router.get('/', (request, response) => {
-  !request.session.key ?
+router.get('/:url', (request, response) => {
+  database.checkUrl(request.params.url, isValidUrl => console.log(isValidUrl));
+
+
+  /* !request.session.key ?
     createSession(request, response) :
     !request.session.data ?
       render(request, response) :
-      response.redirect('/success');
+      response.redirect('/success'); */
+
+
 });
 
 
