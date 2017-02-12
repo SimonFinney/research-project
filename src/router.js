@@ -38,10 +38,15 @@ function createSession(request, response) {
 }
 
 
+function isSessionUrl(request) {
+  return request.session.url;
+}
+
+
 function determineRoute(request, response) {
-  (request.session.url && !request.session.key) ?
+  (isSessionUrl(request) && !request.session.key) ?
     createSession(request, response) :
-    (request.session.url && !request.session.data) ?
+    (isSessionUrl(request) && !request.session.data) ?
       render(request, response) :
       response.redirect('/success');
 }
@@ -50,7 +55,7 @@ function determineRoute(request, response) {
 router.get('/:url', (request, response) => {
   const url = request.params.url;
 
-  !request.session.url ?
+  !isSessionUrl(request) ?
     database.checkUrl(url, isValidUrl => {
       if (isValidUrl) {
         request.session.url = url;
