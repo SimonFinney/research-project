@@ -38,17 +38,27 @@ function createSession(request, response) {
 }
 
 
-router.get('/:url', (request, response) => {
-  database.checkUrl(request.params.url, isValidUrl => console.log(isValidUrl));
-
-
-  /* !request.session.key ?
+function determineRoute(request, response) {
+  (request.session.url && !request.session.key) ?
     createSession(request, response) :
-    !request.session.data ?
+    (request.session.url && !request.session.data) ?
       render(request, response) :
-      response.redirect('/success'); */
+      response.redirect('/success');
+}
 
 
+router.get('/:url', (request, response) => {
+  const url = request.params.url;
+
+  !request.session.url ?
+    database.checkUrl(url, isValidUrl => {
+      if (isValidUrl) {
+        request.session.url = url;
+      }
+
+      determineRoute(request, response);
+    }) :
+    determineRoute(request, response);
 });
 
 
@@ -57,6 +67,9 @@ router.get('/data', (request, response) =>
     response.send(data)
   )
 );
+
+
+router.get('/favicon.ico', (request, response) => response.send(204));
 
 
 router.get('/success', (request, response) =>

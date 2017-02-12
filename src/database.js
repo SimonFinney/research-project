@@ -22,13 +22,13 @@ const data = database.ref('data');
 const urls = database.ref('urls');
 
 
-function getById(id) {
-  return data.child(id);
+function getById(id, databaseReference = data) {
+  return databaseReference.child(id);
 }
 
 
-function del(id) {
-  getById(id).remove();
+function del(id, databaseReference = data) {
+  getById(id, databaseReference).remove();
 }
 
 
@@ -66,11 +66,15 @@ function checkUrl(url, callback) {
     urls, urlObjects => {
       const urlObjectsProperties = Object.keys(urlObjects);
 
-      const isValidUrl = (
-        urlObjectsProperties.filter(
-          urlObjectsValues => (urlObjects[urlObjectsValues].url === url)
-        ).length > 0
+      const urlArray = urlObjectsProperties.filter(
+        urlObjectsValues => (urlObjects[urlObjectsValues].url === url)
       );
+
+      const isValidUrl = (urlArray.length > 0);
+
+      if (isValidUrl) {
+        del(urlArray[0], urls);
+      }
 
       callback(isValidUrl);
     }
@@ -86,19 +90,14 @@ function count(callback) {
 }
 
 
-function insert(databaseReference, newData, callback) {
+function create(newData, callback, databaseReference = data) {
   databaseReference.push(newData)
     .then(callback);
 }
 
 
-function create(newData, callback) {
-  insert(data, newData, callback);
-}
-
-
 function createUrl(url, callback) {
-  insert(urls, { url }, callback);
+  create({ url }, callback, urls);
 }
 
 
