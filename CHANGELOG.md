@@ -1,3 +1,7 @@
+# v0.2.4 / 2017-02-13
+  * Hiding generated URL file
+  * Fixing database check and variation delegation issues
+
 # v0.2.3 / 2017-02-08
   * Fixing concurrency
 
