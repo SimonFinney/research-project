@@ -1,13 +1,16 @@
 // TODO: Comments
 
 const express = require('express');
-const imgur = require('./imgur');
+const fs = require('fs');
 
 const database = require('./database');
+const imgur = require('./imgur');
 const name = require('../package.json').name;
+const url = require('./url');
 const util = require('./util');
 
 const router = express.Router();
+const root = '/u/';
 
 
 function render(request, response) {
@@ -52,7 +55,7 @@ function determineRoute(request, response) {
 }
 
 
-router.get('/:url', (request, response) => {
+router.get(`${root}:url`, (request, response) => {
   const url = request.params.url;
 
   !isSessionUrl(request) ?
@@ -74,7 +77,12 @@ router.get('/data', (request, response) =>
 );
 
 
-router.get('/favicon.ico', (request, response) => response.send(204));
+router.get('/generate/:count', (request, response) => {
+  const host = `${request.headers.host}${root}`;
+  response.header('Content-Disposition', 'attachment; filename=\"URLS.md\"');
+  const urls = url.generate(request.params.count, host);
+  response.send(urls);
+});
 
 
 router.get('/success', (request, response) =>
