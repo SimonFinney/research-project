@@ -79,9 +79,10 @@ router.get('/data', (request, response) =>
 
 router.get('/generate/:count', (request, response) => {
   const host = `${request.headers.host}${root}`;
-  response.header('Content-Disposition', 'attachment; filename=\"URLS.md\"');
-  const urls = url.generate(request.params.count, host);
-  response.send(urls);
+  response.header('Content-Disposition', 'attachment; filename="URLS.md"');
+  response.send(
+    url.generate(request.params.count, host)
+  );
 });
 
 
