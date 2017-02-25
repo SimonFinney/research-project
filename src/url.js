@@ -1,6 +1,5 @@
 // URL
 
-const fs = require('fs');
 const shortid = require('shortid');
 
 const database = require('./database');
