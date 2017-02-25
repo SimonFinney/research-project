@@ -1,3 +1,6 @@
+# v0.2.5 / 2017-02-25
+  * Adding unique code generation
+
 # v0.2.4 / 2017-02-13
   * Hiding generated URL file
   * Fixing database check and variation delegation issues
