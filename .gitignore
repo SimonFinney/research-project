@@ -15,4 +15,3 @@ dist
 **/.DS_Store
 !.github/
 USER-DEFINED.json
-URLs.md
