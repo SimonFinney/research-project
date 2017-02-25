@@ -1,6 +1,6 @@
 {
   "name": "research-project",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "research-project",
   "main": "index.js",
   "scripts": {
