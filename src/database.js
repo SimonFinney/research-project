@@ -19,15 +19,16 @@ firebase.auth().signInWithEmailAndPassword(
 const database = firebaseApp.database();
 
 const data = database.ref('data');
+const urls = database.ref('urls');
 
 
-function getById(id) {
-  return data.child(id);
+function getById(id, databaseReference = data) {
+  return databaseReference.child(id);
 }
 
 
-function del(id) {
-  getById(id).remove();
+function del(id, databaseReference = data) {
+  getById(id, databaseReference).remove();
 }
 
 
@@ -60,6 +61,27 @@ function check(key) {
 }
 
 
+function checkUrl(url, callback) {
+  getValue(
+    urls, urlObjects => {
+      const urlObjectsProperties = Object.keys(urlObjects);
+
+      const urlArray = urlObjectsProperties.filter(
+        urlObjectsValues => (urlObjects[urlObjectsValues].url === url)
+      );
+
+      const isValidUrl = (urlArray.length > 0);
+
+      if (isValidUrl) {
+        del(urlArray[0], urls);
+      }
+
+      callback(isValidUrl);
+    }
+  );
+}
+
+
 function count(callback) {
   data.once('value')
     .then(value =>
@@ -68,9 +90,14 @@ function count(callback) {
 }
 
 
-function create(newData, callback) {
-  data.push(newData)
+function create(newData, callback, databaseReference = data) {
+  databaseReference.push(newData)
     .then(callback);
+}
+
+
+function createUrl(url, callback) {
+  create({ url }, callback, urls);
 }
 
 
@@ -100,8 +127,10 @@ init();
 
 module.exports = {
   check,
+  checkUrl,
   count,
   create,
+  createUrl,
   get,
   update,
 };

@@ -1,13 +1,16 @@
 // TODO: Comments
 
 const express = require('express');
-const imgur = require('./imgur');
+const fs = require('fs');
 
 const database = require('./database');
+const imgur = require('./imgur');
 const name = require('../package.json').name;
+const url = require('./url');
 const util = require('./util');
 
 const router = express.Router();
+const root = '/u/';
 
 
 function render(request, response) {
@@ -38,12 +41,32 @@ function createSession(request, response) {
 }
 
 
-router.get('/', (request, response) => {
-  !request.session.key ?
+function isSessionUrl(request) {
+  return request.session.url;
+}
+
+
+function determineRoute(request, response) {
+  (isSessionUrl(request) && !request.session.key) ?
     createSession(request, response) :
-    !request.session.data ?
+    (isSessionUrl(request) && !request.session.data) ?
       render(request, response) :
       response.redirect('/success');
+}
+
+
+router.get(`${root}:url`, (request, response) => {
+  const url = request.params.url;
+
+  !isSessionUrl(request) ?
+    database.checkUrl(url, isValidUrl => {
+      if (isValidUrl) {
+        request.session.url = url;
+      }
+
+      determineRoute(request, response);
+    }) :
+    determineRoute(request, response);
 });
 
 
@@ -52,6 +75,15 @@ router.get('/data', (request, response) =>
     response.send(data)
   )
 );
+
+
+router.get('/generate/:count', (request, response) => {
+  const host = `${request.headers.host}${root}`;
+  response.header('Content-Disposition', 'attachment; filename="URLS.md"');
+  response.send(
+    url.generate(request.params.count, host)
+  );
+});
 
 
 router.get('/success', (request, response) =>
