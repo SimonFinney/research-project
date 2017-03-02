@@ -1,7 +1,6 @@
 // TODO: Comments
 
 const express = require('express');
-const fs = require('fs');
 
 const database = require('./database');
 const imgur = require('./imgur');
@@ -56,12 +55,12 @@ function determineRoute(request, response) {
 
 
 router.get(`${root}:url`, (request, response) => {
-  const url = request.params.url;
+  const u = request.params.url;
 
   !isSessionUrl(request) ?
-    database.checkUrl(url, isValidUrl => {
+    database.checkUrl(u, isValidUrl => {
       if (isValidUrl) {
-        request.session.url = url;
+        request.session.url = u;
       }
 
       determineRoute(request, response);
