@@ -102,7 +102,11 @@ function createUrl(url, callback) {
 
 
 function get(callback) {
-  getValue(data, callback);
+  getValue(data, responseData =>
+    callback(
+      Object.values(responseData)
+    )
+  );
 }
 
 

@@ -1,6 +1,7 @@
 // TODO: Comments
 
 const express = require('express');
+const json2csv = require('json2csv');
 
 const database = require('./database');
 const imgur = require('./imgur');
@@ -53,6 +54,10 @@ function determineRoute(request, response) {
       response.redirect('/success');
 }
 
+function setAttachmentHeader(response, filename) {
+  response.header('Content-Disposition', `attachment; filename='${filename}'`);
+}
+
 
 router.get(`${root}:url`, (request, response) => {
   const u = request.params.url;
@@ -69,6 +74,21 @@ router.get(`${root}:url`, (request, response) => {
 });
 
 
+router.get('/csv', (request, response) =>
+  database.get(data => {
+    setAttachmentHeader(response, 'data.csv');
+
+    const fields = Object.keys(data[0]);
+    response.send(
+      json2csv({
+        data,
+        fields,
+      })
+    );
+  })
+);
+
+
 router.get('/data', (request, response) =>
   database.get(data =>
     response.send(data)
@@ -77,8 +97,10 @@ router.get('/data', (request, response) =>
 
 
 router.get('/generate/:count', (request, response) => {
+  setAttachmentHeader(response, 'URLS.md');
+
   const host = `${request.headers.host}${root}`;
-  response.header('Content-Disposition', 'attachment; filename="URLS.md"');
+
   response.send(
     url.generate(request.params.count, host)
   );
