@@ -79,6 +79,7 @@ router.get('/csv', (request, response) =>
     setAttachmentHeader(response, 'data.csv');
 
     const fields = Object.keys(data[0]);
+
     response.send(
       json2csv({
         data,
