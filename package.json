@@ -2,6 +2,9 @@
   "name": "research-project",
   "version": "0.2.5",
   "description": "research-project",
+  "engines": {
+    "node": "6.5.0"
+  },
   "main": "index.js",
   "scripts": {
     "build": "npm run dev build",
