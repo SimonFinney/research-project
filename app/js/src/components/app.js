@@ -1,5 +1,6 @@
 // App
 
+// TODO: Comments
 const app = document.querySelector('[data-app]');
 let criteriaCount = 0;
 const criteriaTotal = app.querySelectorAll('[data-criteria]')

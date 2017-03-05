@@ -1,5 +1,7 @@
 // Dialog
 
+// TODO: Comments
+
 // Imports
 import { app } from './app.js';
 

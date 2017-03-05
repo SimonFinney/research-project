@@ -1,5 +1,6 @@
 // Imgur API
 
+// TODO: Comments
 const request = require('./request');
 const util = require('./util');
 

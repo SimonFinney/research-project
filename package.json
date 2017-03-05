@@ -1,7 +1,10 @@
 {
   "name": "research-project",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "research-project",
+  "engines": {
+    "node": "7.7.1"
+  },
   "main": "index.js",
   "scripts": {
     "build": "npm run dev build",
@@ -29,6 +32,7 @@
     "express-minify-html": "^0.4.0",
     "express-session": "^1.15.0",
     "firebase": "^3.4.1",
+    "json2csv": "^3.7.3",
     "nunjucks": "^2.4.2",
     "shortid": "^2.2.6"
   },
