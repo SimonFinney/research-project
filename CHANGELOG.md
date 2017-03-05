@@ -1,3 +1,8 @@
+# v0.2.6 / 2017-03-05
+  * Updating Node.js to latest version
+  * Generates CSV from data
+  * Fixing liniting errors
+
 # v0.2.5 / 2017-02-25
   * Adding unique code generation
 
