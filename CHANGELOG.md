@@ -1,3 +1,6 @@
+# v0.2.7 / 2017-03-07
+  * Deleting URL when item is updated.
+
 # v0.2.6 / 2017-03-05
   * Updating Node.js to latest version
   * Generates CSV from data

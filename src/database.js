@@ -32,6 +32,11 @@ function del(id, databaseReference = data) {
 }
 
 
+function deleteUrl(url) {
+  del(url, urls);
+}
+
+
 function getValue(databaseReference, callback) {
   databaseReference.once('value')
     .then(value =>
@@ -72,11 +77,7 @@ function checkUrl(url, callback) {
 
       const isValidUrl = (urlArray.length > 0);
 
-      if (isValidUrl) {
-        del(urlArray[0], urls);
-      }
-
-      callback(isValidUrl);
+      callback(isValidUrl, urlArray[0]);
     }
   );
 }
@@ -135,6 +136,7 @@ module.exports = {
   count,
   create,
   createUrl,
+  deleteUrl,
   get,
   update,
 };
