@@ -1,6 +1,6 @@
 {
   "name": "research-project",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "research-project",
   "engines": {
     "node": "7.7.1"
