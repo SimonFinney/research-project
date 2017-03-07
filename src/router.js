@@ -63,9 +63,9 @@ router.get(`${root}:url`, (request, response) => {
   const u = request.params.url;
 
   !isSessionUrl(request) ?
-    database.checkUrl(u, isValidUrl => {
+    database.checkUrl(u, (isValidUrl, urlId) => {
       if (isValidUrl) {
-        request.session.url = u;
+        request.session.url = urlId;
       }
 
       determineRoute(request, response);
@@ -128,6 +128,7 @@ router.post('/submit', (request, response) => {
 
   database.update(request.session.key, data, () => {
     request.session.data = data;
+    database.deleteUrl(request.session.url);
     response.redirect('/success');
   });
 });
