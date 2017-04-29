@@ -108,17 +108,17 @@ router.get('/generate/:count', (request, response) => {
 });
 
 
+router.get('/success', (request, response) =>
+  response.render('views/success.nunjucks', { session: request.session.data })
+);
+
+
 router.get('/variation/:variation', (request, response) => {
   request.session.data = {};
   request.session.variation = request.params.variation;
 
   render(request, response);
 });
-
-
-router.get('/success', (request, response) =>
-  response.render('views/success.nunjucks', { session: request.session.data })
-);
 
 
 router.post('/submit', (request, response) => {
