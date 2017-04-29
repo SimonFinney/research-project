@@ -1,3 +1,6 @@
+# v0.2.8 / 2017-04-29
+  * Adding ability to show only the prototype
+
 # v0.2.7 / 2017-03-07
   * Deleting URL when item is updated.
 
