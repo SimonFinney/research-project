@@ -1,6 +1,6 @@
 {
   "name": "research-project",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "research-project",
   "engines": {
     "node": "7.7.1"
@@ -31,7 +31,7 @@
     "express": "^4.13.4",
     "express-minify-html": "^0.4.0",
     "express-session": "^1.15.0",
-    "firebase": "^3.4.1",
+    "firebase": "3.4.1",
     "json2csv": "^3.7.3",
     "nunjucks": "^2.4.2",
     "shortid": "^2.2.6"

@@ -1,3 +1,6 @@
+# v0.2.10 / 2017-04-29
+  * Testing dependency version
+
 # v0.2.9 / 2017-04-29
   * Rearranging routes
 
